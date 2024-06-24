@@ -1,13 +1,11 @@
 import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { langSlice } from '../../store/reducers/langSlice';
 import { useAppDispatch } from '../../hooks/redux';
 import { Header } from './Header';
-import { LayoutWrapper } from '../../components/Layout';
 
 export const Layout = () => {
-	const location = useLocation();
 	const { changedLang } = langSlice.actions;
 	const dispatch = useAppDispatch();
 	const lang = localStorage.getItem(JSON.stringify('lang'));
@@ -20,9 +18,7 @@ export const Layout = () => {
 
 	return <>
 		<Header />
-		<LayoutWrapper homePage={ location.pathname === '/' }>
-			<Outlet />
-		</LayoutWrapper>
+		<Outlet />
 		<footer>
 			footer
 		</footer>

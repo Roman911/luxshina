@@ -1,3 +1,5 @@
+import { LayoutWrapper } from '../../components/Layout';
+import { Filter } from './Filter';
 import { ProductList } from '../ProductList';
 
 const data = {
@@ -258,7 +260,10 @@ const data = {
 }
 
 export const Home = () => {
-	return <div>
-		<ProductList classnames='grid-cols-5' data={ data } />
-	</div>
+	return <main>
+		<Filter />
+		<LayoutWrapper homePage={ true }>
+			<ProductList classnames='grid-cols-5' data={ data } />
+		</LayoutWrapper>
+	</main>
 }

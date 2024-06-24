@@ -1,0 +1,10 @@
+.link {
+	@apply text-blue-300 text-xl font-bold mr-2.5;
+
+	&:not(:nth-child(1)) {
+		&:before {
+			content: "/";
+			@apply mr-2.5;
+		}
+	}
+}

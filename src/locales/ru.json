@@ -2,5 +2,9 @@
   "sun": "вс",
   "tires": "шины",
   "from": "от",
-  "free": "бесплатный"
+  "free": "бесплатный",
+  "selection of tires and wheels": "подбор шин и дисков",
+  "tires according to parameters": "шины по параметрам",
+  "disks by parameters": "диски по параметрам",
+  "selection by car": "подбор за авто"
 }

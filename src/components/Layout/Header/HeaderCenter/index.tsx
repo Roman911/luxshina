@@ -24,7 +24,7 @@ export const HeaderCenter = () => {
 				<input
 					type="text"
 					className="w-full flex bg-transparent pl-4 text-[15px] text-gray-500 font-medium outline-0"
-					placeholder="Search name movie or select options"
+					placeholder="235/65R17"
 				/>
 				<button type="submit" className="btn primary w-14 h-9">
 					<SearchIcon />

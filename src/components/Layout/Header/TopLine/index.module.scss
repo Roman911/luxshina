@@ -1,0 +1,19 @@
+.top-line {
+	@apply bg-black text-white;
+
+	.languages_wrap {
+		@apply divide-x text-gray-500 divide-gray-500;
+	}
+
+	.languages_btn {
+		@apply font-bold pr-3 last:pl-3 active:text-white;
+	}
+
+	.work_schedule {
+		@apply ml-10;
+	}
+
+	.link {
+		@apply text-sm font-medium uppercase;
+	}
+}

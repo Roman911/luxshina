@@ -1,10 +1,18 @@
 {
+  "add all": "додати вісь",
+  "brand": "бренд",
+  "choose tires": "підібрати шини",
+  "country": "країна",
+  "diameter": "діаметр",
+  "disks by parameters": "диски за параметрами",
+  "free": "безкоштовний",
+  "from": "від",
+  "height": "висота",
+  "selection by car": "підбір за авто",
+  "selection of tires and wheels": "підбір шин та дисків",
   "sun": "нд",
   "tires": "шини",
-  "from": "від",
-  "free": "безкоштовний",
-  "selection of tires and wheels": "підбір шин та дисків",
   "tires by parameters": "шини за параметрами",
-  "disks by parameters": "диски за параметрами",
-  "selection by car": "підбір за авто"
+  "width": "ширина",
+  "year": "рік"
 }

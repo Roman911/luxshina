@@ -12,6 +12,7 @@ export default {
         black: '#050000',
         'slate': {
           100: '#F5F7FA',
+          200: '#E4EAF0',
         },
         'gray': {
           300: '#C4C8CC',
@@ -24,7 +25,9 @@ export default {
           400: '#FFBA14',
         },
         'blue': {
+          200: '#8BC9FF',
           300: '#78B7EF',
+          400: '#3483C8',
           500: '#0F76D1',
           600: '#0D6BBD',
           700: '#0966B8',

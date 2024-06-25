@@ -38,7 +38,7 @@ export const HeaderCenter = () => {
 					<div className='font-bold'>0 800 334 XXX</div>
 					<div>({ t('free') })</div>
 					<div className={ classNames('transition-transform', { 'rotate-180': showOptions }) }>
-						<ChevronDownIcon />
+						<ChevronDownIcon className='stroke-black' />
 					</div>
 				</button>
 				<div

@@ -32,6 +32,10 @@
 		@apply bg-blue-500 text-white hover:bg-blue-700 transition;
 	}
 
+	.secondary {
+		@apply bg-white hover:bg-blue-200 transition;
+	}
+
 	.small {
 		@apply w-20;
 	}

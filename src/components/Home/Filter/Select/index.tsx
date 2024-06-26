@@ -17,7 +17,7 @@ export const Select: React.FC<SelectProps> = ({ name }) => {
 					<span className="block truncate"></span>
 					<input type="search" className="w-full h-full text-white bg-[transparent] form-control text-lg font-medium focus:outline-none placeholder:text-white" placeholder={ name } />
 					<span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-						<ChevronDownIcon />
+						<ChevronDownIcon className='stroke-white' />
 					</span>
 				</button>
 			</span>

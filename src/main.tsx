@@ -7,7 +7,7 @@ import { setupStore } from './store/store'
 
 const store = setupStore();
 
-import './index.scss'
+import './index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -27,18 +27,18 @@ export const HeaderCenter = () => {
 					placeholder="235/65R17"
 				/>
 				<button type="submit" className="btn primary w-14 h-9">
-					<SearchIcon />
+					<SearchIcon className='fill-white' />
 				</button>
 			</div>
 			<div className="relative inline-block text-left">
 				<button type="button" onClick={() => setShowOptions(prev => !prev)}
 								className="flex items-center w-full justify-center gap-x-1.5 bg-white text-sm"
 								id="menu-button" aria-expanded="true" aria-haspopup="true">
-					<PhoneIcon />
+					<PhoneIcon className='fill-blue-500' />
 					<div className='font-bold'>0 800 334 XXX</div>
 					<div>({ t('free') })</div>
 					<div className={ classNames('transition-transform', { 'rotate-180': showOptions }) }>
-						<ChevronDownIcon className='stroke-black' />
+						<ChevronDownIcon />
 					</div>
 				</button>
 				<div
@@ -86,7 +86,7 @@ export const HeaderCenter = () => {
 						<p
 							className="flex h-5 w-5 p-2 items-center justify-center rounded-full bg-blue-500 text-[11px] border-2 border-white font-bold text-white">3</p>
 					</div>
-					<CartIcon className='stroke-black'/>
+					<CartIcon />
 				</div>
 			</div>
 		</div>

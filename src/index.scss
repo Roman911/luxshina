@@ -36,6 +36,10 @@
 		@apply bg-white hover:bg-blue-200 transition;
 	}
 
+	.success {
+		@apply bg-green-500 text-white hover:bg-green-600 transition;
+	}
+
 	.small {
 		@apply w-20;
 	}

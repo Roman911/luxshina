@@ -1,10 +1,8 @@
 import React from 'react';
 
-interface CartIconProps {
-	className?: string
-}
+import type { IconProps } from '../../../module/icon';
 
-export const CartIcon: React.FC<CartIconProps> = ({ className = 'stroke-white' }) => {
+export const CartIcon: React.FC<IconProps> = ({ className = 'stroke-black' }) => {
 	return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="23" viewBox="0 0 24 23" fill="none" className={ className }>
 		<path
 			d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"

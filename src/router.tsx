@@ -5,6 +5,8 @@ import { Layout } from './containers/Layout';
 import { Home } from './containers/Home';
 import { AboutUs } from './containers/AboutUs';
 import { Catalog } from './containers/Catalog';
+import { Product } from './containers/Product';
+import { Auth } from './containers/Auth';
 
 const router = createBrowserRouter([
 	{
@@ -23,7 +25,15 @@ const router = createBrowserRouter([
 				path: ROUTES.catalog,
 				element: <Catalog />
 			},
+			{
+				path: ROUTES.catalog + '/:productId',
+				element: <Product />
+			},
 		]
+	},
+	{
+		path: '/auth',
+		element: <Auth />
 	}
 ]);
 

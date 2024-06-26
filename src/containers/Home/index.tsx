@@ -1,6 +1,7 @@
 import { LayoutWrapper } from '../../components/Layout';
 import { Filter } from './Filter';
 import { ProductList } from '../ProductList';
+import { Title } from '../../components/Home/Title';
 
 const data = {
 	"count": 35047,
@@ -263,6 +264,7 @@ export const Home = () => {
 	return <main>
 		<Filter />
 		<LayoutWrapper homePage={ true }>
+			<Title title='ТОП 10 популярних літніх шин 2024 року' />
 			<ProductList classnames='grid-cols-5' data={ data } />
 		</LayoutWrapper>
 	</main>

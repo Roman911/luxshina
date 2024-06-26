@@ -1,14 +1,15 @@
 import React from 'react';
 
 interface CountryInfoProps {
+	country: string | null
+	countryCode: string | null
 	year: number | null
 }
 
-import img from '../../../assets/flags/HU.svg'
-
-export const CountryInfo: React.FC<CountryInfoProps> = ({ year }) => {
+export const CountryInfo: React.FC<CountryInfoProps> = ({ country, countryCode, year }) => {
 	return <div className='flex items-center'>
-		<img className='h-6 w-6 rounded-full' src={ img } alt=""/>
-		<p className='ml-2.5 text-sm'>Угорщина, { year }</p>
+		{countryCode &&
+			<img className='h-6 w-6 rounded-full' src={`http://localhost:5173/src/assets/flags/${countryCode}.svg`} alt=""/>}
+		<p className='ml-2.5 text-sm'>{country && country}, {year && year}</p>
 	</div>
 }

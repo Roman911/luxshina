@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import style from './index.module.scss';
 
@@ -16,17 +17,18 @@ interface ProductCardProps {
 
 export const ProductCardComponent: React.FC<ProductCardProps> = ({ item }) => {
 	const { best_offer, full_name, group, model, min_price, comments_count, comments_avg_rate } = item;
+	const param = full_name.replace(/[\s/]+/g, '-').toLowerCase();
 
 	const t = useAppTranslation();
 
-	return <div className={style['product-card']}>
+	return <Link to={ `catalog/tyre/${ param }` } className={style['product-card']}>
 		<img src={`https://opt.tyreclub.com.ua/api/public/img/user/s217/tyre/${model}.400x400.jpg`} alt=""/>
 		<p className='font-bold my-2.5 min-h-12'>{ full_name }</p>
 		<div className='text-sm text-gray-500 my-2.5'>
 			<span>Артикул: </span><span>{ group }</span>
 		</div>
 		<div className='my-3.5'>
-			<CountryInfo year={ best_offer.year }/>
+			<CountryInfo country='Угорщина' countryCode='HU' year={ best_offer.year }/>
 		</div>
 		<Rating commentsCount={ comments_count } commentsAvgRate={ comments_avg_rate }/>
 		<div className='mt-6 flex justify-between'>
@@ -42,8 +44,8 @@ export const ProductCardComponent: React.FC<ProductCardProps> = ({ item }) => {
 				</div>
 			</div>
 		<button className='btn primary small'>
-			<CartIcon />
+			<CartIcon className='stroke-white' />
 		</button>
 	</div>
-</div>
+</Link>
 }

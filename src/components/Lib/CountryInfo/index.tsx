@@ -9,7 +9,7 @@ interface CountryInfoProps {
 export const CountryInfo: React.FC<CountryInfoProps> = ({ country, countryCode, year }) => {
 	return <div className='flex items-center'>
 		{countryCode &&
-			<img className='h-6 w-6 rounded-full' src={`http://localhost:5173/src/assets/flags/${countryCode}.svg`} alt=""/>}
+			<img className='h-6 w-6 rounded-full' src={`/images/flags/${countryCode}.svg`} alt=""/>}
 		<p className='ml-2.5 text-sm'>{country && country}, {year && year}</p>
 	</div>
 }

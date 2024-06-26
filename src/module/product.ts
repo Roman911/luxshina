@@ -6,8 +6,8 @@ export interface ProductProps {
 			name: string
 		}
 		comments: {
-			rate: 5
-			count: 3
+			rate: number
+			count: number
 		}
 		full_name: string
 		offers: {
@@ -16,7 +16,6 @@ export interface ProductProps {
 			country_iso_a2: string
 			country_name: string
 			country_name_ua: string
-			foreign_id: string
 			id: number
 			in_stock: number
 			price: number

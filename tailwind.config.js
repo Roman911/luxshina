@@ -15,10 +15,12 @@ export default {
           200: '#E4EAF0',
         },
         'gray': {
+          200: '#E3E7F0',
           300: '#C4C8CC',
           500: '#707680',
         },
         'zinc': {
+          200: '#EBECF0',
           400: '#9B9DA0',
         },
         'natural': {

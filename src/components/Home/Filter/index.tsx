@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { useAppTranslation } from '../../../hooks/translation';
 
 import styles from './index.module.scss';
-import img from '../../../assets/tyres.jpg';
 import { Select } from './Select';
 
 import { CloudIcon, SnowIcon, SunIcon } from '../../Lib/Icons';
@@ -14,7 +13,7 @@ export const FilterComponent = () => {
 	const t = useAppTranslation();
 
 	return <div className='bg-blue-600 flex'>
-		<img src={ img } alt=""/>
+		<img src={ `/images/${ section }.jpg` } alt=""/>
 		<div className='py-24 px-28'>
 			<h1 className='text-white text-[44px] leading-[54px] font-bold uppercase'>{t('selection of tires and wheels')}</h1>
 			<div className='mt-11'>

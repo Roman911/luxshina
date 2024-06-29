@@ -1,13 +1,5 @@
-import { useAppTranslation } from '../../../hooks/translation.ts';
+import { FilterAltComponent } from '../../../components/Catalog/FilterAlt';
 
 export const FilterAlt = () => {
-	const t = useAppTranslation();
-
-	return <div className='filter w-64'>
-		<div className='filter-tabs'>
-			<button>{t('tires', true)}</button>
-			<button>Диски</button>
-		</div>
-		Filter
-	</div>
+	return <FilterAltComponent />
 }

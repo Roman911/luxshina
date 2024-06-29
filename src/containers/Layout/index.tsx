@@ -2,8 +2,9 @@ import React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { langSlice } from '../../store/reducers/langSlice';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks';
 import { Header } from './Header';
+import { Footer } from '../../components/Layout/Footer';
 
 export const Layout = () => {
 	const { changedLang } = langSlice.actions;
@@ -27,9 +28,6 @@ export const Layout = () => {
 	return <>
 		<Header />
 		<Outlet />
-		<footer>
-			footer
-		</footer>
+		<Footer />
 	</>
 }
-

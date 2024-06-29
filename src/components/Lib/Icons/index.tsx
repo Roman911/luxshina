@@ -1,6 +1,7 @@
 export { CartIcon } from './CartIcon';
 export { ChevronDownIcon } from './ChevronDownIcon';
 export { CloudIcon } from './CloudIcon';
+export { FacebookIcon } from './FacebookIcon';
 export { HeartIcon } from './HeartIcon';
 export { LibraIcon } from './LibraIcon';
 export { MailIcon } from './MailIcon';
@@ -10,3 +11,5 @@ export { SearchIcon } from './SearchIcon';
 export { ShareIcon } from './ShareIcon';
 export { SnowIcon } from './SnowIcon';
 export { SunIcon } from './SunIcon';
+export { TelegramIcon } from './TelegramIcon';
+export { ViberIcon } from './ViberIcon';

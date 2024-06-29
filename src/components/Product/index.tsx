@@ -84,9 +84,9 @@ export const ProductComponent: React.FC<ProductProps> = ({ data }) => {
 					<div>
 						<div className='flex items-center'>
 							<div className='flex gap-1.5'>
-								<button className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] bg-[#EBECF0] hover:bg-[#D2D3D6] transition'>-</button>
+								<button className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] bg-gray-200 hover:bg-[#D2D3D6] transition'>-</button>
 								<input className='w-10 rounded-sm border border-[#C1C4CC] text-center font-medium' placeholder='4' type="text" />
-								<button className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] bg-[#EBECF0] hover:bg-[#D2D3D6] transition'>+</button>
+								<button className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] bg-gray-200 hover:bg-[#D2D3D6] transition'>+</button>
 							</div>
 							<div className='ml-6 text-2xl font-bold'>{min_price * 4} ₴</div>
 						</div>

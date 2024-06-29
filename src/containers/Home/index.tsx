@@ -1,7 +1,7 @@
 import { LayoutWrapper } from '../../components/Layout';
 import { Filter } from './Filter';
 import { ProductList } from '../ProductList';
-import { Title } from '../../components/Home/Title';
+import { CarouselSlider, OurAdvantages, PopularBrands, PopularSizes, TextSeo, Title } from '../../components/Home';
 
 const data = {
 	"count": 35047,
@@ -266,6 +266,11 @@ export const Home = () => {
 		<LayoutWrapper homePage={ true }>
 			<Title title='ТОП 10 популярних літніх шин 2024 року' />
 			<ProductList classnames='grid-cols-5' data={ data } />
+			<CarouselSlider />
+			<OurAdvantages />
+			<PopularSizes />
+			<PopularBrands />
+			<TextSeo />
 		</LayoutWrapper>
 	</main>
 }

@@ -1,9 +1,44 @@
-import { useAppTranslation } from '../../../hooks/translation.ts';
+import React from 'react';
+
+import { useAppTranslation } from '../../../hooks';
 
 import { Select } from './Select';
 
-export const FilterAltComponent = () => {
+import type { BaseDataProps } from '../../../models/baseData';
+interface FilterAltProps {
+	data: BaseDataProps | undefined
+}
+
+export const FilterAltComponent: React.FC<FilterAltProps> = ({ data }) => {
 	const t = useAppTranslation();
+
+	const renderSelect = (
+		name: string,
+		label: string,
+		variant: 'white' | 'gray',
+		options: Array<{ id?: number, value: number; label: number | string; p?: number, name?: string, name_ua?: string }> = []
+	) => (
+		<Select
+			name={name}
+			label={label}
+			options={options}
+			variant={variant}
+		/>
+	);
+
+	const customTyreSeason = [
+		{ name: 'летние', name_ua: 'літні'},
+		{ name: 'зимние', name_ua: 'зимові'},
+		{ name: 'всесезонные', name_ua: 'всесезонні'},
+	]
+
+	const tyreSeason = data?.tyre_season.map((i, index) => {
+		return {
+			...i,
+			name: customTyreSeason[index].name,
+			name_ua: customTyreSeason[index].name_ua
+		}
+	});
 
 	return <div className='filter w-64 mr-6'>
 		<div className='filter-tabs grid grid-cols-2 gap-2.5 -mb-[1px]'>
@@ -15,8 +50,48 @@ export const FilterAltComponent = () => {
 				<button className='text-blue-500 font-bold'>{ t('by parameters', true) }</button>
 				<button className='text-gray-500 font-bold'>{ t('by car', true) }</button>
 			</div>
-			<Select variant='gray' name='' label='Ширина' />
-			<Select variant='gray' name='' label={ `${ t('profile', true) }/${ t('height') }` } />
+			{renderSelect(
+				'width',
+				t('width', true),
+				'gray',
+				data?.tyre_width?.map(item => ({ value: item.value, label: item.value, p: item.p })),
+			)}
+			{renderSelect(
+				'height',
+				t('height', true),
+				'gray',
+				data?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })),
+			)}
+			{renderSelect(
+				'diameter',
+				t('diameter', true),
+				'gray',
+				data?.tyre_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p })),
+			)}
+			{renderSelect(
+				'season',
+				'Сезон',
+				'white',
+				tyreSeason?.map(item => ({ value: item.id, label: item.name_ua }))
+			)}
+			{renderSelect(
+				'brand',
+				t('brand', true),
+				'white',
+				[],
+			)}
+			{renderSelect(
+				'country',
+				t('country', true),
+				'white',
+				data?.manufacture_country?.map(item => ({ value: item.id, label: item.name_ua, p: item.p }))
+			)}
+			{renderSelect(
+				'year',
+				t('year', true),
+				'gray',
+				[{ label: 2024, value: 2024 }, { label: 2023, value: 2023 }, { label: 2022, value: 2022 }, { label: 2021, value: 2021 }]
+			)}
 		</div>
 	</div>
 }

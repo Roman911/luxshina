@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { itemProps } from "../../../module/productCard";
+import type { itemProps } from "../../../models/productCard";
 import { ProductCardComponent } from '../../../components/ProductCard'
 
 interface ProductCardProps {

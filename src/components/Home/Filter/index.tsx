@@ -1,16 +1,67 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { useAppTranslation } from '../../../hooks/translation';
+import { useAppTranslation } from '../../../hooks';
 
 import styles from './index.module.scss';
 import { Select } from './Select';
 
 import { CloudIcon, SnowIcon, SunIcon } from '../../Lib/Icons';
 
-export const FilterComponent = () => {
+import type { BaseDataProps } from '../../../models/baseData';
+interface FilterProps {
+	data: BaseDataProps | undefined
+}
+
+export const FilterComponent: React.FC<FilterProps> = ({ data }) => {
 	const [ section, setSections ] = React.useState('tyre');
 	const t = useAppTranslation();
+
+	const getFilters = () => {
+		if (section !== 'tyre') return [];
+
+		const filterConfigs = [
+			{
+				label: t('width', true),
+				name: 'width',
+				focusValue: 175,
+				options: data?.tyre_width?.map(item => ({ value: item.value, label: item.value, p: item.p }))
+			},
+			{
+				label: t('height', true),
+				name: 'height',
+				focusValue: 45,
+				options: data?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p }))
+			},
+			{
+				label: t('diameter', true),
+				name: 'diameter',
+				focusValue: `R${14}`,
+				options: data?.tyre_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p }))
+			},
+			{
+				label: t('brand', true),
+				name: 'brand',
+				options: []
+			},
+			{
+				label: t('country', true),
+				name: 'country',
+				options: data?.manufacture_country?.map(item => ({ value: item.id, label: item.name_ua, p: item.p }))
+			},
+			{
+				label: t('year', true),
+				name: 'year',
+				options: [{ label: 2024, value: 2024 }, { label: 2023, value: 2023 }, { label: 2022, value: 2022 }, { label: 2021, value: 2021 }]
+			},
+		];
+
+		return filterConfigs.map(config => ({
+			...config,
+			wide: true
+		}));
+	};
 
 	return <div className='bg-blue-600 flex'>
 		<img src={ `/images/${ section }.jpg` } alt=""/>
@@ -34,12 +85,9 @@ export const FilterComponent = () => {
 				</button>
 			</div>
 			<div className='grid grid-cols-3 gap-2.5 mt-7'>
-				<Select name={ t('width', true) } />
-				<Select name={ t('height', true) } />
-				<Select name={ t('diameter', true) } />
-				<Select name={ t('brand', true) } />
-				<Select name={ t('country', true) } />
-				<Select name={ t('year', true) } />
+				{getFilters().map(item => {
+					return <Select key={ item.name } name={ item.name } label={ t(item.name, true) } options={ item.options } />
+				})}
 			</div>
 			<div className='flex justify-between mt-7'>
 				<div className='flex items-center'>
@@ -64,9 +112,9 @@ export const FilterComponent = () => {
 				</button>
 			</div>
 			<div className='mt-10'>
-				<button className='btn secondary'>
+				<Link to='/catalog/tyres' className='btn secondary'>
 					{t('choose tires')}
-				</button>
+				</Link>
 			</div>
 		</div>
 	</div>

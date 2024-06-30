@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductCard } from './ProductCard';
-import { itemProps } from "../../module/productCard.ts";
+import { itemProps } from "../../models/productCard.ts";
 
 interface ProductListProps {
 	classnames?: string

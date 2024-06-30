@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { IconProps } from '../../../module/icon';
+import type { IconProps } from '../../../models/icon';
 
 export const PhoneIcon: React.FC<IconProps> = ({ className = 'stroke-black' }) => {
 	return <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none" className={ className }>

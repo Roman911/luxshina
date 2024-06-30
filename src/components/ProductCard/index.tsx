@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import style from './index.module.scss';
 
-import { useAppTranslation } from '../../hooks/translation';
+import { useAppTranslation } from '../../hooks';
 
 import { Rating } from '../Lib/Rating';
 import { CountryInfo } from '../Lib/CountryInfo';
 import { CartIcon } from '../Lib/Icons';
 
-import type { itemProps } from '../../module/productCard';
+import type { itemProps } from '../../models/productCard';
 
 interface ProductCardProps {
 	item: itemProps

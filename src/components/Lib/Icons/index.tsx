@@ -4,6 +4,7 @@ export { CarIcon } from './CarIcon';
 export { CartIcon } from './CartIcon';
 export { ChevronDownIcon } from './ChevronDownIcon';
 export { CloudIcon } from './CloudIcon';
+export { EmailIcon } from './EmailIcon';
 export { FacebookIcon } from './FacebookIcon';
 export { HeartIcon } from './HeartIcon';
 export { LibraIcon } from './LibraIcon';

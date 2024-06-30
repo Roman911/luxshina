@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { useAppTranslation } from '../../../../hooks/translation.ts';
+import { useAppTranslation } from '../../../../hooks';
 import styles from './index.module.scss';
 
 interface TopLineProps {

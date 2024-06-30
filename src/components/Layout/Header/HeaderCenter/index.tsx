@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { useAppTranslation } from '../../../../hooks/translation';
+import { useAppTranslation } from '../../../../hooks';
 
 import logo from '../../../../assets/logo.svg';
-import {CartIcon, ChevronDownIcon, HeartIcon, LibraIcon, PhoneIcon, SearchIcon} from '../../../Lib/Icons';
+import { CartIcon, ChevronDownIcon, HeartIcon, LibraIcon, PhoneIcon, SearchIcon } from '../../../Lib/Icons';
 
 import kievstarLogo from '../../../../assets/kievstar-logo.png';
 import lifeLogo from '../../../../assets/life-logo.png';

@@ -1,8 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import langReducer from './reducers/langSlice.ts';
-import { baseDataAPI } from '../services/baseDataService.ts';
+
+import defenseReducer from './reducers/defenseSlice';
+import langReducer from './reducers/langSlice';
+
+import { baseDataAPI } from '../services/baseDataService';
 
 const rootReducer = combineReducers({
+	defenseReducer,
 	langReducer,
 	[baseDataAPI.reducerPath]: baseDataAPI.reducer
 })

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { useAppTranslation } from '../../../../hooks';
+import { useAppSelector, useAppTranslation } from '../../../../hooks';
 
 import logo from '../../../../assets/logo.svg';
 import { CartIcon, ChevronDownIcon, HeartIcon, LibraIcon, PhoneIcon, SearchIcon } from '../../../Lib/Icons';
@@ -13,6 +13,7 @@ import vodafoneLogo from '../../../../assets/vodafone-logo.png';
 
 export const HeaderCenter = () => {
 	const [ showOptions, setShowOptions ] = React.useState(false);
+	const { items } = useAppSelector(state => state.defenseReducer);
 	const t = useAppTranslation();
 
 	return <div className='bg-white border-b'>
@@ -74,13 +75,19 @@ export const HeaderCenter = () => {
 					</div>
 					<LibraIcon/>
 				</div>
-				<div className='relative'>
+				<Link to='/bookmarks' className='relative'>
 					<div className="-top-2.5 absolute left-3.5">
 						<p
-							className="flex h-5 w-5 p-2 items-center justify-center rounded-full bg-natural-400 text-[11px] border-2 border-white font-bold text-white">0</p>
+							className={classNames(
+								'flex h-5 w-5 p-2 items-center justify-center rounded-full text-[11px] border-2 border-white font-bold text-white',
+								{ 'bg-natural-400': items.length === 0 },
+								{ 'bg-blue-500': items.length > 0 },
+							)}>
+							{ items.length }
+						</p>
 					</div>
 					<HeartIcon/>
-				</div>
+				</Link>
 				<div className='relative'>
 					<div className="-top-2.5 absolute left-3.5">
 						<p

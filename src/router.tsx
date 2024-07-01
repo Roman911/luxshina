@@ -7,6 +7,7 @@ import { AboutUs } from './containers/AboutUs';
 import { Catalog } from './containers/Catalog';
 import { Product } from './containers/Product';
 import { Auth } from './containers/Auth';
+import { Bookmarks } from './containers/Bookmarks';
 
 const router = createBrowserRouter([
 	{
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
 			{
 				path: ROUTES.catalog + '/:productId',
 				element: <Product />
+			},
+			{
+				path: ROUTES.bookmarks,
+				element: <Bookmarks />
 			},
 		]
 	},

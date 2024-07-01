@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 import style from './index.module.scss';
 
@@ -7,23 +8,36 @@ import { useAppTranslation } from '../../hooks';
 
 import { Rating } from '../Lib/Rating';
 import { CountryInfo } from '../Lib/CountryInfo';
-import { CartIcon } from '../Lib/Icons';
+import { CarIcon, CartIcon, HeartIcon, LibraIcon } from '../Lib/Icons';
 
 import type { itemProps } from '../../models/productCard';
 
 interface ProductCardProps {
 	item: itemProps
+	addToDefense: (event: React.MouseEvent<HTMLButtonElement>, id: number) => void
 }
 
-export const ProductCardComponent: React.FC<ProductCardProps> = ({ item }) => {
+export const ProductCardComponent: React.FC<ProductCardProps> = ({ item, addToDefense }) => {
 	const { best_offer, full_name, group, model, min_price, comments_count, comments_avg_rate } = item;
 	const param = full_name.replace(/[\s/]+/g, '-').toLowerCase();
 
 	const t = useAppTranslation();
 
-	return <Link to={ `catalog/tyre/${ param }` } className={style['product-card']}>
-		<img src={`https://opt.tyreclub.com.ua/api/public/img/user/s217/tyre/${model}.400x400.jpg`} alt=""/>
-		<p className='font-bold my-2.5 min-h-12'>{ full_name }</p>
+	return <Link to={ `catalog/tyre/${ param }` } className={ classNames(style['product-card'], 'group') }>
+		<div className='relative'>
+			<div className='absolute'>
+				<img src="/images/snow-icon.svg" alt=""/>
+				<CarIcon className='fill-[#575C66]'/>
+			</div>
+			<div className='absolute right-0 invisible group-hover:visible'>
+				<button onClick={ event => addToDefense(event, group) }>
+					<HeartIcon className='stroke-[#8D8E90] hover:stroke-blue-500' />
+				</button>
+				<LibraIcon className='mt-5 fill-[#8D8E90] hover:fill-blue-500' />
+			</div>
+			<img src={`https://opt.tyreclub.com.ua/api/public/img/user/s217/tyre/${model}.400x400.jpg`} alt=""/>
+		</div>
+		<p className='font-bold my-2.5 min-h-12'>{full_name}</p>
 		<div className='text-sm text-gray-500 my-2.5'>
 			<span>Артикул: </span><span>{ group }</span>
 		</div>

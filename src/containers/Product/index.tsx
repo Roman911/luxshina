@@ -4,7 +4,8 @@ import { ProductList } from '../ProductList';
 
 import { LayoutWrapper } from '../../components/Layout';
 import { ProductComponent } from '../../components/Product';
-import { TextSeo, Title } from '../../components/Home';
+import { TextSeo } from '../../components/Home';
+import { Title } from '../../components/Lib';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 
 const data = {
@@ -262,7 +263,7 @@ export const Product = () => {
 		<div className='container mx-auto'>
 			<Title title={ t('similar products', true) } />
 			<ProductList classnames='grid-cols-4' data={ dataProducts } />
-			<Title title={ t('recently viewed', true) } />
+			<Title title='recently viewed' />
 			<ProductList classnames='grid-cols-4' data={ dataProducts } />
 		</div>
 		<TextSeo />

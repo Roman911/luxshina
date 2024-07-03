@@ -6,18 +6,20 @@ import style from './index.module.scss';
 
 import { useAppTranslation } from '../../hooks';
 
-import { Rating } from '../Lib/Rating';
-import { CountryInfo } from '../Lib/CountryInfo';
+import { CountryInfo, Rating } from '../Lib';
 import { CarIcon, CartIcon, HeartIcon, LibraIcon } from '../Lib/Icons';
 
 import type { itemProps } from '../../models/productCard';
 
 interface ProductCardProps {
 	item: itemProps
+	isBookmarks: boolean
+	isComparison: boolean
 	addToDefense: (event: React.MouseEvent<HTMLButtonElement>, id: number) => void
+	addToComparison: (event: React.MouseEvent<HTMLButtonElement>, id: number) => void
 }
 
-export const ProductCardComponent: React.FC<ProductCardProps> = ({ item, addToDefense }) => {
+export const ProductCardComponent: React.FC<ProductCardProps> = ({ item, isBookmarks, isComparison, addToDefense, addToComparison }) => {
 	const { best_offer, full_name, group, model, min_price, comments_count, comments_avg_rate } = item;
 	const param = full_name.replace(/[\s/]+/g, '-').toLowerCase();
 
@@ -29,11 +31,13 @@ export const ProductCardComponent: React.FC<ProductCardProps> = ({ item, addToDe
 				<img src="/images/snow-icon.svg" alt=""/>
 				<CarIcon className='fill-[#575C66]'/>
 			</div>
-			<div className='absolute right-0 invisible group-hover:visible'>
+			<div className='absolute right-0 invisible group-hover:visible flex flex-col'>
 				<button onClick={ event => addToDefense(event, group) }>
-					<HeartIcon className='stroke-[#8D8E90] hover:stroke-blue-500' />
+					<HeartIcon className={ classNames('stroke-[#8D8E90] hover:stroke-blue-500', { 'stroke-blue-500 fill-blue-500': isBookmarks }) } />
 				</button>
-				<LibraIcon className='mt-5 fill-[#8D8E90] hover:fill-blue-500' />
+				<button onClick={ event => addToComparison(event, group) }>
+					<LibraIcon className={ classNames('mt-5 fill-[#8D8E90] hover:fill-blue-500', { 'fill-blue-500': isComparison }) } />
+				</button>
 			</div>
 			<img src={`https://opt.tyreclub.com.ua/api/public/img/user/s217/tyre/${model}.400x400.jpg`} alt=""/>
 		</div>

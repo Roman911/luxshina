@@ -1,7 +1,8 @@
 import { LayoutWrapper } from '../../components/Layout';
 import { Filter } from './Filter';
 import { ProductList } from '../ProductList';
-import { CarouselSlider, OurAdvantages, PopularBrands, PopularSizes, TextSeo, Title } from '../../components/Home';
+import { CarouselSlider, OurAdvantages, PopularBrands, PopularSizes, TextSeo } from '../../components/Home';
+import { Title } from '../../components/Lib';
 
 const data = {
 	"count": 35047,

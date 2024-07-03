@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { useAppSelector, useAppTranslation } from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 
-import { Title } from '../Title';
+import { Title } from '../../Lib';
 
 import icon1 from '../../../assets/our_advantages/item-oa-1.svg';
 import icon2 from '../../../assets/our_advantages/item-oa-2.svg';
@@ -16,10 +16,9 @@ interface OurAdvantagesProps {
 
 export const OurAdvantages: React.FC<OurAdvantagesProps> = ({ size }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
-	const t = useAppTranslation();
 
 	return <div className={ classNames('bg-white', { 'rounded-2xl mt-5 px-5 py-7': size, 'mt-24 py-24 px-28': !size }) }>
-		<Title title={ t('our advantages', true) } className={ size ? 'font-bold' : 'my-5 text-4xl font-bold' } />
+		<Title title='our advantages' className={ size ? 'font-bold' : 'my-5 text-4xl font-bold' } />
 		<div className={ classNames('grid', { 'mt-8 grid-cols-1 gap-y-5 text-sm leading-5': size, 'mt-14 grid-cols-2 gap-y-12 text-2xl leading-9': !size }) }>
 			<div className='flex items-center'>
 				<img className={ classNames({ 'mr-4 w-10 h-10': size, 'mr-6': !size }) } src={icon1} alt=""/>

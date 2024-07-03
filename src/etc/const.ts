@@ -3,4 +3,5 @@ export const ROUTES = {
 	aboutUs: ':lang?/about-us',
 	catalog: ':lang?/catalog/:section',
 	bookmarks: ':lang?/bookmarks/',
+	comparison: ':lang?/comparison/',
 };

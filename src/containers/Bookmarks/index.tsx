@@ -1,9 +1,7 @@
-import { useAppTranslation } from '../../hooks';
-
 import { ProductList } from '../ProductList';
 
 import { LayoutWrapper } from '../../components/Layout';
-import { Title } from '../../components/Home';
+import { Title } from '../../components/Lib';
 
 const data = {
 	"count": 35047,
@@ -113,10 +111,8 @@ const data = {
 }
 
 export const Bookmarks = () => {
-	const t = useAppTranslation();
-
 	return <LayoutWrapper>
-		<Title title={ t('favorites', true) } />
+		<Title title='favorites' />
 		<ProductList classnames='grid-cols-4' data={ data } />
 	</LayoutWrapper>
 }

@@ -5,8 +5,7 @@ import { useAppSelector, useAppTranslation } from '../../hooks';
 
 import { OurAdvantages } from '../Home';
 
-import { Rating } from '../Lib/Rating';
-import { CountryInfo } from '../Lib/CountryInfo';
+import { CountryInfo, Rating } from '../Lib';
 import {
 	CartIcon,
 	ChevronDownIcon,

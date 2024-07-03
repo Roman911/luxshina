@@ -1,5 +1,5 @@
 import { changedLang } from '../../../store/reducers/langSlice.ts';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { HeaderComponents } from '../../../components/Layout/Header';
 import i18n from "../../../lib/i18n.ts";
 

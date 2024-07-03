@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import { useAppTranslation } from '../../../hooks/translation';
+import { useAppTranslation } from '../../../hooks';
 
 const slides = [
 	{ id: 0, img: '/images/slide-1.jpg', link: '/catalog/tyre', position: 'right-24' },

@@ -8,6 +8,7 @@ import { Catalog } from './containers/Catalog';
 import { Product } from './containers/Product';
 import { Auth } from './containers/Auth';
 import { Bookmarks } from './containers/Bookmarks';
+import { Comparison } from './containers/Comparison';
 
 const router = createBrowserRouter([
 	{
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
 			{
 				path: ROUTES.bookmarks,
 				element: <Bookmarks />
+			},
+			{
+				path: ROUTES.comparison,
+				element: <Comparison />
 			},
 		]
 	},

@@ -4,4 +4,3 @@ export { OurAdvantages } from './OurAdvantages';
 export { PopularBrands } from './PopularBrands';
 export { PopularSizes } from './PopularSizes';
 export { TextSeo } from './TextSeo';
-export { Title } from './Title';

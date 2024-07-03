@@ -1,7 +1,6 @@
-import { useAppSelector } from '../../../hooks/redux';
+import { useAppSelector } from '../../../hooks';
 
-import { Title } from '../Title';
-import { PopularItem } from '../../Lib/PopularItem';
+import { PopularItem, Title } from '../../Lib';
 
 import { popularSizes } from './popularSizes.ts';
 

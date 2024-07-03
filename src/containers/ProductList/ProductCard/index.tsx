@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { addDefense } from '../../../store/reducers/defenseSlice';
-import { useAppDispatch } from '../../../hooks';
+import { addBookmarks, removeBookmarks } from '../../../store/reducers/bookmarksSlice';
+import { addComparison, removeComparison } from '../../../store/reducers/comparisonSlice';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 import type { itemProps } from "../../../models/productCard";
 import { ProductCardComponent } from '../../../components/ProductCard'
@@ -11,12 +12,22 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
+	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
+	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
 	const dispatch = useAppDispatch();
 
-	const addToDefense = (event: React.MouseEvent<HTMLButtonElement>, id: number): void => {
-		event.preventDefault();
-		dispatch(addDefense(id));
-	}
+	const isBookmarks = bookmarksItems.length > 0 && bookmarksItems.includes(item.group);
+	const isComparison = comparisonItems.length > 0 && comparisonItems.includes(item.group);
 
-	return <ProductCardComponent item={ item } addToDefense={ addToDefense } />
+	const addToBookmarks = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
+		event.preventDefault();
+		dispatch(isBookmarks ? removeBookmarks(id) : addBookmarks(id));
+	};
+
+	const addToComparison = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
+		event.preventDefault();
+		dispatch(isComparison ? removeComparison(id) : addComparison(id));
+	};
+
+	return <ProductCardComponent item={ item } addToDefense={ addToBookmarks } isBookmarks={ isBookmarks } isComparison={ isComparison } addToComparison={ addToComparison } />
 }

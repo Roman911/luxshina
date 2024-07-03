@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { useAppSelector } from '../../../hooks/redux';
-import { useAppTranslation } from '../../../hooks/translation';
+import { useAppSelector, useAppTranslation } from '../../../hooks';
 
-import { Title } from '../Title';
-import { PopularItem } from '../../Lib/PopularItem';
+import { PopularItem, Title } from '../../Lib';
 
 import { popularBrands } from './popularBrands';
 

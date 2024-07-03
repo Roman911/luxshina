@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import defenseReducer from './reducers/defenseSlice';
+import bookmarksReducer from './reducers/bookmarksSlice';
+import comparisonReducer from './reducers/comparisonSlice';
 import langReducer from './reducers/langSlice';
 
 import { baseDataAPI } from '../services/baseDataService';
 
 const rootReducer = combineReducers({
-	defenseReducer,
+	bookmarksReducer,
+	comparisonReducer,
 	langReducer,
 	[baseDataAPI.reducerPath]: baseDataAPI.reducer
 })

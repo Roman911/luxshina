@@ -13,7 +13,8 @@ import vodafoneLogo from '../../../../assets/vodafone-logo.png';
 
 export const HeaderCenter = () => {
 	const [ showOptions, setShowOptions ] = React.useState(false);
-	const { items } = useAppSelector(state => state.defenseReducer);
+	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
+	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
 	const t = useAppTranslation();
 
 	return <div className='bg-white border-b'>
@@ -68,22 +69,28 @@ export const HeaderCenter = () => {
 				</div>
 			</div>
 			<div className='flex gap-7'>
-				<div className='relative'>
+				<Link to='/comparison' className='relative'>
 					<div className="-top-2.5 absolute left-3.5">
 						<p
-							className="flex h-5 w-5 p-2 items-center justify-center rounded-full bg-natural-400 text-[11px] border-2 border-white font-bold text-white">0</p>
+							className={classNames(
+								'flex h-5 w-5 p-2 items-center justify-center rounded-full text-[11px] border-2 border-white font-bold text-white',
+								{'bg-natural-400': comparisonItems.length === 0},
+								{'bg-blue-500': comparisonItems.length > 0},
+							)}>
+							{comparisonItems.length}
+						</p>
 					</div>
 					<LibraIcon/>
-				</div>
+				</Link>
 				<Link to='/bookmarks' className='relative'>
 					<div className="-top-2.5 absolute left-3.5">
 						<p
 							className={classNames(
 								'flex h-5 w-5 p-2 items-center justify-center rounded-full text-[11px] border-2 border-white font-bold text-white',
-								{ 'bg-natural-400': items.length === 0 },
-								{ 'bg-blue-500': items.length > 0 },
+								{'bg-natural-400': bookmarksItems.length === 0 },
+								{ 'bg-blue-500': bookmarksItems.length > 0 },
 							)}>
-							{ items.length }
+							{ bookmarksItems.length }
 						</p>
 					</div>
 					<HeartIcon/>

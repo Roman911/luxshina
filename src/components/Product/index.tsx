@@ -23,12 +23,17 @@ import guaranteeIcon from '../../assets/icons/guarantee-icon.svg';
 import paymentIcon from '../../assets/icons/payment-icon.svg';
 import truckIcon from '../../assets/icons/truck-icon.svg';
 
-import type { ProductProps } from '../../models/product';
 import vodafoneLogo from "../../assets/vodafone-logo.png";
 import kievstarLogo from "../../assets/kievstar-logo.png";
 import lifeLogo from "../../assets/life-logo.png";
 
-export const ProductComponent: React.FC<ProductProps> = ({ data }) => {
+import type { ProductProps } from '../../models/product';
+
+interface ProductComponentProps extends ProductProps {
+	handleModalOpen: () => void
+}
+
+export const ProductComponent: React.FC<ProductComponentProps> = ({ data, handleModalOpen }) => {
 	const [open, setOpen] = React.useState(false);
 	const {lang} = useAppSelector(state => state.langReducer)
 	const t = useAppTranslation();
@@ -121,7 +126,7 @@ export const ProductComponent: React.FC<ProductProps> = ({ data }) => {
 						<CartIcon className='stroke-white'/>
 						<span className='ml-2.5'>{t('buy')}</span>
 					</button>
-					<button className='btn secondary uppercase mt-2.5'>
+					<button onClick={() => handleModalOpen()} className='btn secondary uppercase mt-2.5'>
 						<span className='ml-2.5'>{t('quick order')}</span>
 					</button>
 					<button className='btn success uppercase mt-2.5'>

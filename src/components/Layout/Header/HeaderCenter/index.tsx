@@ -95,13 +95,13 @@ export const HeaderCenter = () => {
 					</div>
 					<HeartIcon/>
 				</Link>
-				<div className='relative'>
+				<Link to='/cart' className='relative'>
 					<div className="-top-2.5 absolute left-3.5">
 						<p
 							className="flex h-5 w-5 p-2 items-center justify-center rounded-full bg-blue-500 text-[11px] border-2 border-white font-bold text-white">3</p>
 					</div>
-					<CartIcon />
-				</div>
+					<CartIcon/>
+				</Link>
 			</div>
 		</div>
 	</div>

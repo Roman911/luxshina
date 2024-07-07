@@ -1,6 +1,10 @@
+import React from 'react';
+
 import { useAppTranslation } from '../../hooks';
 
 import { ProductList } from '../ProductList';
+import Modal from '../Modals';
+import { QuickOrder } from '../Modals/QuickOrder';
 
 import { LayoutWrapper } from '../../components/Layout';
 import { ProductComponent } from '../../components/Product';
@@ -253,12 +257,21 @@ const dataProducts = {
 }
 
 export const Product = () => {
+	const [isModalActive, setModalActive] = React.useState(false);
 	const t = useAppTranslation();
+
+	const handleModalOpen = () => {
+		setModalActive(true);
+	};
+
+	const handleModalClose = () => {
+		setModalActive(false);
+	};
 
 	return <div>
 		<LayoutWrapper>
 			<Breadcrumbs />
-			<ProductComponent data={ data } />
+			<ProductComponent data={ data } handleModalOpen={ handleModalOpen } />
 		</LayoutWrapper>
 		<div className='container mx-auto'>
 			<Title title={ t('similar products', true) } />
@@ -267,5 +280,10 @@ export const Product = () => {
 			<ProductList classnames='grid-cols-4' data={ dataProducts } />
 		</div>
 		<TextSeo />
+		{isModalActive && (
+			<Modal onClose={handleModalClose}>
+				<QuickOrder />
+			</Modal>
+		)}
 	</div>
 }

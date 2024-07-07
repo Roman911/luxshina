@@ -70,7 +70,7 @@ export const HeaderBottom = () => {
 			<Link className={styles.link} to='/'>Мотошини</Link>
 			<Link className={styles.link} to='/'>Акумулятори</Link>
 			<Link className={styles.link} to='/'>Автотовари</Link>
-			<Link className={styles.link} to='/'>Шинний калькулятор</Link>
+			<Link className={styles.link} to='/tyre-disk-size-calc'>Шинний калькулятор</Link>
 			<div
 				ref={ filterRef }
 				className={classNames('absolute left-1/2 top-16 z-10 flex w-full -translate-x-1/2 px-4', {'hidden': !open})}>

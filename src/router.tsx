@@ -9,6 +9,9 @@ import { Product } from './containers/Product';
 import { Auth } from './containers/Auth';
 import { Bookmarks } from './containers/Bookmarks';
 import { Comparison } from './containers/Comparison';
+import { Cart } from './containers/Cart';
+import { Order } from './containers/Order';
+import { CalculatorForTires } from './containers/CalculatorForTires';
 
 const router = createBrowserRouter([
 	{
@@ -38,6 +41,18 @@ const router = createBrowserRouter([
 			{
 				path: ROUTES.comparison,
 				element: <Comparison />
+			},
+			{
+				path: ROUTES.cart,
+				element: <Cart />
+			},
+			{
+				path: ROUTES.order,
+				element: <Order />
+			},
+			{
+				path: ROUTES.tyreDiskSizeCalc,
+				element: <CalculatorForTires />
 			},
 		]
 	},

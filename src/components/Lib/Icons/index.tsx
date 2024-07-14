@@ -3,6 +3,7 @@ export { CargoIcon } from './CargoIcon';
 export { CarIcon } from './CarIcon';
 export { CartIcon } from './CartIcon';
 export { ChevronDownIcon } from './ChevronDownIcon';
+export { CloseIcon } from './CloseIcon';
 export { CloudIcon } from './CloudIcon';
 export { EmailIcon } from './EmailIcon';
 export { FacebookIcon } from './FacebookIcon';

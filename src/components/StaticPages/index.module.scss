@@ -1,0 +1,36 @@
+.static-page {
+	@apply mt-10 mb-20;
+
+	h3 {
+		@apply mt-4 mb-5 text-xl font-bold;
+	}
+
+	h4 {
+		@apply mt-3 mb-4 text-lg font-bold;
+	}
+
+	p {
+		@apply mt-3 mb-5 leading-6;
+	}
+
+	ul {
+		@apply pl-12 list-disc;
+	}
+
+	ol {
+		@apply list-decimal pl-6;
+		counter-reset: item;
+
+		li:not(ul > li) {
+			display: block;
+
+			&:before {
+				content: counters(item, ".") " "; counter-increment: item;
+			}
+		}
+	}
+
+	a {
+		@apply font-bold text-blue-700 hover:underline;
+	}
+}

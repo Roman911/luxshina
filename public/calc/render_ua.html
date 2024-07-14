@@ -1,7 +1,7 @@
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script language="JavaScript" type="text/javascript" src="./gen_forms.js"></script>
-<link rel="stylesheet" type="text/css" href="./app.css">
+<script language="JavaScript" type="text/javascript" src="gen_forms.js"></script>
+<link rel="stylesheet" type="text/css" href="app.css">
 </head>
 
 <body leftmargin="0" topmargin="0" onload="render()" marginheight="0" marginwidth="0">
@@ -638,12 +638,12 @@
 			//backspace
 //			setShowSize("rimBS","&nbsp;&nbsp;BackSpace&nbsp;"+mmAndInches(backspace_mm+12),"up","up",padX+padW-1,rimH/2-30,rimW-padX-padW+1,10);
 			//offset
-			setShowSize("rimET","&nbsp;&nbsp;&nbsp;&nbsp;Вылет&nbsp;"+mmAndInches(et_mm),"down","down",padX+padW-1,rimH/2+10,rimW/2-padX-padW+2,padH/2);
+			setShowSize("rimET","&nbsp;&nbsp;&nbsp;&nbsp;Виліт&nbsp;"+mmAndInches(et_mm),"down","down",padX+padW-1,rimH/2+10,rimW/2-padX-padW+2,padH/2);
 			//mounting pad
-			setShowPointer("rimMP","Привалочная<br>плоскость","left","up",padX+padW,rimH/2+20,120);
+			setShowPointer("rimMP","Місце монтажу","left","up",padX+padW,rimH/2+20,120);
 
 			//rim face
-			setShowPointer("rimRF","Лицевая<br>сторона","right","up",90,y0-50,80);
+			setShowPointer("rimRF","Фронтальна<br>сторона","right","up",90,y0-50,80);
 		}
 
 		setElement("centerLineVertical",x0,y0-maxH/2-5,1,maxH+10);
@@ -664,7 +664,7 @@
 		</th>
 		<th>
 			<input name="showRim" checked="checked" onclick="processrequest(this)" type="checkbox">
-			Диск/вылет (ET)
+			Диск/виліт (ET)
 		</th>
 	</tr>
 	<tr>
@@ -820,12 +820,12 @@
 		<img id="rimET_sizeLine" style="position: absolute; top: 178px; left: 43px; width: 40px; height: 1px; z-index: 100;" src="dot_black.gif">
 		<img id="rimET_arrow1" style="position: absolute; top: 176px; left: 54.5px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
 		<img id="rimET_arrow2" style="position: absolute; top: 176px; left: 38px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
-		<span id="rimET_text" style="position: absolute; top: 163px; left: 43px; width: 11.5px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="bottom" align="center"><font style="{color:black;}">&nbsp;&nbsp;&nbsp;&nbsp;Вылет&nbsp;20<small>мм</small> (0.8'')</font></td></tr></tbody></table></span>
+		<span id="rimET_text" style="position: absolute; top: 163px; left: 43px; width: 11.5px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="bottom" align="center"><font style="{color:black;}">&nbsp;&nbsp;&nbsp;&nbsp;Виліт&nbsp;20<small>мм</small> (0.8'')</font></td></tr></tbody></table></span>
 
 		<!--pad pointer-->
 		<img id="rimMP_line" style="position: absolute; top: 139.5px; left: 44px; width: 120px; height: 1px; z-index: 100;" src="dot_black.gif">
 		<img id="rimMP_arrow" style="position: absolute; top: 137.5px; left: 45px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
-		<span id="rimMP_text" style="position: absolute; top: 124.5px; left: 44px; width: 120px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="right"><font style="{color:black;}">Привалочная<br>плоскость</font></td></tr></tbody></table></span>
+		<span id="rimMP_text" style="position: absolute; top: 124.5px; left: 44px; width: 120px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="right"><font style="{color:black;}">Місце монтажу</font></td></tr></tbody></table></span>
 
 
 
@@ -835,7 +835,7 @@
 	<!--rim face-->
 	<img id="rimRF_line" style="position: absolute; top: 170px; left: 10px; width: 80px; height: 1px; z-index: 100;" src="dot_black.gif">
 	<img id="rimRF_arrow" style="position: absolute; top: 168px; left: 84px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
-	<span id="rimRF_text" style="position: absolute; top: 155px; left: 10px; width: 80px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="left"><font style="{color:black;}">Лицевая<br>сторона</font></td></tr></tbody></table></span>
+	<span id="rimRF_text" style="position: absolute; top: 155px; left: 10px; width: 80px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="left"><font style="{color:black;}">Фронтальна<br>сторона</font></td></tr></tbody></table></span>
 
 	<img id="centerLineVertical" style="position: absolute; top: 34.5px; left: 160px; width: 1px; height: 371px; z-index: 90;" src="punktir_v.gif">
 	<img id="centerLineHorisonal" style="position: absolute; top: 220px; left: 88.5px; width: 143px; height: 1px; z-index: 90;" src="punktir_h.gif">

@@ -10,7 +10,7 @@ export const CalculatorForTires = () => {
 
 	return <LayoutWrapper>
 		<Title title='tire calculator'/>
-		<Iframe url="/src/calc/kalkulator.htm?background=2772E2"
+		<Iframe url="/calc/kalkulator.htm?background=2772E2"
 						width="100%"
 						height="2562px"
 						id=""

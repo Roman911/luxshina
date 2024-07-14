@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { useAppTranslation } from '../../../../hooks';
 import styles from './index.module.scss';
+
+import { links } from './links.ts';
 
 interface TopLineProps {
 	lang: string
@@ -37,12 +40,9 @@ export const TopLine:React.FC<TopLineProps> = ({ lang, changedAppLang }) => {
 				</div>
 			</div>
 			<nav className='flex gap-5'>
-				<a className={styles.link} href="#">Доставка</a>
-				<a className={styles.link} href="#">Оплата</a>
-				<a className={styles.link} href="#">Контакти</a>
-				<a className={styles.link} href="#">Гарантія та повернення</a>
-				<a className={styles.link} href="#">Публічна оферта</a>
-				<a className={styles.link} href="#">Про нас</a>
+				{ links.map((item, index) => {
+					return <Link key={ index } to={ item.link } className={styles.link} >{ t(item.title) }</Link>
+				}) }
 			</nav>
 		</div>
 	</div>

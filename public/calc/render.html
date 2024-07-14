@@ -1,7 +1,7 @@
 <html><head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script language="JavaScript" type="text/javascript" src="./gen_forms.js"></script>
-<link rel="stylesheet" type="text/css" href="./app.css">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script language="JavaScript" type="text/javascript" src="gen_forms.js"></script>
+<link rel="stylesheet" type="text/css" href="app.css">
 </head>
 
 <body leftmargin="0" topmargin="0" onload="render()" marginheight="0" marginwidth="0">
@@ -63,8 +63,9 @@
 
 		while((val = options[which].pop()) != null) {
 			document.write("<option value='"+val+"'");
-			if(selection[which] == val)
-				document.write(" selected");
+			if(selection[which] == val) {
+				document.write( " selected" );
+			}
 			document.write(">"+val+"</option>\n");
 		}
 	}
@@ -653,8 +654,8 @@
 </script>
 
 <form action="render.html">
-<input name="mm2pxMy" value="0.5607476635514018" type="hidden">
-<input name="mm2pxOther" value="0.5825242718446602" type="hidden">
+<input name="mm2pxMy" value="0.5240174672489083" type="hidden">
+<input name="mm2pxOther" value="0" type="hidden">
 <table class="withlines" border="0" cellpadding="2" cellspacing="1" align="center">
 	<tbody><tr>
 		<th>
@@ -670,233 +671,27 @@
 		<td nowrap="nowrap" align="center">
 		<span id="tireMenu">
 			<select name="sw" onchange="processrequest(this)">
-			<script language="Javascript">addOptionList('sw')</script><option value="365">365</option>
-<option value="355">355</option>
-<option value="345">345</option>
-<option value="335">335</option>
-<option value="325">325</option>
-<option value="315">315</option>
-<option value="305">305</option>
-<option value="295">295</option>
-<option value="285">285</option>
-<option value="275">275</option>
-<option value="265">265</option>
-<option value="255">255</option>
-<option value="245">245</option>
-<option value="235">235</option>
-<option value="225">225</option>
-<option value="215" selected="selected">215</option>
-<option value="205">205</option>
-<option value="195">195</option>
-<option value="185">185</option>
-<option value="175">175</option>
-<option value="165">165</option>
-<option value="155">155</option>
-<option value="145">145</option>
-<option value="135">135</option>
-<option value="130">130</option>
-<option value="125">125</option>
-<option value="120">120</option>
-<option value="115">115</option>
-
+				<script language="Javascript">addOptionList('sw')</script>
 			</select>
 			/
 			<select name="ar" onchange="processrequest(this)">
-			<script language="Javascript">addOptionList('ar')</script><option value="90">90</option>
-<option value="85">85</option>
-<option value="80">80</option>
-<option value="75">75</option>
-<option value="70">70</option>
-<option value="65">65</option>
-<option value="60">60</option>
-<option value="55" selected="selected">55</option>
-<option value="50">50</option>
-<option value="45">45</option>
-<option value="40">40</option>
-<option value="35">35</option>
-<option value="30">30</option>
-<option value="25">25</option>
-<option value="20">20</option>
-
+				<script language="Javascript">addOptionList('ar')</script>
 			</select>
 			R<select name="bd" onchange="processrequest(this)">
-			<script language="Javascript">addOptionList('bd')</script><option value="28">28</option>
-<option value="27">27</option>
-<option value="26">26</option>
-<option value="25">25</option>
-<option value="24">24</option>
-<option value="23">23</option>
-<option value="22">22</option>
-<option value="21">21</option>
-<option value="20">20</option>
-<option value="19">19</option>
-<option value="18">18</option>
-<option value="17">17</option>
-<option value="16" selected="selected">16</option>
-<option value="15">15</option>
-<option value="14">14</option>
-<option value="13">13</option>
-
+				<script language="Javascript">addOptionList('bd')</script>
 			</select>
 		</span>
 		</td>
 		<td nowrap="nowrap" align="center">
 		<span id="rimMenu">
 			<select name="rd" onchange="processrequest(this)">
-			<script language="Javascript">addOptionList('bd')</script><option value="28">28</option>
-<option value="27">27</option>
-<option value="26">26</option>
-<option value="25">25</option>
-<option value="24">24</option>
-<option value="23">23</option>
-<option value="22">22</option>
-<option value="21">21</option>
-<option value="20">20</option>
-<option value="19">19</option>
-<option value="18">18</option>
-<option value="17">17</option>
-<option value="16" selected="selected">16</option>
-<option value="15">15</option>
-<option value="14">14</option>
-<option value="13">13</option>
-
+				<script language="Javascript">addOptionList('bd')</script>
 			</select>
 			X<select name="rw" onchange="processrequest(this)">
-			<script language="Javascript">addOptionList('rw')</script><option value="13.0">13.0</option>
-<option value="12.5">12.5</option>
-<option value="12.0">12.0</option>
-<option value="11.5">11.5</option>
-<option value="11.0">11.0</option>
-<option value="10.5">10.5</option>
-<option value="10.0">10.0</option>
-<option value="9.5">9.5</option>
-<option value="9.0">9.0</option>
-<option value="8.5">8.5</option>
-<option value="8.0">8.0</option>
-<option value="7.5">7.5</option>
-<option value="7.0" selected="selected">7.0</option>
-<option value="6.5">6.5</option>
-<option value="6.0">6.0</option>
-<option value="5.5">5.5</option>
-<option value="5.0">5.0</option>
-<option value="4.5">4.5</option>
-<option value="4.0">4.0</option>
-<option value="3.5">3.5</option>
-
+				<script language="Javascript">addOptionList('rw')</script>
 			</select>
 			<small>ET</small><select name="et" onchange="processrequest(this)">
-			<script language="Javascript">addOptionList('et')</script><option value="-55">-55</option>
-<option value="-54">-54</option>
-<option value="-53">-53</option>
-<option value="-52">-52</option>
-<option value="-51">-51</option>
-<option value="-50">-50</option>
-<option value="-49">-49</option>
-<option value="-48">-48</option>
-<option value="-47">-47</option>
-<option value="-46">-46</option>
-<option value="-45">-45</option>
-<option value="-44">-44</option>
-<option value="-43">-43</option>
-<option value="-42">-42</option>
-<option value="-41">-41</option>
-<option value="-40">-40</option>
-<option value="-39">-39</option>
-<option value="-38">-38</option>
-<option value="-37">-37</option>
-<option value="-36">-36</option>
-<option value="-35">-35</option>
-<option value="-34">-34</option>
-<option value="-33">-33</option>
-<option value="-32">-32</option>
-<option value="-31">-31</option>
-<option value="-30">-30</option>
-<option value="-29">-29</option>
-<option value="-28">-28</option>
-<option value="-27">-27</option>
-<option value="-26">-26</option>
-<option value="-25">-25</option>
-<option value="-24">-24</option>
-<option value="-23">-23</option>
-<option value="-22">-22</option>
-<option value="-21">-21</option>
-<option value="-20">-20</option>
-<option value="-19">-19</option>
-<option value="-18">-18</option>
-<option value="-17">-17</option>
-<option value="-16">-16</option>
-<option value="-15">-15</option>
-<option value="-14">-14</option>
-<option value="-13">-13</option>
-<option value="-12">-12</option>
-<option value="-11">-11</option>
-<option value="-10">-10</option>
-<option value="-9">-9</option>
-<option value="-8">-8</option>
-<option value="-7">-7</option>
-<option value="-6">-6</option>
-<option value="-5">-5</option>
-<option value="-4">-4</option>
-<option value="-3">-3</option>
-<option value="-2">-2</option>
-<option value="-1">-1</option>
-<option value="0">0</option>
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25" selected="selected">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-<option value="32">32</option>
-<option value="33">33</option>
-<option value="34">34</option>
-<option value="35">35</option>
-<option value="36">36</option>
-<option value="37">37</option>
-<option value="38">38</option>
-<option value="39">39</option>
-<option value="40">40</option>
-<option value="41">41</option>
-<option value="42">42</option>
-<option value="43">43</option>
-<option value="44">44</option>
-<option value="45">45</option>
-<option value="46">46</option>
-<option value="47">47</option>
-<option value="48">48</option>
-<option value="49">49</option>
-<option value="50">50</option>
-<option value="51">51</option>
-<option value="52">52</option>
-<option value="53">53</option>
-<option value="54">54</option>
-<option value="55">55</option>
-
+				<script language="Javascript">addOptionList('et')</script>
 			</select>
 		</span>
 		</td>
@@ -907,109 +702,109 @@
 <center>
 <div id="vatman" style="color:black;position:relative;width:320;height:440;background-color:white;overflow:hidden;">
 
-<span id="text" style="color:black;position:absolute;top:4;left:10;z-index:1000;"><small><script language="Javascript">document.write(params['text'] || "");</script>Пример 1: колесо Citroen C4 Picasso</small></span>
+<span id="text" style="color:black;position:absolute;top:4;left:10;z-index:1000;"><small><script language="Javascript">document.write(params['text'] || "");</script></small></span>
 
 	<!--tire side view-->
-	<img id="tireSVl" style="position: absolute; top: 40.5px; left: 145.5px; width: 359px; height: 359px; z-index: 1;" src="circle_gray.gif">
-	<img id="tireSV2" style="position: absolute; top: 41.5px; left: 146.5px; width: 357px; height: 357px; z-index: 1;" src="circle_white.gif">
-	<img id="tireSV3" style="position: absolute; top: 106.5px; left: 211.5px; width: 227px; height: 227px; z-index: 1;" src="circle_gray.gif">
-	<img id="tireSV4" style="position: absolute; top: 107.5px; left: 212.5px; width: 225px; height: 225px; z-index: 1;" src="circle_white.gif">
+	<img id="tireSVl" style="position: absolute; top: 39.5px; left: 144.5px; width: 361px; height: 361px; z-index: 1;" src="circle_gray.gif">
+	<img id="tireSV2" style="position: absolute; top: 40.5px; left: 145.5px; width: 359px; height: 359px; z-index: 1;" src="circle_white.gif">
+	<img id="tireSV3" style="position: absolute; top: 100.5px; left: 205.5px; width: 239px; height: 239px; z-index: 1;" src="circle_gray.gif">
+	<img id="tireSV4" style="position: absolute; top: 101.5px; left: 206.5px; width: 237px; height: 237px; z-index: 1;" src="circle_white.gif">
 	<!--rim side view-->
-	<img id="rimSVl" style="position: absolute; top: 106.5px; left: 211.5px; width: 227px; height: 227px; z-index: 1;" src="circle_gray.gif">
-	<img id="rimSV2" style="position: absolute; top: 107.5px; left: 212.5px; width: 225px; height: 225px; z-index: 1;" src="circle_white.gif">
+	<img id="rimSVl" style="position: absolute; top: 100.5px; left: 205.5px; width: 239px; height: 239px; z-index: 1;" src="circle_gray.gif">
+	<img id="rimSV2" style="position: absolute; top: 101.5px; left: 206.5px; width: 237px; height: 237px; z-index: 1;" src="circle_white.gif">
 
-	<div id="tireDiv" style="position: absolute; top: 41px; left: 100px; width: 121px; height: 359px; z-index: 1; background-color: rgb(178, 178, 178);">
+	<div id="tireDiv" style="position: absolute; top: 40px; left: 94px; width: 133px; height: 361px; z-index: 1; background-color: rgb(178, 178, 178);">
 		<!--tire bended walls-->
-		<img id="tireBWl" style="position: absolute; top: 49px; left: 0pt; width: 17px; height: 261px; z-index: 1;" src="tiresidewalll.gif">
-		<img id="tireBWr" style="position: absolute; top: 49px; left: 104px; width: 17px; height: 261px; z-index: 1;" src="tiresidewallr.gif">
+		<img id="tireBWl" style="position: absolute; top: 42px; left: 0pt; width: 19px; height: 277px; z-index: 1;" src="tiresidewalll.gif">
+		<img id="tireBWr" style="position: absolute; top: 42px; left: 114px; width: 19px; height: 277px; z-index: 1;" src="tiresidewallr.gif">
 		<!--hide visible from inside part (only lower part)-->
-		<div id="tireBWH" style="position: absolute; top: 293px; left: 17px; width: 87px; height: 17px; z-index: 1; background-color: rgb(178, 178, 178);"></div>
+		<div id="tireBWH" style="position: absolute; top: 300px; left: 19px; width: 95px; height: 19px; z-index: 1; background-color: rgb(178, 178, 178);"></div>
 		<!--tire outer corners-->
-		<img id="tireOCnw" style="position: absolute; top: 0pt; left: 0pt; width: 22px; height: 22px; z-index: 1;" src="corner1nw.gif">
-		<img id="tireOCne" style="position: absolute; top: 0pt; left: 99px; width: 22px; height: 22px; z-index: 1;" src="corner1ne.gif">
-		<img id="tireOCse" style="position: absolute; top: 337px; left: 99px; width: 22px; height: 22px; z-index: 1;" src="corner1se.gif">
-		<img id="tireOCsw" style="position: absolute; top: 337px; left: 0pt; width: 22px; height: 22px; z-index: 1;" src="corner1sw.gif">
+		<img id="tireOCnw" style="position: absolute; top: 0pt; left: 0pt; width: 20px; height: 20px; z-index: 1;" src="corner1nw.gif">
+		<img id="tireOCne" style="position: absolute; top: 0pt; left: 113px; width: 20px; height: 20px; z-index: 1;" src="corner1ne.gif">
+		<img id="tireOCse" style="position: absolute; top: 341px; left: 113px; width: 20px; height: 20px; z-index: 1;" src="corner1se.gif">
+		<img id="tireOCsw" style="position: absolute; top: 341px; left: 0pt; width: 20px; height: 20px; z-index: 1;" src="corner1sw.gif">
 		<!--tire outer corners radius-->
-		<img id="tireOCRnw" style="position: absolute; top: 7px; left: 7px; width: 15px; height: 15px; z-index: 1;" src="corner3nw.gif">
-		<img id="tireOCRne" style="position: absolute; top: 7px; left: 99px; width: 15px; height: 15px; z-index: 1;" src="corner3ne.gif">
-		<img id="tireOCRse" style="position: absolute; top: 337px; left: 99px; width: 15px; height: 15px; z-index: 1;" src="corner3se.gif">
-		<img id="tireOCRsw" style="position: absolute; top: 337px; left: 7px; width: 15px; height: 15px; z-index: 1;" src="corner3sw.gif">
+		<img id="tireOCRnw" style="position: absolute; top: 7px; left: 7px; width: 13px; height: 13px; z-index: 1;" src="corner3nw.gif">
+		<img id="tireOCRne" style="position: absolute; top: 7px; left: 113px; width: 13px; height: 13px; z-index: 1;" src="corner3ne.gif">
+		<img id="tireOCRse" style="position: absolute; top: 341px; left: 113px; width: 13px; height: 13px; z-index: 1;" src="corner3se.gif">
+		<img id="tireOCRsw" style="position: absolute; top: 341px; left: 7px; width: 13px; height: 13px; z-index: 1;" src="corner3sw.gif">
 		<!--tire inner corners-->
-		<img id="tireICnw" style="position: absolute; top: 293px; left: 0pt; width: 17px; height: 17px; z-index: 1;" src="corner2nw.gif">
-		<img id="tireICne" style="position: absolute; top: 293px; left: 104px; width: 17px; height: 17px; z-index: 1;" src="corner2ne.gif">
-		<img id="tireICse" style="position: absolute; top: 49px; left: 104px; width: 17px; height: 17px; z-index: 1;" src="corner2se.gif">
-		<img id="tireICsw" style="position: absolute; top: 49px; left: 0pt; width: 17px; height: 17px; z-index: 1;" src="corner2sw.gif">
+		<img id="tireICnw" style="position: absolute; top: 300px; left: 0pt; width: 19px; height: 19px; z-index: 1;" src="corner2nw.gif">
+		<img id="tireICne" style="position: absolute; top: 300px; left: 114px; width: 19px; height: 19px; z-index: 1;" src="corner2ne.gif">
+		<img id="tireICse" style="position: absolute; top: 42px; left: 114px; width: 19px; height: 19px; z-index: 1;" src="corner2se.gif">
+		<img id="tireICsw" style="position: absolute; top: 42px; left: 0pt; width: 19px; height: 19px; z-index: 1;" src="corner2sw.gif">
 		<!--tire inner corners radius-->
-		<img id="tireICRnw" style="position: absolute; top: 300px; left: 7px; width: 10px; height: 10px; z-index: 1;" src="corner3nw.gif">
-		<img id="tireICRne" style="position: absolute; top: 300px; left: 104px; width: 10px; height: 10px; z-index: 1;" src="corner3ne.gif">
-		<img id="tireICRse" style="position: absolute; top: 49px; left: 104px; width: 10px; height: 10px; z-index: 1;" src="corner3se.gif">
-		<img id="tireICRsw" style="position: absolute; top: 49px; left: 7px; width: 10px; height: 10px; z-index: 1;" src="corner3sw.gif">
+		<img id="tireICRnw" style="position: absolute; top: 307px; left: 7px; width: 12px; height: 12px; z-index: 1;" src="corner3nw.gif">
+		<img id="tireICRne" style="position: absolute; top: 307px; left: 114px; width: 12px; height: 12px; z-index: 1;" src="corner3ne.gif">
+		<img id="tireICRse" style="position: absolute; top: 42px; left: 114px; width: 12px; height: 12px; z-index: 1;" src="corner3se.gif">
+		<img id="tireICRsw" style="position: absolute; top: 42px; left: 7px; width: 12px; height: 12px; z-index: 1;" src="corner3sw.gif">
 		<!--tire work surface-->
-		<img id="tireWSn" style="position: absolute; top: 0pt; left: 22px; width: 77px; height: 7px; z-index: 1;" src="dot_black.gif">
-		<img id="tireWSs" style="position: absolute; top: 352px; left: 22px; width: 77px; height: 7px; z-index: 1;" src="dot_black.gif">
+		<img id="tireWSn" style="position: absolute; top: 0pt; left: 20px; width: 93px; height: 7px; z-index: 1;" src="dot_black.gif">
+		<img id="tireWSs" style="position: absolute; top: 354px; left: 20px; width: 93px; height: 7px; z-index: 1;" src="dot_black.gif">
 		<!--tire side walls-->
-		<img id="tireSWnw" style="position: absolute; top: 22px; left: 0pt; width: 7px; height: 27px; z-index: 1;" src="dot_black.gif">
-		<img id="tireSWne" style="position: absolute; top: 22px; left: 114px; width: 7px; height: 27px; z-index: 1;" src="dot_black.gif">
-		<img id="tireSWse" style="position: absolute; top: 310px; left: 114px; width: 7px; height: 27px; z-index: 1;" src="dot_black.gif">
-		<img id="tireSWsw" style="position: absolute; top: 310px; left: 0pt; width: 7px; height: 27px; z-index: 1;" src="dot_black.gif">
+		<img id="tireSWnw" style="position: absolute; top: 20px; left: 0pt; width: 7px; height: 22px; z-index: 1;" src="dot_black.gif">
+		<img id="tireSWne" style="position: absolute; top: 20px; left: 126px; width: 7px; height: 22px; z-index: 1;" src="dot_black.gif">
+		<img id="tireSWse" style="position: absolute; top: 319px; left: 126px; width: 7px; height: 22px; z-index: 1;" src="dot_black.gif">
+		<img id="tireSWsw" style="position: absolute; top: 319px; left: 0pt; width: 7px; height: 22px; z-index: 1;" src="dot_black.gif">
 		<!--tire 2 rim "in"-->
-		<img id="tire2RInw" style="position: absolute; top: 59px; left: 17px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
-		<img id="tire2RIne" style="position: absolute; top: 59px; left: 97px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
-		<img id="tire2RIse" style="position: absolute; top: 293px; left: 97px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
-		<img id="tire2RIsw" style="position: absolute; top: 293px; left: 17px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
+		<img id="tire2RInw" style="position: absolute; top: 54px; left: 19px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
+		<img id="tire2RIne" style="position: absolute; top: 54px; left: 107px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
+		<img id="tire2RIse" style="position: absolute; top: 300px; left: 107px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
+		<img id="tire2RIsw" style="position: absolute; top: 300px; left: 19px; width: 7px; height: 7px; z-index: 1;" src="dot_black.gif">
 		<!--tire 2 rim "down"-->
-		<img id="tire2RDnw" style="position: absolute; top: 66px; left: 17px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
-		<img id="tire2RDne" style="position: absolute; top: 66px; left: 97px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
-		<img id="tire2RDse" style="position: absolute; top: 284px; left: 97px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
-		<img id="tire2RDsw" style="position: absolute; top: 284px; left: 17px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
+		<img id="tire2RDnw" style="position: absolute; top: 61px; left: 19px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
+		<img id="tire2RDne" style="position: absolute; top: 61px; left: 107px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
+		<img id="tire2RDse" style="position: absolute; top: 290px; left: 107px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
+		<img id="tire2RDsw" style="position: absolute; top: 290px; left: 19px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
 		<!--tire "lips"-->
-		<img id="tireLPl" style="position: absolute; top: 75px; left: 17px; width: 7px; height: 209px; z-index: 4;" src="tirelip.gif">
-		<img id="tireLPr" style="position: absolute; top: 75px; left: 97px; width: 7px; height: 209px; z-index: 4;" src="tirelip.gif">
+		<img id="tireLPl" style="position: absolute; top: 71px; left: 19px; width: 7px; height: 219px; z-index: 4;" src="tirelip.gif">
+		<img id="tireLPr" style="position: absolute; top: 71px; left: 107px; width: 7px; height: 219px; z-index: 4;" src="tirelip.gif">
 
-		<img id="tireH_bar1" style="position: absolute; top: 2px; left: 96px; width: 60px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="tireH_bar2" style="position: absolute; top: 356px; left: 96px; width: 60px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="tireH_sizeLine" style="position: absolute; top: 2px; left: 151px; width: 1px; height: 355px; z-index: 100;" src="dot_black.gif">
-		<img id="tireH_arrow1" style="position: absolute; top: 3px; left: 149px; width: 5px; height: 5px; z-index: 100;" src="sizearrowup.gif">
-		<img id="tireH_arrow2" style="position: absolute; top: 351px; left: 149px; width: 5px; height: 5px; z-index: 100;" src="sizearrowdown.gif">
-		<span id="tireH_text" style="position: absolute; top: 71px; left: 101px; width: 100px; height: 213px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="1" align="center"><tbody><tr><td valign="top" align="center"><font style="{color:black;background-color:white;}">642<small>мм</small> (25.3'')</font></td></tr></tbody></table></span>
+		<img id="tireH_bar1" style="position: absolute; top: 2px; left: 108px; width: 60px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="tireH_bar2" style="position: absolute; top: 358px; left: 108px; width: 60px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="tireH_sizeLine" style="position: absolute; top: 2px; left: 163px; width: 1px; height: 357px; z-index: 100;" src="dot_black.gif">
+		<img id="tireH_arrow1" style="position: absolute; top: 3px; left: 161px; width: 5px; height: 5px; z-index: 100;" src="sizearrowup.gif">
+		<img id="tireH_arrow2" style="position: absolute; top: 353px; left: 161px; width: 5px; height: 5px; z-index: 100;" src="sizearrowdown.gif">
+		<span id="tireH_text" style="position: absolute; top: 71.4px; left: 113px; width: 100px; height: 214.2px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="1" align="center"><tbody><tr><td valign="top" align="center"><font style="{color:black;background-color:white;}">687<small>мм</small> (27'')</font></td></tr></tbody></table></span>
 
-		<img id="tireW_bar1" style="position: absolute; top: 339px; left: 2px; width: 1px; height: 35px; z-index: 100;" src="dot_black.gif">
-		<img id="tireW_bar2" style="position: absolute; top: 339px; left: 118px; width: 1px; height: 35px; z-index: 100;" src="dot_black.gif">
-		<img id="tireW_sizeLine" style="position: absolute; top: 369px; left: 2px; width: 117px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="tireW_arrow1" style="position: absolute; top: 367px; left: 3px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
-		<img id="tireW_arrow2" style="position: absolute; top: 367px; left: 113px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
-		<span id="tireW_text" style="position: absolute; top: 354px; left: 2px; width: 117px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="bottom" align="center"><font style="{color:black;}">215<small>мм</small> (8.5'')</font></td></tr></tbody></table></span>
+		<img id="tireW_bar1" style="position: absolute; top: 341px; left: 2px; width: 1px; height: 35px; z-index: 100;" src="dot_black.gif">
+		<img id="tireW_bar2" style="position: absolute; top: 341px; left: 130px; width: 1px; height: 35px; z-index: 100;" src="dot_black.gif">
+		<img id="tireW_sizeLine" style="position: absolute; top: 371px; left: 2px; width: 129px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="tireW_arrow1" style="position: absolute; top: 369px; left: 3px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
+		<img id="tireW_arrow2" style="position: absolute; top: 369px; left: 125px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
+		<span id="tireW_text" style="position: absolute; top: 356px; left: 2px; width: 129px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="bottom" align="center"><font style="{color:black;}">255<small>мм</small> (10'')</font></td></tr></tbody></table></span>
 	</div>
 
-	<div id="rimDiv" style="position: absolute; top: 107px; left: 111px; width: 99px; height: 227px; z-index: 10; background-color: rgb(170, 170, 255);">
-		<img id="rimBckg" style="position: absolute; top: 0pt; left: 0pt; width: 99px; height: 227px; z-index: 1;" src="rim_bckg.gif">
+	<div id="rimDiv" style="position: absolute; top: 101px; left: 107px; width: 107px; height: 239px; z-index: 10; background-color: rgb(170, 170, 255);">
+		<img id="rimBckg" style="position: absolute; top: 0pt; left: 0pt; width: 107px; height: 239px; z-index: 1;" src="rim_bckg.gif">
 
-		<img id="rimH_bar1" style="position: absolute; top: 7px; left: -36px; width: 46px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="rimH_bar2" style="position: absolute; top: 219px; left: -36px; width: 46px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="rimH_sizeLine" style="position: absolute; top: 7px; left: -32px; width: 1px; height: 213px; z-index: 100;" src="dot_black.gif">
-		<img id="rimH_arrow1" style="position: absolute; top: 8px; left: -34px; width: 5px; height: 5px; z-index: 100;" src="sizearrowup.gif">
-		<img id="rimH_arrow2" style="position: absolute; top: 214px; left: -34px; width: 5px; height: 5px; z-index: 100;" src="sizearrowdown.gif">
-		<span id="rimH_text" style="position: absolute; top: 42.6px; left: -82px; width: 100px; height: 127.8px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="1" align="center"><tbody><tr><td valign="bottom" align="center"><font style="{color:black;background-color:white;}">406<small>мм</small> (16'')</font></td></tr></tbody></table></span>
+		<img id="rimH_bar1" style="position: absolute; top: 7px; left: -38px; width: 48px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="rimH_bar2" style="position: absolute; top: 231px; left: -38px; width: 48px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="rimH_sizeLine" style="position: absolute; top: 7px; left: -34px; width: 1px; height: 225px; z-index: 100;" src="dot_black.gif">
+		<img id="rimH_arrow1" style="position: absolute; top: 8px; left: -36px; width: 5px; height: 5px; z-index: 100;" src="sizearrowup.gif">
+		<img id="rimH_arrow2" style="position: absolute; top: 226px; left: -36px; width: 5px; height: 5px; z-index: 100;" src="sizearrowdown.gif">
+		<span id="rimH_text" style="position: absolute; top: 45px; left: -84px; width: 100px; height: 135px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="1" align="center"><tbody><tr><td valign="bottom" align="center"><font style="{color:black;background-color:white;}">457<small>мм</small> (18'')</font></td></tr></tbody></table></span>
 
-		<img id="rimW_bar1" style="position: absolute; top: -81px; left: 5px; width: 1px; height: 106px; z-index: 100;" src="dot_black.gif">
-		<img id="rimW_bar2" style="position: absolute; top: -81px; left: 93px; width: 1px; height: 106px; z-index: 100;" src="dot_black.gif">
-		<img id="rimW_sizeLine" style="position: absolute; top: -77px; left: 5px; width: 89px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="rimW_arrow1" style="position: absolute; top: -79px; left: 6px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
-		<img id="rimW_arrow2" style="position: absolute; top: -79px; left: 88px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
-		<span id="rimW_text" style="position: absolute; top: -92px; left: 5px; width: 89px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="center"><font style="{color:black;}">178<small>мм</small> (7'')</font></td></tr></tbody></table></span>
+		<img id="rimW_bar1" style="position: absolute; top: -76px; left: 5px; width: 1px; height: 101px; z-index: 100;" src="dot_black.gif">
+		<img id="rimW_bar2" style="position: absolute; top: -76px; left: 101px; width: 1px; height: 101px; z-index: 100;" src="dot_black.gif">
+		<img id="rimW_sizeLine" style="position: absolute; top: -72px; left: 5px; width: 97px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="rimW_arrow1" style="position: absolute; top: -74px; left: 6px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
+		<img id="rimW_arrow2" style="position: absolute; top: -74px; left: 96px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
+		<span id="rimW_text" style="position: absolute; top: -87px; left: 5px; width: 97px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="center"><font style="{color:black;}">203<small>мм</small> (8'')</font></td></tr></tbody></table></span>
 
 		<img id="rimLip1n" style="position: absolute; top: 2px; left: 10000px; width: 0pt; height: 0pt; z-index: 3;" src="rimliphi.gif">
 		<img id="rimLip1s" style="position: absolute; top: 2px; left: 10000px; width: 0pt; height: 0pt; z-index: 3;" src="rimliplo.gif">
-		<img id="rimLip2n" style="position: absolute; top: 0pt; left: 0pt; width: 99px; height: 23px; z-index: 3;" src="rimliphi2.gif">
-		<img id="rimLip2s" style="position: absolute; top: 204px; left: 0pt; width: 99px; height: 23px; z-index: 3;" src="rimliplo2.gif">
+		<img id="rimLip2n" style="position: absolute; top: 0pt; left: 0pt; width: 107px; height: 25px; z-index: 3;" src="rimliphi2.gif">
+		<img id="rimLip2s" style="position: absolute; top: 214px; left: 0pt; width: 107px; height: 25px; z-index: 3;" src="rimliplo2.gif">
 		<!--tire 2 rim "down"-->
-		<img id="rimLip2TDnw" style="position: absolute; top: 0pt; left: 6px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
-		<img id="rimLip2TDne" style="position: absolute; top: 0pt; left: 86px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
-		<img id="rimLip2TDse" style="position: absolute; top: 218px; left: 86px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
-		<img id="rimLip2TDsw" style="position: absolute; top: 218px; left: 6px; width: 7px; height: 9px; z-index: 4;" src="dot_black.gif">
+		<img id="rimLip2TDnw" style="position: absolute; top: 0pt; left: 6px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
+		<img id="rimLip2TDne" style="position: absolute; top: 0pt; left: 94px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
+		<img id="rimLip2TDse" style="position: absolute; top: 229px; left: 94px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
+		<img id="rimLip2TDsw" style="position: absolute; top: 229px; left: 6px; width: 7px; height: 10px; z-index: 4;" src="dot_black.gif">
 
-		<img id="rimSpokes" style="position: absolute; top: 0pt; left: 10px; width: 27px; height: 227px; z-index: 2;" src="spokes.gif">
-		<img id="rimPad" style="position: absolute; top: 56px; left: 10px; width: 27px; height: 115px; z-index: 3;" src="pad.gif">
+		<img id="rimSpokes" style="position: absolute; top: 0pt; left: 19px; width: 25px; height: 239px; z-index: 2;" src="spokes.gif">
+		<img id="rimPad" style="position: absolute; top: 66px; left: 19px; width: 25px; height: 107px; z-index: 3;" src="pad.gif">
 
 		<!--backspace-->
 		<img id="rimBS_bar1" style="position: absolute; top: 0pt; left: 0pt; width: 1px; height: 1px; z-index: 100;" src="dot_black.gif">
@@ -1020,17 +815,17 @@
 		<span id="rimBS_text" style="position:absolute;top:0;left:0;width:1;height:1;z-index:100;"></span>
 
 		<!--offset-->
-		<img id="rimET_bar1" style="position: absolute; top: 123.5px; left: 36px; width: 1px; height: 57.5px; z-index: 100;" src="dot_black.gif">
-		<img id="rimET_bar2" style="position: absolute; top: 123.5px; left: 49.5px; width: 1px; height: 57.5px; z-index: 100;" src="dot_black.gif">
-		<img id="rimET_sizeLine" style="position: absolute; top: 176px; left: 36px; width: 40px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="rimET_arrow1" style="position: absolute; top: 174px; left: 37px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
-		<img id="rimET_arrow2" style="position: absolute; top: 174px; left: 44.5px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
-		<span id="rimET_text" style="position: absolute; top: 161px; left: 36px; width: 14.5px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="bottom" align="center"><font style="{color:black;}">&nbsp;&nbsp;&nbsp;&nbsp;Вылет&nbsp;25<small>мм</small> (1'')</font></td></tr></tbody></table></span>
+		<img id="rimET_bar1" style="position: absolute; top: 129.5px; left: 43px; width: 1px; height: 53.5px; z-index: 100;" src="dot_black.gif">
+		<img id="rimET_bar2" style="position: absolute; top: 129.5px; left: 53.5px; width: 1px; height: 53.5px; z-index: 100;" src="dot_black.gif">
+		<img id="rimET_sizeLine" style="position: absolute; top: 178px; left: 43px; width: 40px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="rimET_arrow1" style="position: absolute; top: 176px; left: 54.5px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
+		<img id="rimET_arrow2" style="position: absolute; top: 176px; left: 38px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
+		<span id="rimET_text" style="position: absolute; top: 163px; left: 43px; width: 11.5px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="bottom" align="center"><font style="{color:black;}">&nbsp;&nbsp;&nbsp;&nbsp;Вылет&nbsp;20<small>мм</small> (0.8'')</font></td></tr></tbody></table></span>
 
 		<!--pad pointer-->
-		<img id="rimMP_line" style="position: absolute; top: 133.5px; left: 37px; width: 120px; height: 1px; z-index: 100;" src="dot_black.gif">
-		<img id="rimMP_arrow" style="position: absolute; top: 131.5px; left: 38px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
-		<span id="rimMP_text" style="position: absolute; top: 118.5px; left: 37px; width: 120px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="right"><font style="{color:black;}">Привалочная<br>плоскость</font></td></tr></tbody></table></span>
+		<img id="rimMP_line" style="position: absolute; top: 139.5px; left: 44px; width: 120px; height: 1px; z-index: 100;" src="dot_black.gif">
+		<img id="rimMP_arrow" style="position: absolute; top: 137.5px; left: 45px; width: 5px; height: 5px; z-index: 100;" src="sizearrowleft.gif">
+		<span id="rimMP_text" style="position: absolute; top: 124.5px; left: 44px; width: 120px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="right"><font style="{color:black;}">Привалочная<br>плоскость</font></td></tr></tbody></table></span>
 
 
 
@@ -1042,8 +837,8 @@
 	<img id="rimRF_arrow" style="position: absolute; top: 168px; left: 84px; width: 5px; height: 5px; z-index: 100;" src="sizearrowright.gif">
 	<span id="rimRF_text" style="position: absolute; top: 155px; left: 10px; width: 80px; height: 30px; z-index: 100;"><table height="100%" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap" valign="top" align="left"><font style="{color:black;}">Лицевая<br>сторона</font></td></tr></tbody></table></span>
 
-	<img id="centerLineVertical" style="position: absolute; top: 35.5px; left: 160px; width: 1px; height: 369px; z-index: 90;" src="punktir_v.gif">
-	<img id="centerLineHorisonal" style="position: absolute; top: 220px; left: 94.5px; width: 131px; height: 1px; z-index: 90;" src="punktir_h.gif">
+	<img id="centerLineVertical" style="position: absolute; top: 34.5px; left: 160px; width: 1px; height: 371px; z-index: 90;" src="punktir_v.gif">
+	<img id="centerLineHorisonal" style="position: absolute; top: 220px; left: 88.5px; width: 143px; height: 1px; z-index: 90;" src="punktir_h.gif">
 
 		<img id="eL" style="position: absolute; top: 0pt; left: 0pt; width: 320px; height: 440px; z-index: 1000;" src="blank.gif">
 </div>

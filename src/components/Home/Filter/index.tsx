@@ -89,7 +89,7 @@ export const FilterComponent: React.FC<FilterProps> = ({ data }) => {
 					return <Select key={ item.name } name={ item.name } label={ t(item.name, true) } options={ item.options } />
 				})}
 			</div>
-			<div className='flex justify-between mt-7'>
+			{section === 'tyre' && <div className='flex justify-between mt-7'>
 				<div className='flex items-center'>
 					<h6 className='uppercase text-xl font-bold text-white'>Сезон</h6>
 					<div className='flex ml-5 gap-x-2.5'>
@@ -110,7 +110,7 @@ export const FilterComponent: React.FC<FilterProps> = ({ data }) => {
 				<button className='text-sm font-bold text-white hover:text-blue-300 max-h-max'>
 					+ {t('add all')}
 				</button>
-			</div>
+			</div>}
 			<div className='mt-10'>
 				<Link to='/catalog/tyres' className='btn secondary'>
 					{t('choose tires')}

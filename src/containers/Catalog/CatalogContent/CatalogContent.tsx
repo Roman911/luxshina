@@ -1,6 +1,7 @@
 import { ProductList } from '../../ProductList';
 import { FilterByCar } from '../../../components/Catalog/FilterByCar';
 import { FilterActive } from '../../../components/Catalog/FilterActive';
+import { SelectionByCar } from '../../../components/Catalog/SelectionByCar';
 
 const data = {
 	"count": 35047,
@@ -828,6 +829,7 @@ const data = {
 export const CatalogContent = () => {
 	return <div className='flex-1'>
 		<FilterByCar />
+		<SelectionByCar />
 		<FilterActive />
 		<ProductList classnames='grid-cols-3' data={ data } />
 	</div>

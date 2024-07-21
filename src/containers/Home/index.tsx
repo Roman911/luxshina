@@ -266,7 +266,7 @@ export const Home = () => {
 		<Filter />
 		<LayoutWrapper homePage={ true }>
 			<Title title='ТОП 10 популярних літніх шин 2024 року' />
-			<ProductList classnames='grid-cols-5' data={ data } />
+			<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5' data={ data } />
 			<CarouselSlider />
 			<OurAdvantages />
 			<PopularSizes />

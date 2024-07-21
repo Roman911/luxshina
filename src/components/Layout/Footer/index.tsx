@@ -31,7 +31,7 @@ export const Footer = () => {
 	}
 
 	return <footer className='bg-black'>
-		<div className='container mx-auto py-16 px-4 grid grid-cols-4'>
+		<div className='container mx-auto py-16 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
 			<div>
 				<Link to='/'>
 					<img src={logoFooter} alt="logo"/>

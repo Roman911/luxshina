@@ -1,6 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 
-import { useAppTranslation } from '../../../hooks';
+import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
+import { changeSubsection } from '../../../store/reducers/filterSlice';
 
 import { Select } from './Select';
 
@@ -10,6 +12,8 @@ interface FilterAltProps {
 }
 
 export const FilterAltComponent: React.FC<FilterAltProps> = ({ data }) => {
+	const { subsection } = useAppSelector(state => state.filterReducer);
+	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
 
 	const renderSelect = (
@@ -47,27 +51,65 @@ export const FilterAltComponent: React.FC<FilterAltProps> = ({ data }) => {
 		</div>
 		<div className='px-4 py-7 bg-white border border-gray-200'>
 			<div className='flex justify-between'>
-				<button className='text-blue-500 font-bold'>{ t('by parameters', true) }</button>
-				<button className='text-gray-500 font-bold'>{ t('by car', true) }</button>
+				<button
+					onClick={() => dispatch(changeSubsection('byParams'))}
+					className={classNames('font-bold', {'text-blue-500': subsection === 'byParams', 'text-gray-500': subsection !== 'byParams'})}
+				>
+					{ t('by parameters', true) }
+				</button>
+				<button
+					onClick={() => dispatch(changeSubsection('byCars'))}
+					className={classNames('font-bold', {'text-blue-500': subsection === 'byCars', 'text-gray-500': subsection !== 'byCars'})}
+				>
+					{ t('by car', true) }
+				</button>
 			</div>
-			{renderSelect(
-				'width',
-				t('width', true),
-				'gray',
-				data?.tyre_width?.map(item => ({ value: item.value, label: item.value, p: item.p })),
-			)}
-			{renderSelect(
-				'height',
-				t('height', true),
-				'gray',
-				data?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })),
-			)}
-			{renderSelect(
-				'diameter',
-				t('diameter', true),
-				'gray',
-				data?.tyre_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p })),
-			)}
+			{subsection === 'byParams' && <>
+				{renderSelect(
+					'width',
+					t('width', true),
+					'gray',
+					data?.tyre_width?.map(item => ({ value: item.value, label: item.value, p: item.p })),
+				)}
+				{renderSelect(
+					'height',
+					t('height', true),
+					'gray',
+					data?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })),
+				)}
+				{renderSelect(
+					'diameter',
+					t('diameter', true),
+					'gray',
+					data?.tyre_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p })),
+				)}
+			</>}
+			{subsection === 'byCars' && <>
+				{renderSelect(
+					'brandCar',
+					t('brand', true),
+					'gray',
+					data?.tyre_width?.map(item => ({ value: item.value, label: item.value, p: item.p })),
+				)}
+				{renderSelect(
+					'model',
+					t('model', true),
+					'gray',
+					data?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })),
+				)}
+				{renderSelect(
+					'year',
+					t('year', true),
+					'gray',
+					data?.tyre_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p })),
+				)}
+				{renderSelect(
+					'complete_set',
+					'complete set',
+					'gray',
+					tyreSeason?.map(item => ({ value: item.id, label: item.name_ua }))
+				)}
+			</>}
 			{renderSelect(
 				'season',
 				'Сезон',

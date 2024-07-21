@@ -48,7 +48,7 @@ export const HeaderBottom = () => {
 		};
 	}, [open]);
 
-	return <div className='bg-white'>
+	return <div className='bg-white hidden lg:block'>
 		<nav className='container mx-auto max-w-7xl flex justify-between items-center gap-8 p-5 relative'>
 			<button ref={ tiresRef } onClick={() => handleClick('tires')} type="button"
 							className={classNames('inline-flex items-center gap-x-1.5 font-bold uppercase group transition hover:text-blue-500', {'text-blue-500': open && section === 'tires'})}>

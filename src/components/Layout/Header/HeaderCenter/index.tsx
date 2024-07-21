@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import styles from './index.module.scss';
 
 import { useAppSelector, useAppTranslation } from '../../../../hooks';
 
 import logo from '../../../../assets/logo.svg';
-import { CartIcon, ChevronDownIcon, HeartIcon, LibraIcon, PhoneIcon, SearchIcon } from '../../../Lib/Icons';
+import { CartIcon, ChevronDownIcon, HeartIcon, LibraIcon, MenuIcon, PhoneIcon, SearchIcon } from '../../../Lib/Icons';
 
 import kievstarLogo from '../../../../assets/kievstar-logo.png';
 import lifeLogo from '../../../../assets/life-logo.png';
@@ -17,12 +18,12 @@ export const HeaderCenter = () => {
 	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
 	const t = useAppTranslation();
 
-	return <div className='bg-white border-b'>
-		<div className='container mx-auto flex justify-between items-center py-2 px-4'>
-			<Link to='/'>
+	return <div className={classNames('bg-white border-b', styles['header-center'])}>
+		<div className={classNames('container mx-auto grid items-center py-3 px-4 grid-cols-2 lg:grid-cols-[220px_auto_320px_150px]', styles.container)}>
+			<Link to='/' className='logo w-40 lg:w-auto'>
 				<img src={logo} className="logo" alt="logo"/>
 			</Link>
-			<div className="flex rounded-full bg-white p-0.5 border border-gray-300 w-full max-w-[600px]">
+			<div className={classNames('flex rounded-full mx-auto bg-white p-0.5 mt-4 lg:mt-0 border border-gray-300 w-full lg:max-w-[600px]', styles.search)}>
 				<input
 					type="text"
 					className="w-full flex bg-transparent pl-4 text-[15px] text-gray-500 font-medium outline-0"
@@ -32,7 +33,7 @@ export const HeaderCenter = () => {
 					<SearchIcon className='fill-white' />
 				</button>
 			</div>
-			<div className="relative inline-block text-left">
+			<div className='relative hidden lg:inline-block text-left'>
 				<button type="button" onClick={() => setShowOptions(prev => !prev)}
 								className="flex items-center w-full justify-center gap-x-1.5 bg-white text-sm"
 								id="menu-button" aria-expanded="true" aria-haspopup="true">
@@ -68,7 +69,7 @@ export const HeaderCenter = () => {
 					</div>
 				</div>
 			</div>
-			<div className='flex gap-7'>
+			<div className={classNames('flex gap-7 justify-end', styles.menu)}>
 				<Link to='/comparison' className='relative'>
 					<div className="-top-2.5 absolute left-3.5">
 						<p
@@ -102,6 +103,9 @@ export const HeaderCenter = () => {
 					</div>
 					<CartIcon/>
 				</Link>
+				<button className='lg:hidden'>
+					<MenuIcon className='fill-[#142033]' />
+				</button>
 			</div>
 		</div>
 	</div>

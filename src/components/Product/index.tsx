@@ -8,6 +8,7 @@ import { CountryInfo, Rating } from '../Lib';
 import {
 	CartIcon,
 	HeartIcon,
+	InfoIcon,
 	LibraIcon,
 	MailIcon,
 	PhoneCircuitIcon,
@@ -122,7 +123,104 @@ export const ProductComponent: React.FC<ProductComponentProps> = ({ data, handle
 					</button>
 				</div>
 			</div>
+			<div className='mt-16'>
+				<div className='flex gap-x-2.5 border-b border-[#E0E4E8]'>
+					<button
+						className='py-4 px-5 bg-[#171719] rounded-t text-white text-sm font-bold uppercase focus:outline-none focus:shadow-outline-blue transition-all duration-300'>
+						{ t('main characteristics') }
+					</button>
+					<button
+						className='py-4 px-5 min-w-32 bg-zinc-200 rounded-t text-sm font-bold text-[#575C66] uppercase focus:outline-none focus:shadow-outline-blue transition-all duration-300'>
+						{ t('description') }
+					</button>
+					<button
+						className='py-4 px-5 min-w-32 bg-zinc-200 rounded-t text-sm font-bold text-[#575C66] uppercase focus:outline-none focus:shadow-outline-blue transition-all duration-300'>
+						{ t('reviews') } (5)
+					</button>
+				</div>
+				<div className='flex mt-4 gap-10'>
+					<div className='flex-1'>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
+								Ширина
+							</div>
+							<div className='text-blue-500'>175</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
+								Висота
+							</div>
+							<div className='text-blue-500'>70</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
+								Діаметр
+							</div>
+							<div className='text-blue-500'>13</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
+								Індекс швидкості
+							</div>
+							<div className='text-blue-500 max-w-max w-full'>Н (210 км)</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
+								Індекс навантаження
+							</div>
+							<div className='text-blue-500 max-w-max w-full'>82 (475 кг)</div>
+						</div>
+					</div>
+					<div className='flex-1'>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								Бренд
+							</div>
+							<div className='text-blue-500'>Uniroyal</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								Модель
+							</div>
+							<div className='text-blue-500'>WinterExpert</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								Призначення
+							</div>
+							<div className='text-blue-500'>легкові</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								Сезон
+							</div>
+							<div className='text-blue-500 max-w-max w-full'>зимові шини</div>
+						</div>
+						<div className='flex my-4 text-sm font-medium'>
+							<div
+								className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+								Типорозмір
+							</div>
+							<div className='text-blue-500 max-w-max w-full'>195/65 R1</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<InfoBlock />
+		<InfoBlock/>
 	</div>
 }

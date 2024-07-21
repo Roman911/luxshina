@@ -17,9 +17,9 @@ interface OurAdvantagesProps {
 export const OurAdvantages: React.FC<OurAdvantagesProps> = ({ size }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
 
-	return <div className={ classNames('bg-white', { 'rounded-2xl mt-5 px-5 py-7': size, 'mt-24 py-24 px-28': !size }) }>
+	return <div className={ classNames('bg-white', { 'rounded-2xl mt-5 px-5 py-7': size, 'mt-24 py-4 px-4 lg:py-24 lg:px-28': !size }) }>
 		<Title title='our advantages' className={ size ? 'font-bold' : 'my-5 text-4xl font-bold' } />
-		<div className={ classNames('grid', { 'mt-8 grid-cols-1 gap-y-5 text-sm leading-5': size, 'mt-14 grid-cols-2 gap-y-12 text-2xl leading-9': !size }) }>
+		<div className={ classNames('grid', { 'mt-8 grid-cols-1 gap-y-5 text-sm leading-5': size, 'mt-14 grid-cols-1 lg:grid-cols-2 gap-y-12 text-2xl leading-9': !size }) }>
 			<div className='flex items-center'>
 				<img className={ classNames({ 'mr-4 w-10 h-10': size, 'mr-6': !size }) } src={icon1} alt=""/>
 				{lang === 'ua' ?

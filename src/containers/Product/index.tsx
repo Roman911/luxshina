@@ -5,6 +5,7 @@ import { useAppTranslation } from '../../hooks';
 import { ProductList } from '../ProductList';
 import Modal from '../Modals';
 import { QuickOrder } from '../Modals/QuickOrder';
+import { OnlineInstallment } from '../../components/Modals';
 
 import { LayoutWrapper } from '../../components/Layout';
 import { ProductComponent } from '../../components/Product';
@@ -258,10 +259,12 @@ const dataProducts = {
 
 export const Product = () => {
 	const [isModalActive, setModalActive] = React.useState(false);
+	const [modalType, setModalType] = React.useState('QuickOrder');
 	const t = useAppTranslation();
 
-	const handleModalOpen = () => {
+	const handleModalOpen = (type: 'QuickOrder' | 'OnlineInstallment') => {
 		setModalActive(true);
+		setModalType(type)
 	};
 
 	const handleModalClose = () => {
@@ -281,8 +284,8 @@ export const Product = () => {
 		</div>
 		<TextSeo />
 		{isModalActive && (
-			<Modal onClose={handleModalClose}>
-				<QuickOrder />
+			<Modal onClose={handleModalClose} size={modalType === 'QuickOrder' ? 'sm:max-w-lg' : 'max-w-6xl'}>
+				{modalType === 'QuickOrder' ? <QuickOrder /> : <OnlineInstallment />}
 			</Modal>
 		)}
 	</div>

@@ -20,7 +20,7 @@ import truckIcon from '../../assets/icons/truck-icon.svg';
 import type { ProductProps } from '../../models/product';
 
 interface ProductComponentProps extends ProductProps {
-	handleModalOpen: () => void
+	handleModalOpen: (type: 'QuickOrder' | 'OnlineInstallment') => void
 }
 
 export const ProductComponent: React.FC<ProductComponentProps> = ({ data, handleModalOpen }) => {
@@ -115,10 +115,10 @@ export const ProductComponent: React.FC<ProductComponentProps> = ({ data, handle
 						<CartIcon className='stroke-white'/>
 						<span className='ml-2.5'>{t('buy')}</span>
 					</button>
-					<button onClick={() => handleModalOpen()} className='btn secondary uppercase mt-2.5'>
+					<button onClick={() => handleModalOpen('QuickOrder')} className='btn secondary uppercase mt-2.5'>
 						<span className='ml-2.5'>{t('quick order')}</span>
 					</button>
-					<button className='btn success uppercase mt-2.5'>
+					<button onClick={() => handleModalOpen('OnlineInstallment')} className='btn success uppercase mt-2.5'>
 						<span className='ml-2.5'>{t('installment plan')}</span>
 					</button>
 				</div>

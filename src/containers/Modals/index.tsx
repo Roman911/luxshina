@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import classNames from 'classnames';
 import type { MouseEventHandler } from "react";
 
 import Portal, { createContainer } from "../Portal";
@@ -6,12 +7,13 @@ import Portal, { createContainer } from "../Portal";
 const MODAL_CONTAINER_ID = "modal-container-id";
 
 type Props = {
+	size: string;
 	onClose?: () => void;
 	children: React.ReactNode | React.ReactNode[];
 };
 
 const Modal = (props: Props) => {
-	const { onClose, children } = props;
+	const { onClose, size, children } = props;
 
 	const rootRef = useRef<HTMLDivElement>(null);
 	const [isMounted, setMounted] = useState(false);
@@ -58,7 +60,7 @@ const Modal = (props: Props) => {
 				<div className="fixed inset-0 z-10 w-screen overflow-y-auto">
 					<div className="flex min-h-full items-start justify-center p-4 text-center sm:p-0">
 						<div
-							className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+							className={classNames('relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full', size)}>
 							<button
 								type="button"
 								className='absolute right-3 top-3'

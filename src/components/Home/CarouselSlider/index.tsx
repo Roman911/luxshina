@@ -21,7 +21,7 @@ export const CarouselSlider = () => {
 		if(window.innerWidth < 768) {
 			setWidth('gadget');
 		}
-	}, []);
+	}, [])
 
 	return <div className="mt-16">
 		<Carousel

@@ -82,7 +82,7 @@ export const CarTireFilter = () => {
 				</span>
 			</Link>
 		</div>
-		<div>
+		<div className='mt-6 lg:mt-0'>
 			<h6 className='text-gray-500 font-bold uppercase'>
 				{t('by brands')}
 			</h6>
@@ -104,57 +104,57 @@ export const CarTireFilter = () => {
 				{t('all brands', true)}
 			</Link>
 		</div>
-		<div>
+		<div className='mt-6 lg:mt-0'>
 			<h6 className='text-gray-500 font-bold uppercase'>
 				{t('by diameter')}
 			</h6>
 			<div className='mt-6 mb-6 grid grid-cols-4 gap-1.5'>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R12
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R13
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R14
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R15
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R16
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R17
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R18
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R19
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R20
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R21
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R22
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R23
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R24
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R17.5
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R19.5
 				</Link>
-				<Link to='/catalog/tyres' className='w-14 h-10 flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
+				<Link to='/catalog/tyres' className='w-12 lg:w-14 h-10 text-sm lg:text-base flex items-center justify-center font-medium border border-[#DCDEE0] rounded-md transition hover:bg-slate-200'>
 					R22.5
 				</Link>
 			</div>

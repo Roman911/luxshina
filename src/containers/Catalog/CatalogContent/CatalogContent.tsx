@@ -1,7 +1,10 @@
+import React from 'react';
+
 import { ProductList } from '../../ProductList';
 import { FilterByCar } from '../../../components/Catalog/FilterByCar';
 import { FilterActive } from '../../../components/Catalog/FilterActive';
 import { SelectionByCar } from '../../../components/Catalog/SelectionByCar';
+import { Paginate } from '../../../components/Catalog/Paginate';
 
 const data = {
 	"count": 35047,
@@ -826,11 +829,16 @@ const data = {
 	},
 }
 
-export const CatalogContent = () => {
+interface CatalogContentProps {
+	openFilter: () => void
+}
+
+export const CatalogContent: React.FC<CatalogContentProps> = ({ openFilter }) => {
 	return <div className='flex-1'>
-		<FilterByCar />
+		<FilterByCar openFilter={ openFilter } />
 		<SelectionByCar />
-		<FilterActive />
-		<ProductList classnames='grid-cols-3' data={ data } />
+		<FilterActive className='hidden lg:flex' />
+		<ProductList classnames='grid-cols-1 sm:grid-cols-2 md:grid-cols-3' data={ data } />
+		<Paginate />
 	</div>
 }

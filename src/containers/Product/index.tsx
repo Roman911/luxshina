@@ -278,9 +278,9 @@ export const Product = () => {
 		</LayoutWrapper>
 		<div className='container mx-auto'>
 			<Title title={ t('similar products', true) } />
-			<ProductList classnames='grid-cols-4' data={ dataProducts } />
+			<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-3 md:px-0' data={ dataProducts } />
 			<Title title='recently viewed' />
-			<ProductList classnames='grid-cols-4' data={ dataProducts } />
+			<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-3 md:px-0' data={ dataProducts } />
 		</div>
 		<TextSeo />
 		{isModalActive && (

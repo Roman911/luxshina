@@ -51,7 +51,7 @@ export const TyresFilter: React.FC<TyresFilterProps> = ({ filters }) => {
 			</button>
 		</div>
 		<div className='mt-4 md:mt-10'>
-			<Link to='/catalog/tyres' className='btn secondary w-full md:w-auto'>
+			<Link to='/catalog/tyres' className='btn secondary w-full md:w-72'>
 				{t('choose tires')}
 			</Link>
 		</div>

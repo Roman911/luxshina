@@ -1,22 +1,16 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
-import { useAppSelector, useAppTranslation } from '../../../../hooks';
+import { useAppSelector } from '../../../../hooks';
+import { Contacts } from '../Contacts';
 
 import logo from '../../../../assets/logo.svg';
-import { CartIcon, ChevronDownIcon, HeartIcon, LibraIcon, MenuIcon, PhoneIcon, SearchIcon } from '../../../Lib/Icons';
-
-import kievstarLogo from '../../../../assets/kievstar-logo.png';
-import lifeLogo from '../../../../assets/life-logo.png';
-import vodafoneLogo from '../../../../assets/vodafone-logo.png';
+import { CartIcon, HeartIcon, LibraIcon, MenuIcon, SearchIcon } from '../../../Lib/Icons';
 
 export const HeaderCenter = () => {
-	const [ showOptions, setShowOptions ] = React.useState(false);
 	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
 	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
-	const t = useAppTranslation();
 
 	return <div className={classNames('bg-white border-b', styles['header-center'])}>
 		<div className={classNames('container mx-auto grid items-center py-3 px-4 grid-cols-2 lg:grid-cols-[220px_auto_320px_150px]', styles.container)}>
@@ -33,42 +27,7 @@ export const HeaderCenter = () => {
 					<SearchIcon className='fill-white' />
 				</button>
 			</div>
-			<div className='relative hidden lg:inline-block text-left'>
-				<button type="button" onClick={() => setShowOptions(prev => !prev)}
-								className="flex items-center w-full justify-center gap-x-1.5 bg-white text-sm"
-								id="menu-button" aria-expanded="true" aria-haspopup="true">
-					<PhoneIcon className='fill-blue-500' />
-					<div className='font-bold'>0 800 334 XXX</div>
-					<div>({ t('free') })</div>
-					<div className={ classNames('transition-transform', { 'rotate-180': showOptions }) }>
-						<ChevronDownIcon />
-					</div>
-				</button>
-				<div
-					className={classNames('absolute right-0 z-10 mt-2 w-48 origin-top-right border border-gray-200 bg-white shadow-lg p-5 rounded-sm', { hidden: !showOptions })}
-					role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
-					<div className="py-1" role="none">
-						<div className='flex items-center'>
-							<img src={vodafoneLogo} alt="vodafone-logo"/>
-							<span className='ml-2.5 font-medium'>
-								(050) 337 32 05
-							</span>
-						</div>
-						<div className='flex items-center mt-3'>
-							<img src={kievstarLogo} alt="kievstar-logo"/>
-							<span className='ml-2.5 font-medium'>
-								(067) 323 44 81
-							</span>
-						</div>
-						<div className='flex items-center mt-3'>
-							<img src={lifeLogo} alt="life-logo"/>
-							<span className='ml-2.5 font-medium'>
-								(093) 332 64 71
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
+			<Contacts className='hidden lg:inline-block' />
 			<div className={classNames('flex gap-7 justify-end', styles.menu)}>
 				<Link to='/comparison' className='relative'>
 					<div className="-top-2.5 absolute left-3.5">

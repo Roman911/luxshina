@@ -1,10 +1,12 @@
 export { BusIcon } from './BusIcon';
+export { CarFilterIcon } from './CarFilterIcon';
 export { CargoIcon } from './CargoIcon';
 export { CarIcon } from './CarIcon';
 export { CartIcon } from './CartIcon';
 export { ChevronDownIcon } from './ChevronDownIcon';
 export { CloseIcon } from './CloseIcon';
 export { CloudIcon } from './CloudIcon';
+export { DiskIcon } from './DiskIcon';
 export { EmailIcon } from './EmailIcon';
 export { FacebookIcon } from './FacebookIcon';
 export { HeartIcon } from './HeartIcon';
@@ -22,4 +24,5 @@ export { SpecialEquipmentIcon } from './SpecialEquipmentIcon';
 export { SunIcon } from './SunIcon';
 export { SuvIcon } from './SuvIcon';
 export { TelegramIcon } from './TelegramIcon';
+export { TyreIcon } from './TyreIcon';
 export { ViberIcon } from './ViberIcon';

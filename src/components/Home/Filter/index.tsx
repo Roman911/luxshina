@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { useAppTranslation } from '../../../hooks';
 
 import styles from './index.module.scss';
-import { Select } from './Select';
+import { TyresFilter } from './TyresFilter';
 
-import { CloudIcon, SnowIcon, SunIcon } from '../../Lib/Icons';
+import { CarFilterIcon, DiskIcon, TyreIcon } from '../../Lib/Icons';
 
 import type { BaseDataProps } from '../../../models/baseData';
 interface FilterProps {
@@ -15,12 +14,10 @@ interface FilterProps {
 }
 
 export const FilterComponent: React.FC<FilterProps> = ({ data }) => {
-	const [ section, setSections ] = React.useState('tyre');
+	const [ section, setSections ] = React.useState('default');
 	const t = useAppTranslation();
 
 	const getFilters = () => {
-		if (section !== 'tyre') return [];
-
 		const filterConfigs = [
 			{
 				label: t('width', true),
@@ -63,58 +60,44 @@ export const FilterComponent: React.FC<FilterProps> = ({ data }) => {
 		}));
 	};
 
-	return <div className='bg-blue-600 flex'>
-		<img src={ `/images/${ section }.jpg` } alt=""/>
-		<div className='py-24 px-28'>
-			<h1 className='text-white text-[44px] leading-[54px] font-bold uppercase'>{t('selection of tires and wheels')}</h1>
-			<div className='mt-11'>
-				<button
-					onClick={() => setSections('tyre')}
-					className={ classNames(styles.link, { 'text-white pointer-events-none': section === 'tyre' })}>
-					{ t('tires by parameters') }
-				</button>
-				<button
-					onClick={() => setSections('disk')}
-					className={ classNames(styles.link, { 'text-white pointer-events-none': section === 'disk' })}>
-					{ t('disks by parameters') }
-				</button>
-				<button
-					onClick={() => setSections('car')}
-					className={ classNames(styles.link, { 'text-white pointer-events-none': section === 'car' })}>
-					{ t('selection by car') }
-				</button>
-			</div>
-			<div className='grid grid-cols-3 gap-2.5 mt-7'>
-				{getFilters().map(item => {
-					return <Select key={ item.name } name={ item.name } label={ t(item.name, true) } options={ item.options } />
-				})}
-			</div>
-			{section === 'tyre' && <div className='flex justify-between mt-7'>
-				<div className='flex items-center'>
-					<h6 className='uppercase text-xl font-bold text-white'>Сезон</h6>
-					<div className='flex ml-5 gap-x-2.5'>
-						<div
-							className='border border-blue-400 h-12 w-12 rounded-full flex items-center justify-center cursor-pointer transition hover:border-white'>
-							<SnowIcon/>
-						</div>
-						<div
-							className='border border-blue-400 h-12 w-12 rounded-full flex items-center justify-center cursor-pointer transition hover:border-white'>
-							<SunIcon/>
-						</div>
-						<div
-							className='border border-blue-400 h-12 w-12 rounded-full flex items-center justify-center cursor-pointer transition hover:border-white'>
-							<CloudIcon/>
-						</div>
+	const img = section === 'default' ? 'tyre' : section;
+
+	return <div className='bg-blue-600 lg:flex'>
+		<img src={`/images/${img}.jpg`} className='hidden lg:block max-w-sm xl:max-w-full' alt=""/>
+		<div className='py-6 px-5 md:px-8 lg:py-16 xl:py-24 2xl:px-28'>
+			<h1
+				className='text-white text-xl md:text-4xl xl:text-[44px] leading-[54px] font-bold uppercase text-center md:text-left'>{t('selection of tires and wheels')}</h1>
+			<div className='mt-2 lg:mt-11 flex flex-col md:flex-row'>
+				<div className={classNames(styles.tab, 'w-full md:w-auto md:bg-transparent rounded-2xl', { 'bg-blue-400': section !== 'tyre', 'bg-[#005299]': section === 'tyre' })}>
+					<button
+						onClick={() => setSections('tyre')}
+						className={classNames(styles.link, 'p-5 md:p-0 w-full md:w-auto relative', {'text-white pointer-events-none': section === 'tyre'})}>
+						<TyreIcon className={ classNames('absolute left-5 inset-1/2 -translate-y-2/4 md:hidden', { 'fill-[#99CFFF]': section !== 'tyre', 'fill-white': section === 'tyre' }) } />
+						{t('tires by parameters')}
+					</button>
+					<div className={classNames('md:hidden px-5 pb-7', {'hidden': section !== 'tyre', 'block': section === 'tyre'})}>
+						<TyresFilter filters={ getFilters() } />
 					</div>
 				</div>
-				<button className='text-sm font-bold text-white hover:text-blue-300 max-h-max'>
-					+ {t('add all')}
-				</button>
-			</div>}
-			<div className='mt-10'>
-				<Link to='/catalog/tyres' className='btn secondary'>
-					{t('choose tires')}
-				</Link>
+				<div className={classNames(styles.tab, 'w-full md:w-auto md:bg-transparent rounded-2xl mt-2.5 md:mt-0', { 'bg-blue-400': section !== 'disk', 'bg-[#005299]': section === 'disk' })}>
+					<button
+						onClick={() => setSections('disk')}
+						className={classNames(styles.link, 'p-5 md:p-0 w-full md:w-auto relative', {'text-white pointer-events-none': section === 'disk'})}>
+						<DiskIcon className={ classNames('absolute left-5 inset-1/2 -translate-y-2/4 md:hidden', { 'fill-[#99CFFF]': section !== 'disk', 'fill-white': section === 'disk' }) } />
+						{t('disks by parameters')}
+					</button>
+				</div>
+				<div className={classNames(styles.tab, 'w-full md:w-auto md:bg-transparent rounded-2xl mt-2.5 md:mt-0', { 'bg-blue-400': section !== 'car', 'bg-[#005299]': section === 'car' })}>
+					<button
+						onClick={() => setSections('car')}
+						className={classNames(styles.link, 'p-5 md:p-0 w-full md:w-auto relative', {'text-white pointer-events-none': section === 'car'})}>
+						<CarFilterIcon className={ classNames('absolute left-5 inset-1/2 -translate-y-2/4 md:hidden', { 'fill-[#99CFFF] stroke-[#99CFFF]': section !== 'car', 'fill-white stroke-white': section === 'car' }) } />
+						{t('selection by car')}
+					</button>
+				</div>
+			</div>
+			<div className='hidden md:block'>
+				{ (section === 'tyre' || section === 'default') && <TyresFilter filters={ getFilters() } /> }
 			</div>
 		</div>
 	</div>

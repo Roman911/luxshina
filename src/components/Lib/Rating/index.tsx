@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 interface RatingProps {
-	commentsCount: number,
+	commentsCount?: number,
 	commentsAvgRate: number,
 }
 

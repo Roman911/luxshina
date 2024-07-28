@@ -21,7 +21,7 @@ export const InfoBlock = () => {
 	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
 
-	return <div className='w-64'>
+	return <div className='lg:w-64'>
 		<div className=' bg-white rounded-2xl px-5 py-7'>
 			<div className='font-bold'>{lang === 'ua' ? 'Замовляйте за номерами:' : 'Заказывайте по номерам:'}</div>
 			<div className="relative mt-6 inline-block text-left w-full">

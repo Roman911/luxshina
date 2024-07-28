@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { useAppTranslation } from '../../../../hooks';
+import { Link } from '../../../Links';
+import { Contacts } from '../Contacts';
 
 import { links } from './links.ts';
 
@@ -16,9 +18,7 @@ export const TopLine:React.FC<TopLineProps> = ({ lang, changedAppLang }) => {
 
 	return <div className='bg-black text-white'>
 		<div className='container mx-auto flex justify-between py-2 px-4'>
-			<div className='lg:hidden'>
-				tel
-			</div>
+			<Contacts className='lg:hidden' />
 			<div className='flex items-center'>
 				<div className='divide-x text-gray-500 divide-gray-500'>
 					<button

@@ -1,7 +1,7 @@
 import { LayoutWrapper } from '../../components/Layout';
 import { Filter } from './Filter';
 import { ProductList } from '../ProductList';
-import { CarouselSlider, OurAdvantages, PopularBrands, PopularSizes, TextSeo } from '../../components/Home';
+import { CarouselSlider, OurAdvantages, PopularBrands, PopularSizes, ShowAll, TextSeo } from '../../components/Home';
 import { Title } from '../../components/Lib';
 
 const data = {
@@ -267,6 +267,7 @@ export const Home = () => {
 		<LayoutWrapper homePage={ true }>
 			<Title title='ТОП 10 популярних літніх шин 2024 року' />
 			<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5' data={ data } />
+			<ShowAll />
 			<CarouselSlider />
 			<OurAdvantages />
 			<PopularSizes />

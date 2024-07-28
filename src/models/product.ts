@@ -30,6 +30,9 @@ export interface ProductProps {
 			},
 			year: number
 		}[]
+		photo: {
+			url_part: string
+		}[]
 		min_price: number
 		model: {
 			id: number

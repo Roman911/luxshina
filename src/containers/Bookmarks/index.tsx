@@ -113,6 +113,6 @@ const data = {
 export const Bookmarks = () => {
 	return <LayoutWrapper>
 		<Title title='favorites' />
-		<ProductList classnames='grid-cols-4' data={ data } />
+		<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4' data={ data } />
 	</LayoutWrapper>
 }

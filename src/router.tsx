@@ -10,7 +10,7 @@ import { Bookmarks } from './containers/Bookmarks';
 import { Comparison } from './containers/Comparison';
 import { Cart } from './containers/Cart';
 import { Order } from './containers/Order';
-import { CalculatorForTires } from './containers/CalculatorForTires';
+import { CalculatorForTires } from './containers/CalculatorForTiresPage';
 
 import { StaticPage } from './containers/StaticPage';
 

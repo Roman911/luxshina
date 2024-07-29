@@ -2,6 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface FilterState {
+	section: 'default' | 'tyre' | 'disk' | 'car'
 	subsection: 'byParams' | 'byCars'
 	filter: {
 		width: null | string
@@ -44,6 +45,7 @@ export interface FilterState {
 }
 
 const initialState: FilterState = {
+	section: 'default',
 	subsection: 'byParams',
 	filter: {
 		width: null,
@@ -92,9 +94,12 @@ export const filterSlice = createSlice({
 		changeSubsection: (state, actions: PayloadAction<'byParams' | 'byCars'>) => {
 			state.subsection = actions.payload;
 		},
+		changeSection: (state, actions: PayloadAction<'default' | 'tyre' | 'disk' | 'car'>) => {
+			state.section = actions.payload;
+		},
 	},
 })
 
-export const { changeSubsection } = filterSlice.actions
+export const { changeSubsection, changeSection } = filterSlice.actions
 
 export default filterSlice.reducer

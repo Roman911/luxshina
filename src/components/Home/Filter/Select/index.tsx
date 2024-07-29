@@ -16,7 +16,7 @@ interface SelectProps {
 export const Select: React.FC<SelectProps> = ({ label, options }) => {
 	const [ show, setShow ] = React.useState(false);
 
-	return <div className="max-w-full md:max-w-xs md:mx-auto">
+	return <div className='w-full md:mx-auto'>
 		<div className="relative">
 			<span className="inline-block w-full rounded-sm">
 				<button onClick={ () => setShow(prev => !prev) } className="relative z-0 w-full py-4 pl-4 pr-10 text-left transition duration-150 ease-in-out bg-[#ffffff29] border border-[transparent] rounded-sm cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">

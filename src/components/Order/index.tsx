@@ -57,7 +57,7 @@ const data = [
 export const OrderComponent = () => {
 	return <LayoutWrapper>
 		<Title title='placing an order' />
-		<div className='flex gap-6'>
+		<div className='flex flex-col lg:flex-row gap-6'>
 			<div className='flex-1'>
 				<div className='bg-white py-5 px-6'>
 					<h3 className='font-bold'>Контактні дані</h3>
@@ -105,7 +105,7 @@ export const OrderComponent = () => {
 					<h3 className='font-bold'>Оплата</h3>
 				</div>
 			</div>
-			<div className='w-96'>
+			<div className='w-full lg:w-96'>
 				<div className='bg-white'>
 					<div className='pt-5 pb-2 px-6'>
 						<h3 className='font-bold'>Ваше замовлення</h3>

@@ -104,8 +104,8 @@ export const FilterAltComponent: React.FC<FilterAltProps> = ({ data, isOpenFilte
 				</>}
 				{subsection === 'byCars' && <>
 					{renderSelect(
-						'brandCar',
-						t('brand', true),
+						'brand',
+						t('car brand', true),
 						'gray',
 						data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
 					)}
@@ -117,16 +117,19 @@ export const FilterAltComponent: React.FC<FilterAltProps> = ({ data, isOpenFilte
 					)}
 					{renderSelect(
 						'year',
-						t('year', true),
+						t('graduation year', true),
 						'gray',
 						data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
 					)}
 					{renderSelect(
-						'complete_set',
-						'complete set',
+						'modification',
+						t('modification', true),
 						'gray',
 						tyreSeason?.map(item => ({value: item.id, label: item.name_ua}))
 					)}
+					<button className='btn secondary w-full mt-4 border'>
+						{ t('pick up', true) }
+					</button>
 				</>}
 				{renderSelect(
 					'season',

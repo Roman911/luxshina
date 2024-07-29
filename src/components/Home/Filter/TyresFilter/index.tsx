@@ -25,7 +25,7 @@ export const TyresFilter: React.FC<TyresFilterProps> = ({ filters }) => {
 	return <>
 		<div className='grid grid-cols-1 md:grid-cols-3 gap-2.5 md:mt-7'>
 			{filters.map(item => {
-				return <Select key={item.name} name={item.name} label={t(item.name, true)} options={item.options}/>
+				return <Select key={ item.name } name={ item.name } label={ item.label } options={ item.options }/>
 			})}
 		</div>
 		<div className='flex flex-col-reverse md:flex-row items-start justify-between mt-7'>
@@ -51,7 +51,7 @@ export const TyresFilter: React.FC<TyresFilterProps> = ({ filters }) => {
 			</button>
 		</div>
 		<div className='mt-4 md:mt-10'>
-			<Link to='/catalog/tyres' className='btn secondary w-full md:w-72'>
+			<Link to='/catalog/tyres' className='btn secondary w-full md:w-72 uppercase'>
 				{t('choose tires')}
 			</Link>
 		</div>

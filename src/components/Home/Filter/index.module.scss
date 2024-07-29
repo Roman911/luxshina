@@ -1,9 +1,5 @@
-.link {
-	@apply text-blue-300 text-base xl:text-xl font-bold md:mr-1.5 xl:mr-2.5;
-}
-
 .tab:not(:nth-child(1)) {
 	&:before {
-		@apply mr-1.5 xl:mr-2.5 text-blue-300 font-bold md:content-['/'];
+		@apply mr-1.5 xl:mr-2.5 font-bold md:content-['/'];
 	}
 }

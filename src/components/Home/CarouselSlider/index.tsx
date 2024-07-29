@@ -8,18 +8,22 @@ import './index.scss';
 import { useAppTranslation } from '../../../hooks';
 
 const slides = [
-	{ id: 0, img: '/images/slide-1.jpg', link: '/catalog/tyre', position: 'left-2/4 -translate-x-1/2 md:translate-x-0 md:left-auto md:right-24' },
-	{ id: 1, img: '/images/slide-2.jpg', link: '/catalog/tyre', position: 'left-2/4 -translate-x-1/2 md:translate-x-0 md:left-24' },
-	{ id: 2, img: '/images/slide-3.jpg' },
+	{ id: 0, img: '1.jpg', link: '/catalog/tyre', position: 'left-2/4 -translate-x-1/2 md:translate-x-0 md:left-auto md:right-24' },
+	{ id: 1, img: '2.jpg', link: '/catalog/tyre', position: 'left-2/4 -translate-x-1/2 md:translate-x-0 md:left-24' },
+	{ id: 2, img: '3.jpg' },
 ]
 
 export const CarouselSlider = () => {
 	const [width, setWidth] = React.useState('desktop');
+	const [ isMobile, setMobile ] = React.useState(false);
 	const t = useAppTranslation();
 
 	React.useEffect(() => {
 		if(window.innerWidth < 768) {
 			setWidth('gadget');
+		}
+		if(window.innerWidth < 460) {
+			setMobile(true);
 		}
 	}, [])
 
@@ -35,7 +39,7 @@ export const CarouselSlider = () => {
 		>
 			{slides.map(item => {
 				return <div key={ item.id } className='relative h-[440px] md:h-auto'>
-					<img src={item.img} alt='' className='object-cover h-full'/>
+					<img src={ `/images/slide-${isMobile ? 'mob-' : ''}${item.img}` } alt='' className='object-cover h-full'/>
 					{ item.link && <Link to={ item.link } className={ classNames('btn secondary absolute bottom-6 md:m-0 md:bottom-16 w-10/12 md:w-72', { [`${item.position}`]: item.position }) }>
 						{ t('buy here') }
 					</Link> }

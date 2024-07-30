@@ -11,7 +11,7 @@ export const Filter = () => {
 	const getFilters = () => {
 		const filterConfigs = [];
 
-		if(section === 'default' || section === 'tyre') {
+		if(section === 'tyre') {
 			filterConfigs.push({
 				label: t('width', true),
 				name: 'width',

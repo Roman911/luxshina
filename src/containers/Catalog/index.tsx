@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { FilterAlt } from './FilterAlt';
 import { CatalogContent } from './CatalogContent/CatalogContent';
@@ -7,7 +7,7 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { TextSeo } from '../../components/Home';
 
 export const Catalog = () => {
-	const [ isOpenFilter, setOpenFilter ] = React.useState(false);
+	const [ isOpenFilter, setOpenFilter ] = useState(false);
 
 	const closeFilter = () => {
 		setOpenFilter(false);

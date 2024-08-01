@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import type { itemProps } from '../../models/productCard.ts';
@@ -7,7 +7,7 @@ interface CarProps {
 	data: itemProps[]
 }
 
-export const CartComponent: React.FC<CarProps> = ({ data }) => {
+export const CartComponent: FC<CarProps> = ({ data }) => {
 	return <div className='flex flex-col lg:flex-row bg-white p-5 rounded-sm shadow-sm gap-10'>
 		<div className='flex-1 divide-y'>
 			{data.map(item => {

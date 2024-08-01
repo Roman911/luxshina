@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 
 import { useAppSelector } from '../../../hooks';
@@ -14,7 +14,7 @@ interface OurAdvantagesProps {
 	size?: 'small'
 }
 
-export const OurAdvantages: React.FC<OurAdvantagesProps> = ({ size }) => {
+export const OurAdvantages: FC<OurAdvantagesProps> = ({ size }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
 
 	return <div className={ classNames('bg-white', { 'rounded-2xl mt-5 px-5 py-7': size, 'mt-24 py-4 px-4 lg:py-24 lg:px-28': !size }) }>

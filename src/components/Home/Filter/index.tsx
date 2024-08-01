@@ -1,15 +1,17 @@
-import React from 'react';
+import { FC, useState } from 'react';
 
 import { useAppDispatch, useAppTranslation } from '../../../hooks';
 import { changeSection } from '../../../store/reducers/filterSlice';
 
 import { Tab } from './Tab';
-import { TyresFilter } from './TyresFilter';
+import { TiresFilter } from './TiresFilter';
 import { DisksFilter } from './DisksFilter';
 import { FilterByCar } from '../../../containers/Home/FilterByCar';
 
+import { Section } from '../../../models/filter';
+
 interface FilterProps {
-	section: 'tyre' | 'disk' | 'car'
+	section: Section
 	data: {
 		focusValue?: number | string
 		label: string
@@ -23,25 +25,25 @@ interface FilterProps {
 	}[]
 }
 
-export const FilterComponent: React.FC<FilterProps> = ({ data, section }) => {
-	const [isOpen, setOpen] = React.useState(false);
+export const FilterComponent: FC<FilterProps> = ({ data, section }) => {
+	const [isOpen, setOpen] = useState(false);
 	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
 
-	const handleClick = (value: 'tyre' | 'disk' | 'car') => {
+	const handleClick = (value: Section) => {
 		const newOpenState = !(section === value && isOpen);
 		setOpen(newOpenState);
-		dispatch(changeSection(newOpenState ? value : 'tyre'));
+		dispatch(changeSection(newOpenState ? value : Section.Tires));
 	};
 
 	const renderFilter = () => {
 		switch(section) {
-			case 'disk':
+			case Section.Disks:
 				return <DisksFilter filters={data}/>;
-			case 'car':
+			case Section.Car:
 				return <FilterByCar/>;
 			default:
-				return <TyresFilter filters={data}/>;
+				return <TiresFilter filters={data}/>;
 		}
 	};
 
@@ -52,13 +54,13 @@ export const FilterComponent: React.FC<FilterProps> = ({ data, section }) => {
 				{ t('selection of tires and wheels') }
 			</h1>
 			<div className="mt-2 lg:mt-11 flex flex-col md:flex-row text-blue-300">
-				<Tab name="tyre" section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('tires by parameters') }>
-					<TyresFilter filters={ data }/>
+				<Tab name={ Section.Tires } section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('tires by parameters') }>
+					<TiresFilter filters={ data }/>
 				</Tab>
-				<Tab name="disk" section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('disks by parameters') }>
+				<Tab name={ Section.Disks } section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('disks by parameters') }>
 					<DisksFilter filters={ data }/>
 				</Tab>
-				<Tab name="car" section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('selection by car') }>
+				<Tab name={ Section.Car } section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('selection by car') }>
 					<FilterByCar/>
 				</Tab>
 			</div>

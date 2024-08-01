@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef, useState, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -11,14 +11,14 @@ import { CarTireFilter } from './CarTireFilter';
 import { ChevronDownIcon } from '../../../Lib/Icons';
 
 export const HeaderBottom = () => {
-	const [ open, setOpen ] = React.useState( false );
-	const filterRef = React.useRef<HTMLDivElement>(null);
-	const tiresRef = React.useRef<HTMLButtonElement>(null);
-	const disksRef = React.useRef<HTMLButtonElement>(null);
-	const [ section, setSection ] = React.useState( 'tires' );
+	const [ open, setOpen ] = useState( false );
+	const filterRef = useRef<HTMLDivElement>(null);
+	const tiresRef = useRef<HTMLButtonElement>(null);
+	const disksRef = useRef<HTMLButtonElement>(null);
+	const [ section, setSection ] = useState( 'tires' );
 	const t = useAppTranslation();
 
-	const handleClick = (value: React.SetStateAction<string>) => {
+	const handleClick = (value: SetStateAction<string>) => {
 		setOpen(!(open && section === value));
 		if (section !== value) {
 			setSection(value);
@@ -38,7 +38,7 @@ export const HeaderBottom = () => {
 		}
 	};
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if(!open) return;
 
 		document.addEventListener('click', handleClickOutside);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppTranslation } from '../../../../hooks';
@@ -12,7 +12,7 @@ interface FilterByCarProps {
 	}[]
 }
 
-export const FilterByCarComponents: React.FC<FilterByCarProps> = ({ filters }) => {
+export const FilterByCarComponents: FC<FilterByCarProps> = ({ filters }) => {
 	const t = useAppTranslation();
 
 	return <>
@@ -22,7 +22,7 @@ export const FilterByCarComponents: React.FC<FilterByCarProps> = ({ filters }) =
 			})}
 		</div>
 		<div className='mt-4 md:mt-10 flex gap-4 flex-col md:flex-row'>
-			<Link to='/catalog/tyres' className='btn secondary w-full md:w-56 uppercase'>
+			<Link to='/catalog/tires' className='btn secondary w-full md:w-56 uppercase'>
 				{t('choose tires')}
 			</Link>
 			<Link to='/catalog/disk' className='btn secondary w-full md:w-56 uppercase'>

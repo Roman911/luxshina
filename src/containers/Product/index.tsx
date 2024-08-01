@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 
 import { useAppTranslation } from '../../hooks';
 
@@ -258,8 +258,8 @@ const dataProducts = {
 }
 
 export const Product = () => {
-	const [isModalActive, setModalActive] = React.useState(false);
-	const [modalType, setModalType] = React.useState('QuickOrder');
+	const [isModalActive, setModalActive] = useState(false);
+	const [modalType, setModalType] = useState('QuickOrder');
 	const t = useAppTranslation();
 
 	const handleModalOpen = (type: 'QuickOrder' | 'OnlineInstallment') => {

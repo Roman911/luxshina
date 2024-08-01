@@ -19,7 +19,7 @@ export const AuthComponent: React.FC<AuthProps> = ({ login, password, error, han
 			<p className="mt-1 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
 				Enter your login and password.
 			</p>
-			<form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
+			<form className="mt-8 mb-2 w-full md:w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
 				<div className="mb-4 flex flex-col gap-6">
 					<div className="relative h-11 w-full min-w-[200px]">
 						<input

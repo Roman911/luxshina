@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
 
 import { useAppTranslation } from '../../../hooks';
@@ -13,8 +13,8 @@ const tabs = [
 ];
 
 export const CharacteristicsBlock = () => {
-	const [tab, setTab] = React.useState('main characteristics');
-	const [showOptions, setShowOptions] = React.useState(false);
+	const [tab, setTab] = useState('main characteristics');
+	const [showOptions, setShowOptions] = useState(false);
 	const t = useAppTranslation();
 
 	return <section className='mt-8 md:mt-16'>

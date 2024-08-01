@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { useAppTranslation } from '../../../../hooks';
@@ -12,8 +12,8 @@ interface ContactsProps {
 	className?: string
 }
 
-export const Contacts: React.FC<ContactsProps> = ({ className }) => {
-	const [ showOptions, setShowOptions ] = React.useState(false);
+export const Contacts: FC<ContactsProps> = ({ className }) => {
+	const [ showOptions, setShowOptions ] = useState(false);
 	const t = useAppTranslation();
 
 	return <div className={classNames('relative text-left', className)}>

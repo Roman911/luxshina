@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { baseDataAPI } from '../../../services/baseDataService';
 
@@ -9,7 +9,7 @@ interface FilterAltProps {
 	closeFilter: () => void
 }
 
-export const FilterAlt: React.FC<FilterAltProps> = ({ isOpenFilter, closeFilter }) => {
+export const FilterAlt: FC<FilterAltProps> = ({ isOpenFilter, closeFilter }) => {
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 
 	return <FilterAltComponent data={ data } isOpenFilter={ isOpenFilter } closeFilter={ closeFilter } />

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
@@ -6,7 +6,7 @@ interface PaymentProps {
 	lang: string
 }
 
-export const Payment: React.FC<PaymentProps> = ({ lang }) => {
+export const Payment: FC<PaymentProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
 		{ lang === 'ua' ? <>
 			<h3>Готівкою</h3>

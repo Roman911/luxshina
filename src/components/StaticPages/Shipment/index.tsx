@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
@@ -6,7 +6,7 @@ interface ShipmentProps {
 	lang: string
 }
 
-export const Shipment: React.FC<ShipmentProps> = ({ lang }) => {
+export const Shipment: FC<ShipmentProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
 		{ lang === 'ua' ? <>
 			<h3>Доставка товару по всій Україні здійснюється транспортною компанією Нова Пошта</h3>

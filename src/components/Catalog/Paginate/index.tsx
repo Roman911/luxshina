@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import './index.scss';
@@ -7,10 +7,10 @@ const items = [...Array(133).keys()];
 const itemsPerPage = 4;
 
 export const Paginate = () => {
-	const [ itemOffset, setItemOffset ] = React.useState(0);
-	const [ pageRangeDisplayed, setPageRangeDisplayed ] = React.useState(3);
+	const [ itemOffset, setItemOffset ] = useState(0);
+	const [ pageRangeDisplayed, setPageRangeDisplayed ] = useState(3);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if(window.innerWidth < 768) {
 			setPageRangeDisplayed(1);
 		}

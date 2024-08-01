@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
@@ -6,7 +6,7 @@ interface PublicOfferProps {
 	lang: string
 }
 
-export const PublicOffer: React.FC<PublicOfferProps> = ({ lang }) => {
+export const PublicOffer: FC<PublicOfferProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
 		{lang === 'ua' ? <>
 			<h3>ДОГОВІР ПУБЛІЧНОЇ ОФЕРТИ</h3>

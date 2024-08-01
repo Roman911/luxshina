@@ -3,6 +3,8 @@ import { baseDataAPI } from '../../../services/baseDataService';
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { FilterComponent } from '../../../components/Home';
 
+import { Section } from '../../../models/filter';
+
 export const Filter = () => {
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { section } = useAppSelector(state => state.filterReducer);
@@ -11,7 +13,7 @@ export const Filter = () => {
 	const getFilters = () => {
 		const filterConfigs = [];
 
-		if(section === 'tyre') {
+		if(section === Section.Tires) {
 			filterConfigs.push({
 				label: t('width', true),
 				name: 'width',
@@ -50,7 +52,7 @@ export const Filter = () => {
 				name: 'year',
 				options: [{ label: 2024, value: 2024 }, { label: 2023, value: 2023 }, { label: 2022, value: 2022 }, { label: 2021, value: 2021 }]
 			});
-		} else if(section === 'disk') {
+		} else if(section === Section.Disks) {
 			filterConfigs.push({
 				label: t('brand', true),
 				name: 'brand',

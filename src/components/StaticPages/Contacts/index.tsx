@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
@@ -10,7 +10,7 @@ interface ContactsProps {
 	lang: string
 }
 
-export const Contacts: React.FC<ContactsProps> = ({ lang }) => {
+export const Contacts: FC<ContactsProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
 		<div className='flex items-center'>
 			<img src={vodafoneLogo} alt="vodafone-logo"/>

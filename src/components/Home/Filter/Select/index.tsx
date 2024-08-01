@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { ChevronDownIcon } from '../../../Lib/Icons';
@@ -13,8 +13,8 @@ interface SelectProps {
 	}[] | undefined
 }
 
-export const Select: React.FC<SelectProps> = ({ label, options }) => {
-	const [ show, setShow ] = React.useState(false);
+export const Select: FC<SelectProps> = ({ label, options }) => {
+	const [ show, setShow ] = useState(false);
 
 	return <div className='w-full md:mx-auto'>
 		<div className="relative">

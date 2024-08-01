@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
@@ -6,7 +6,7 @@ interface AboutUsProps {
 	lang: string
 }
 
-export const AboutUs: React.FC<AboutUsProps> = ({ lang }) => {
+export const AboutUs: FC<AboutUsProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
 		{ lang === 'ua' ? <>
 			<h3>Вітаємо Вас у інтернет магазині автомобільних шин та дисків Люксшина.</h3>

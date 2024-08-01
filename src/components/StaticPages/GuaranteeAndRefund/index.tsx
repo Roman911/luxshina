@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
@@ -6,7 +6,7 @@ interface GuaranteeAndRefundProps {
 	lang: string
 }
 
-export const GuaranteeAndRefund: React.FC<GuaranteeAndRefundProps> = ({ lang }) => {
+export const GuaranteeAndRefund: FC<GuaranteeAndRefundProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
 		{lang === 'ua' ? <>
 			<h3>На всі куплені товари у інтернет-магазині On-tires.com діє заводська гарантія від виробника.</h3>

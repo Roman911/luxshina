@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -15,11 +15,11 @@ interface ProductCardProps {
 	item: itemProps
 	isBookmarks: boolean
 	isComparison: boolean
-	addToDefense: (event: React.MouseEvent<HTMLButtonElement>, id: number) => void
-	addToComparison: (event: React.MouseEvent<HTMLButtonElement>, id: number) => void
+	addToDefense: (event: MouseEvent<HTMLButtonElement>, id: number) => void
+	addToComparison: (event: MouseEvent<HTMLButtonElement>, id: number) => void
 }
 
-export const ProductCardComponent: React.FC<ProductCardProps> = ({ item, isBookmarks, isComparison, addToDefense, addToComparison }) => {
+export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, isComparison, addToDefense, addToComparison }) => {
 	const { best_offer, full_name, group, model, min_price, comments_count, comments_avg_rate } = item;
 	const param = full_name.replace(/[\s/]+/g, '-').toLowerCase();
 

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link as LinkRRD, useParams } from 'react-router-dom';
 
 interface LinkProps {
@@ -7,7 +7,7 @@ interface LinkProps {
 	children: ReactNode
 }
 
-export const Link: React.FC<LinkProps> = ({ children, to, className }) => {
+export const Link: FC<LinkProps> = ({ children, to, className }) => {
 	const params = useParams();
 	const href = `${params.lang ? '/' + params.lang : ''}${to}`
 

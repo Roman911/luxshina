@@ -1,4 +1,4 @@
-import { QuickOrderComponent } from '../../../components/Modals/QuickOrder';
+import { QuickOrderComponent } from '../../../components/Modals';
 
 export const QuickOrder = () => {
 	return <QuickOrderComponent />

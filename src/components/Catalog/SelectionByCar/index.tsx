@@ -1,9 +1,11 @@
 import { useAppSelector } from '../../../hooks';
 
+import { Subsection } from '../../../models/filter';
+
 export const SelectionByCar = () => {
 	const { subsection } = useAppSelector(state => state.filterReducer);
 
-	if(subsection === 'byParams') return null
+	if(subsection === Subsection.ByParams) return null
 
 	return <div className='mb-5 border-y py-4'>
 		<div className='text-sm text-gray-500'>Ваш авто:</div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { langSlice } from '../../store/reducers/langSlice';
@@ -13,16 +13,12 @@ export const Layout = () => {
 	const lang = localStorage.getItem('lang');
 	const user = localStorage.getItem('user');
 
-	React.useEffect(() => {
-		if(!user) {
-			return navigate('/auth')
-		}
+	useEffect(() => {
+		if(!user) return navigate('/auth');
 	}, [navigate, user])
 
-	React.useEffect(() => {
-		if(lang) {
-			dispatch(changedLang(lang))
-		}
+	useEffect(() => {
+		if(lang) dispatch(changedLang(lang));
 	}, [changedLang, dispatch, lang])
 
 	return <>

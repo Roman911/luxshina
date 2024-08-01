@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { ChevronDownIcon } from '../../../Lib/Icons';
@@ -14,8 +14,8 @@ interface SelectProps {
 	}[] | undefined
 }
 
-export const Select: React.FC<SelectProps> = ({ name, label, variant, options }) => {
-	const [ open, setOpen ] = React.useState( false );
+export const Select: FC<SelectProps> = ({ name, label, variant, options }) => {
+	const [ open, setOpen ] = useState( false );
 
 	return <div className="relative mt-2">
 		<button type="button"

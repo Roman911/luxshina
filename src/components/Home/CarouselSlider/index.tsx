@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { Carousel } from 'react-responsive-carousel';
@@ -14,11 +14,11 @@ const slides = [
 ]
 
 export const CarouselSlider = () => {
-	const [width, setWidth] = React.useState('desktop');
-	const [ isMobile, setMobile ] = React.useState(false);
+	const [width, setWidth] = useState('desktop');
+	const [ isMobile, setMobile ] = useState(false);
 	const t = useAppTranslation();
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if(window.innerWidth < 768) {
 			setWidth('gadget');
 		}

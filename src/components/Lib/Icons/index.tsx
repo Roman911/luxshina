@@ -27,5 +27,5 @@ export { SpecialEquipmentIcon } from './SpecialEquipmentIcon';
 export { SunIcon } from './SunIcon';
 export { SuvIcon } from './SuvIcon';
 export { TelegramIcon } from './TelegramIcon';
-export { TyreIcon } from './TyreIcon';
+export { TireIcon } from './TireIcon';
 export { ViberIcon } from './ViberIcon';

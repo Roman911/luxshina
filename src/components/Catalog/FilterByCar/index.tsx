@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import classNames from "classnames";
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
@@ -9,8 +9,8 @@ interface FilterByCarProps {
 	openFilter: () => void
 }
 
-export const FilterByCar: React.FC<FilterByCarProps> = ({ openFilter }) => {
-	const [ openSort, setOpenSort ] = React.useState(false);
+export const FilterByCar: FC<FilterByCarProps> = ({ openFilter }) => {
+	const [ openSort, setOpenSort ] = useState(false);
 	const { subsection } = useAppSelector(state => state.filterReducer);
 	const t = useAppTranslation();
 

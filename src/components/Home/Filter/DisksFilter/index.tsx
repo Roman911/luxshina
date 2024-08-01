@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from "react-router-dom";
 
 import { useAppTranslation } from '../../../../hooks';
@@ -17,7 +17,7 @@ interface DisksFilterProps {
 	}[]
 }
 
-export const DisksFilter: React.FC<DisksFilterProps> = ({ filters }) => {
+export const DisksFilter: FC<DisksFilterProps> = ({ filters }) => {
 	const t = useAppTranslation();
 
 	return <>

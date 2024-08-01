@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useAppSelector, useAppTranslation } from '../../hooks';
@@ -13,26 +13,23 @@ interface StaticPageProps {
 	title: string
 }
 
-export const StaticPage: React.FC<StaticPageProps> = ({ page, title }) => {
+export const StaticPage: FC<StaticPageProps> = ({ page, title }) => {
 	const t = useAppTranslation();
 	const { lang } = useAppSelector(state => state.langReducer);
 
 	const renderPage = (page: string, lang: string) => {
-		switch(page) {
-			case 'shipment':
-				return <Shipment lang={ lang } />;
-			case 'payment':
-				return <Payment lang={ lang } />;
-			case 'contacts':
-				return <Contacts lang={ lang } />;
-			case 'guarantee-and-refund':
-				return <GuaranteeAndRefund lang={ lang } />;
-			case 'public-offer':
-				return <PublicOffer lang={ lang } />;
-			default:
-				return <AboutUs lang={ lang } />;
-		}
-	}
+		const pageComponents: Record<string, FC<{ lang: string }>> = {
+			shipment: Shipment,
+			payment: Payment,
+			contacts: Contacts,
+			'guarantee-and-refund': GuaranteeAndRefund,
+			'public-offer': PublicOffer,
+			default: AboutUs,
+		};
+
+		const PageComponent = pageComponents[page] || pageComponents.default;
+		return <PageComponent lang={lang} />;
+	};
 
 	return <LayoutWrapper>
 		<Helmet>

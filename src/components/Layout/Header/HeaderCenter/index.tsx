@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, SetStateAction } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
@@ -12,14 +12,14 @@ import { CarTireFilter } from "../HeaderBottom/CarTireFilter";
 import { CarDiskFilter } from "../HeaderBottom/CarDiskFilter";
 
 export const HeaderCenter = () => {
-	const [ filterIsOpen, setFilterOpen ] = React.useState<boolean | string>(false);
-	const [ openMenu, setOpenMenu ] = React.useState(false);
+	const [ filterIsOpen, setFilterOpen ] = useState<boolean | string>(false);
+	const [ openMenu, setOpenMenu ] = useState(false);
 
 	const t = useAppTranslation();
 	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
 	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
 
-	const handleClick = (value: React.SetStateAction<boolean | string>) => {
+	const handleClick = (value: SetStateAction<boolean | string>) => {
 		if (filterIsOpen !== value) {
 			setFilterOpen(value);
 		} else {

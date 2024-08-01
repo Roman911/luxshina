@@ -1,12 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import { itemProps } from '../../models/productCard.ts';
 
 interface ComparisonProps {
 	data: itemProps[]
 }
 
-export const ComparisonComponent: React.FC<ComparisonProps> = ({ data }) => {
-
+export const ComparisonComponent: FC<ComparisonProps> = ({ data }) => {
 	return <div className='flex relative'>
 		<div className='w-60'>
 			<div>Скинути все</div>

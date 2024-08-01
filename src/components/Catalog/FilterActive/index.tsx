@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 
 import { useAppTranslation } from '../../../hooks';
@@ -12,7 +12,7 @@ const filterActive = [
 	'Зимові', 'Шип', 'Galaxy', 'Росава', '215'
 ];
 
-export const FilterActive: React.FC<FilterActiveProps> = ({ className }) => {
+export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
 	const t = useAppTranslation();
 
 	return <div className={ classNames('mb-4 flex-wrap justify-end gap-x-2 gap-y-3 lg:gap-4 text-end bg-blue-50 lg:bg-transparent p-4 lg:p-0', className) }>

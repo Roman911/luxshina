@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 
 interface RatingProps {
@@ -6,7 +6,7 @@ interface RatingProps {
 	commentsAvgRate: number,
 }
 
-export const Rating: React.FC<RatingProps> = ({ commentsAvgRate, commentsCount }) => {
+export const Rating: FC<RatingProps> = ({ commentsAvgRate, commentsCount }) => {
 	return <div className='flex items-center h-6'>
 		<div className='flex gap-1'>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className={classNames('w-3 h-3', { 'text-gray-500': commentsAvgRate < 0.5 }, {'text-amber-400': commentsAvgRate >= 0.5})}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { addBookmarks, removeBookmarks } from '../../../store/reducers/bookmarksSlice';
 import { addComparison, removeComparison } from '../../../store/reducers/comparisonSlice';
@@ -11,7 +11,7 @@ interface ProductCardProps {
 	item: itemProps
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
+export const ProductCard: FC<ProductCardProps> = ({ item }) => {
 	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
 	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
 	const dispatch = useAppDispatch();

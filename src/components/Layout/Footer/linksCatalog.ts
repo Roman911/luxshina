@@ -1,6 +1,6 @@
 export const linksCatalog = [
 	{
-		link: '/catalog/tyres',
+		link: '/catalog/tires',
 		title: 'cartires',
 	},
 	{
@@ -12,11 +12,11 @@ export const linksCatalog = [
 		title: 'disks',
 	},
 	{
-		link: '/catalog/tyres',
+		link: '/catalog/tires',
 		title: 'cargo tires',
 	},
 	{
-		link: '/catalog/tyres',
+		link: '/catalog/tires',
 		title: 'motorcycle tires',
 	},
 	{

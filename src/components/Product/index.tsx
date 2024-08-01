@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import './index.scss';
 
 import { useAppSelector, useAppTranslation } from '../../hooks';
@@ -19,7 +19,7 @@ interface ProductComponentProps extends ProductProps {
 	handleModalOpen: (type: 'QuickOrder' | 'OnlineInstallment') => void
 }
 
-export const ProductComponent: React.FC<ProductComponentProps> = ({ data, handleModalOpen }) => {
+export const ProductComponent: FC<ProductComponentProps> = ({ data, handleModalOpen }) => {
 	const { lang } = useAppSelector(state => state.langReducer)
 	const t = useAppTranslation();
 

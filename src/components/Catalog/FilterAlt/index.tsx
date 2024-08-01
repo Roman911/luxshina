@@ -1,22 +1,30 @@
-import React from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
-import { changeSubsection } from '../../../store/reducers/filterSlice';
+import { changeSection, changeSubsection } from '../../../store/reducers/filterSlice';
 
 import { FilterActive } from '../FilterActive';
 import { Select } from './Select';
 import { CloseIcon } from '../../Lib/Icons';
 
+import { Section, Subsection } from '../../../models/filter';
 import type { BaseDataProps } from '../../../models/baseData';
+
+const customTireSeason = [
+	{ name: 'летние', name_ua: 'літні'},
+	{ name: 'зимние', name_ua: 'зимові'},
+	{ name: 'всесезонные', name_ua: 'всесезонні'},
+]
+
 interface FilterAltProps {
 	data: BaseDataProps | undefined
 	isOpenFilter: boolean
 	closeFilter: () => void
 }
 
-export const FilterAltComponent: React.FC<FilterAltProps> = ({ data, isOpenFilter, closeFilter }) => {
-	const { subsection } = useAppSelector(state => state.filterReducer);
+export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, closeFilter }) => {
+	const { section, subsection } = useAppSelector(state => state.filterReducer);
 	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
 
@@ -34,37 +42,41 @@ export const FilterAltComponent: React.FC<FilterAltProps> = ({ data, isOpenFilte
 		/>
 	);
 
-	const customTyreSeason = [
-		{ name: 'летние', name_ua: 'літні'},
-		{ name: 'зимние', name_ua: 'зимові'},
-		{ name: 'всесезонные', name_ua: 'всесезонні'},
-	]
-
-	const tyreSeason = data?.tyre_season.map((i, index) => {
+	const tireSeason = data?.tyre_season.map((i, index) => {
 		return {
 			...i,
-			name: customTyreSeason[index].name,
-			name_ua: customTyreSeason[index].name_ua
+			name: customTireSeason[index].name,
+			name_ua: customTireSeason[index].name_ua
 		}
 	});
 
-	return <div className={ classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block', { 'hidden': !isOpenFilter }) }>
+	const renderTab = (value: Section) => {
+		return <button
+			onClick={ () => dispatch(changeSection(value)) }
+			className={ classNames('text-sm font-bold uppercase py-3.5 rounded-t-sm border border-slate-200 border-b-0', {
+				'bg-white': section === value,
+				'bg-slate-200 text-gray-500': section !== value,
+			}) }
+		>
+			{ t(value, true) }
+		</button>
+	}
+
+	return <div
+		className={classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block', {'hidden': !isOpenFilter }) }>
 		<button onClick={ () => closeFilter() } className='absolute top-5 right-5 lg:hidden'>
 			<CloseIcon className='fill-[#B9B9BA] w-7 h-7' />
 		</button>
 		<div className='filter h-screen lg:h-auto w-[calc(100%-70px)] lg:w-64 mr-6 pt-4 lg:pt-0 bg-white lg:bg-transparent'>
 			<div className='filter-tabs grid grid-cols-2 gap-2.5 -mb-[1px]'>
-				<button
-					className='bg-white text-sm font-bold uppercase py-3.5 rounded-t-sm border border-slate-200 border-b-0'>{t('tires', true)}</button>
-				<button
-					className='bg-slate-200 text-gray-500 text-sm font-bold uppercase py-3.5 rounded-t-sm border border-slate-200'>Диски
-				</button>
+				{ renderTab(Section.Tires) }
+				{ renderTab(Section.Disks) }
 			</div>
 			<div className='h-full px-4 py-4 lg:py-7 bg-white border border-gray-200'>
 				<FilterActive className='flex lg:hidden' />
 				<div className='flex lg:justify-between gap-x-5'>
 					<button
-						onClick={() => dispatch(changeSubsection('byParams'))}
+						onClick={() => dispatch(changeSubsection(Subsection.ByParams))}
 						className={classNames('font-bold uppercase lg:normal-case', {
 							'text-blue-500': subsection === 'byParams',
 							'text-gray-500': subsection !== 'byParams'
@@ -73,7 +85,7 @@ export const FilterAltComponent: React.FC<FilterAltProps> = ({ data, isOpenFilte
 						{t('by parameters', true)}
 					</button>
 					<button
-						onClick={() => dispatch(changeSubsection('byCars'))}
+						onClick={() => dispatch(changeSubsection(Subsection.ByCars))}
 						className={classNames('font-bold uppercase lg:normal-case', {
 							'text-blue-500': subsection === 'byCars',
 							'text-gray-500': subsection !== 'byCars'
@@ -125,7 +137,7 @@ export const FilterAltComponent: React.FC<FilterAltProps> = ({ data, isOpenFilte
 						'modification',
 						t('modification', true),
 						'gray',
-						tyreSeason?.map(item => ({value: item.id, label: item.name_ua}))
+						tireSeason?.map(item => ({value: item.id, label: item.name_ua}))
 					)}
 					<button className='btn secondary w-full mt-4 border'>
 						{ t('pick up', true) }
@@ -135,7 +147,7 @@ export const FilterAltComponent: React.FC<FilterAltProps> = ({ data, isOpenFilte
 					'season',
 					'Сезон',
 					'white',
-					tyreSeason?.map(item => ({value: item.id, label: item.name_ua}))
+					tireSeason?.map(item => ({value: item.id, label: item.name_ua}))
 				)}
 				{renderSelect(
 					'brand',

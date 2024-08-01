@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { ProductList } from '../../ProductList';
 import { FilterByCar } from '../../../components/Catalog/FilterByCar';
@@ -833,7 +833,7 @@ interface CatalogContentProps {
 	openFilter: () => void
 }
 
-export const CatalogContent: React.FC<CatalogContentProps> = ({ openFilter }) => {
+export const CatalogContent: FC<CatalogContentProps> = ({ openFilter }) => {
 	return <div className='flex-1'>
 		<FilterByCar openFilter={ openFilter } />
 		<SelectionByCar />

@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppTranslation } from '../../../../hooks';
 
 import { Select } from '../Select';
 import { CloudIcon, SnowIcon, SunIcon } from '../../../Lib/Icons';
 
-interface TyresFilterProps {
+interface TiresFilterProps {
 	filters: {
 		focusValue?: number | string
 		label: string
@@ -19,7 +19,7 @@ interface TyresFilterProps {
 	}[]
 }
 
-export const TyresFilter: React.FC<TyresFilterProps> = ({ filters }) => {
+export const TiresFilter: FC<TiresFilterProps> = ({ filters }) => {
 	const t = useAppTranslation();
 
 	return <>
@@ -51,7 +51,7 @@ export const TyresFilter: React.FC<TyresFilterProps> = ({ filters }) => {
 			</button>
 		</div>
 		<div className='mt-4 md:mt-10'>
-			<Link to='/catalog/tyres' className='btn secondary w-full md:w-72 uppercase'>
+			<Link to='/catalog/tires' className='btn secondary w-full md:w-72 uppercase'>
 				{t('choose tires')}
 			</Link>
 		</div>

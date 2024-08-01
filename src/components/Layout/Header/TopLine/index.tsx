@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 //import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -13,7 +13,7 @@ interface TopLineProps {
 	changedAppLang: (lang: string) => void
 }
 
-export const TopLine:React.FC<TopLineProps> = ({ lang, changedAppLang }) => {
+export const TopLine: FC<TopLineProps> = ({ lang, changedAppLang }) => {
 	const t = useAppTranslation();
 
 	return <div className='bg-black text-white'>

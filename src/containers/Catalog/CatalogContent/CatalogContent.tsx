@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { ProductList } from '../../ProductList';
 import { FilterByCar } from '../../../components/Catalog/FilterByCar';
-import { FilterActive } from '../../../components/Catalog/FilterActive';
+import { FilterActive } from '../FilterActive';
 import { SelectionByCar } from '../../../components/Catalog/SelectionByCar';
 import { Paginate } from '../../../components/Catalog/Paginate';
 

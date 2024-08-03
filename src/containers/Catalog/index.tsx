@@ -1,5 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
+import { useAppDispatch } from '../../hooks';
+import { setParams } from '../../store/reducers/filterSlice';
+
+import { parseUrl } from './seo';
 import { FilterAlt } from './FilterAlt';
 import { CatalogContent } from './CatalogContent/CatalogContent';
 import { LayoutWrapper } from '../../components/Layout';
@@ -8,6 +13,14 @@ import { TextSeo } from '../../components/Home';
 
 export const Catalog = () => {
 	const [ isOpenFilter, setOpenFilter ] = useState(false);
+	const dispatch = useAppDispatch();
+
+	const params = useParams();
+
+	useEffect(() => {
+		const url = parseUrl(params['*']);
+		dispatch(setParams(url));
+	}, [dispatch, params]);
 
 	const closeFilter = () => {
 		setOpenFilter(false);

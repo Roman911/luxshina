@@ -62,9 +62,16 @@ export const filterSlice = createSlice({
 		changeSection: (state, actions: PayloadAction<Section>) => {
 			state.section = actions.payload;
 		},
+		setParams: (state, actions: PayloadAction<IFilter>) => {
+			state.filter = {...state.filter, ...actions.payload}
+		},
+		removeParam: (state, actions: PayloadAction<IFilter>) => {
+			console.log({...state.filter, ...actions.payload})
+			state.filter = {...state.filter, ...actions.payload}
+		},
 	},
 })
 
-export const { changeSubsection, changeSection } = filterSlice.actions
+export const { changeSubsection, changeSection, setParams, removeParam } = filterSlice.actions
 
 export default filterSlice.reducer

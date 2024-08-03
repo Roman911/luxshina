@@ -4,6 +4,7 @@ export { CargoIcon } from './CargoIcon';
 export { CarIcon } from './CarIcon';
 export { CartIcon } from './CartIcon';
 export { ChevronDownIcon } from './ChevronDownIcon';
+export { ClearInputIcon } from './ClearInputIcon';
 export { CloseIcon } from './CloseIcon';
 export { CloseMenuIcon } from './CloseMenuOpen';
 export { CloudIcon } from './CloudIcon';

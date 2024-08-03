@@ -6,7 +6,7 @@ export const ROUTES = {
 	contacts: ':lang?/contacts',
 	guaranteeAndRefund: ':lang?/guarantee-and-refund',
 	publicOffer: ':lang?/public-offer',
-	catalog: ':lang?/catalog/:section',
+	catalog: ':lang?/catalog/:section/*',
 	bookmarks: ':lang?/bookmarks/',
 	comparison: ':lang?/comparison/',
 	cart: ':lang?/cart/',

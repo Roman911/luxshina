@@ -10,22 +10,26 @@ import { FilterByCar } from '../../../containers/Home/FilterByCar';
 
 import { Section } from '../../../models/filter';
 
+interface IOption {
+	value: number
+	label: number | string
+	p?: number
+}
+
 interface FilterProps {
 	section: Section
 	data: {
 		focusValue?: number | string
 		label: string
 		name: string
-		options: {
-			label: number | string
-			p?: number
-			value: number
-		}[] | undefined
+		options: IOption[] | undefined
 		wide: boolean
 	}[]
+	onChange: (name: string, value: number | undefined) => void
+	onSubmit: () => void
 }
 
-export const FilterComponent: FC<FilterProps> = ({ data, section }) => {
+export const FilterComponent: FC<FilterProps> = ({ data, section, onChange, onSubmit }) => {
 	const [isOpen, setOpen] = useState(false);
 	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
@@ -39,11 +43,11 @@ export const FilterComponent: FC<FilterProps> = ({ data, section }) => {
 	const renderFilter = () => {
 		switch(section) {
 			case Section.Disks:
-				return <DisksFilter filters={data}/>;
+				return <DisksFilter filters={data} onChange={ onChange } onSubmit={ onSubmit } />;
 			case Section.Car:
 				return <FilterByCar/>;
 			default:
-				return <TiresFilter filters={data}/>;
+				return <TiresFilter filters={data} onChange={ onChange } onSubmit={ onSubmit } />;
 		}
 	};
 
@@ -55,10 +59,10 @@ export const FilterComponent: FC<FilterProps> = ({ data, section }) => {
 			</h1>
 			<div className="mt-2 lg:mt-11 flex flex-col md:flex-row text-blue-300">
 				<Tab name={ Section.Tires } section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('tires by parameters') }>
-					<TiresFilter filters={ data }/>
+					<TiresFilter filters={ data } onChange={ onChange } onSubmit={ onSubmit } />
 				</Tab>
 				<Tab name={ Section.Disks } section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('disks by parameters') }>
-					<DisksFilter filters={ data }/>
+					<DisksFilter filters={ data } onChange={ onChange } onSubmit={ onSubmit } />
 				</Tab>
 				<Tab name={ Section.Car } section={ section } isOpen={ isOpen } handleClick={ handleClick } label={ t('selection by car') }>
 					<FilterByCar/>

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
 import { changeSection, changeSubsection } from '../../../store/reducers/filterSlice';
 
-import { FilterActive } from '../FilterActive';
+import { FilterActive } from '../../../containers/Catalog/FilterActive';
 import { Select } from './Select';
 import { CloseIcon } from '../../Lib/Icons';
 

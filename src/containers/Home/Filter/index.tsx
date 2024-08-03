@@ -1,11 +1,17 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { baseDataAPI } from '../../../services/baseDataService';
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { FilterComponent } from '../../../components/Home';
 
 import { Section } from '../../../models/filter';
+import { generateUrl } from '../../Catalog/seo';
 
 export const Filter = () => {
+	const [filter, setFilter] = useState({});
+	const navigate = useNavigate();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { section } = useAppSelector(state => state.filterReducer);
 	const t = useAppTranslation();
@@ -89,5 +95,33 @@ export const Filter = () => {
 		}));
 	};
 
-	return <FilterComponent data={ getFilters() } section={ section } />
+	const onChange = (name: string, value: number | undefined) => {
+		if(value) {
+			setFilter(prev => ({ ...prev, [name]: value}));
+		}
+	}
+
+	const pathBySection = (section: Section) => {
+		switch (section) {
+			case Section.Tires:
+				return 'tyres/';
+			case Section.Disks:
+				return 'disks/';
+			default:
+				return section;
+		}
+	}
+
+	const submit = () => {
+		const searchUrl = generateUrl(filter);
+		const rout = `/catalog/${pathBySection(section)}`;
+		navigate(rout + searchUrl + '/');
+	}
+
+	return <FilterComponent
+		data={ getFilters() }
+		section={ section }
+		onChange={ onChange }
+		onSubmit={ submit }
+	/>
 }

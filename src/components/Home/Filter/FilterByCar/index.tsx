@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppTranslation } from '../../../../hooks';
-import { Select } from '../Select';
+import { MySelect } from '../Select';
 
 interface FilterByCarProps {
 	filters: {
@@ -18,7 +18,7 @@ export const FilterByCarComponents: FC<FilterByCarProps> = ({ filters }) => {
 	return <>
 		<div className='grid grid-cols-1 md:grid-cols-2 gap-2.5 md:mt-7'>
 			{filters.map(item => {
-				return <Select key={item.name} name={item.name} label={item.label} options={item.options}/>
+				return <MySelect key={item.name} name={item.name} label={item.label} options={item.options}/>
 			})}
 		</div>
 		<div className='mt-4 md:mt-10 flex gap-4 flex-col md:flex-row'>

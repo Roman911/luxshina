@@ -18,8 +18,11 @@ export const Catalog = () => {
 	const params = useParams();
 
 	useEffect(() => {
-		const url = parseUrl(params['*']);
-		dispatch(setParams(url));
+		if(params['*']) {
+			const url = parseUrl(params['*']);
+			dispatch(setParams(url));
+		}
+
 	}, [dispatch, params]);
 
 	const closeFilter = () => {

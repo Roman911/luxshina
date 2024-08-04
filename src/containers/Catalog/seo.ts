@@ -66,7 +66,7 @@ type ParsedResult = {
 	[key: string]: string;
 };
 
-export const parseUrl = (url: string | undefined): ParsedResult => {
+export const parseUrl = (url: string): ParsedResult => {
 	const urlParts = url.split('/');
 	if (urlParts.length === 0) return {};
 

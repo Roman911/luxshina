@@ -115,7 +115,7 @@ export const Filter = () => {
 	const submit = () => {
 		const searchUrl = generateUrl(filter);
 		const rout = `/catalog/${pathBySection(section)}`;
-		navigate(rout + searchUrl + '/');
+		navigate(rout + searchUrl);
 	}
 
 	return <FilterComponent

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
+import { Link } from '../../../lib/Links';
 import { useAppSelector, useAppTranslation } from '../../../hooks';
-
 import { OurAdvantages } from '../../Home';
 
 import { ChevronDownIcon, EmailIcon, PhoneIcon } from '../../Lib/Icons';

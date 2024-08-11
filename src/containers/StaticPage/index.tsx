@@ -16,6 +16,13 @@ interface StaticPageProps {
 export const StaticPage: FC<StaticPageProps> = ({ page, title }) => {
 	const t = useAppTranslation();
 	const { lang } = useAppSelector(state => state.langReducer);
+	const path = [
+		{
+			id: 1,
+			title: t(title, true),
+			url: '/'
+		}
+	]
 
 	const renderPage = (page: string, lang: string) => {
 		const pageComponents: Record<string, FC<{ lang: string }>> = {
@@ -35,7 +42,7 @@ export const StaticPage: FC<StaticPageProps> = ({ page, title }) => {
 		<Helmet>
 			<title>{ t(title, true) } | luxshina.ua</title>
 		</Helmet>
-		<Breadcrumbs/>
+		<Breadcrumbs path={ path }/>
 		<Title title={ title } />
 		{ renderPage(page, lang) }
 	</LayoutWrapper>

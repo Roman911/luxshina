@@ -2,7 +2,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 
-import { Link } from '../../Links';
+import { Link } from '../../../lib/Links';
 import { PopularItem, Title } from '../../Lib';
 
 import { popularBrands } from './popularBrands';

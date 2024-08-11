@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
 import { setParams } from '../../store/reducers/filterSlice';
 
-import { parseUrl } from './seo';
+import { generateUrl, parseUrl } from './seo';
 import { FilterAlt } from './FilterAlt';
 import { CatalogContent } from './CatalogContent/CatalogContent';
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { TextSeo } from '../../components/Home';
+import { Section } from '../../models/filter';
 
 export const Catalog = () => {
 	const [ isOpenFilter, setOpenFilter ] = useState(false);
+	const { filter, section } = useAppSelector(state => state.filterReducer);
+	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const params = useParams();
 
@@ -25,6 +30,14 @@ export const Catalog = () => {
 
 	}, [dispatch, params]);
 
+	const path = [
+		{
+			id: 1,
+			title: t(section, true),
+			url: '/catalog/tyres/'
+		}
+	]
+
 	const closeFilter = () => {
 		setOpenFilter(false);
 	}
@@ -33,11 +46,32 @@ export const Catalog = () => {
 		setOpenFilter(true);
 	}
 
+	const pathBySection = (section: Section) => {
+		switch (section) {
+			case Section.Tires:
+				return 'tyres/';
+			case Section.Disks:
+				return 'disks/';
+			default:
+				return section;
+		}
+	}
+
+	const onSubmit = () => {
+		console.log('submit', filter);
+		const searchUrl = generateUrl({width: 205, height: 65});
+		const rout = `/catalog/${pathBySection(section)}`;
+		navigate(rout + searchUrl);
+	}
+
 	return <LayoutWrapper>
-		<Breadcrumbs />
+		<Helmet>
+			<title>{ t(section, true) } | luxshina.ua</title>
+		</Helmet>
+		<Breadcrumbs path={ path } />
 		<div className='py-5 lg:flex'>
 			<FilterAlt isOpenFilter={ isOpenFilter } closeFilter={ closeFilter } />
-			<CatalogContent openFilter={ openFilter } />
+			<CatalogContent openFilter={ openFilter } onSubmit={onSubmit} />
 		</div>
 		<TextSeo />
 	</LayoutWrapper>

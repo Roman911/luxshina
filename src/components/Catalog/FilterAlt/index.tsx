@@ -1,20 +1,22 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
-import { changeSection, changeSubsection } from '../../../store/reducers/filterSlice';
+import { changeSection, changeSubsection, setParams } from '../../../store/reducers/filterSlice';
 
 import { FilterActive } from '../../../containers/Catalog/FilterActive';
 import { Select } from './Select';
+import { SelectFromTo } from './SelectFromTo';
 import { CloseIcon } from '../../Lib/Icons';
 
 import { Section, Subsection } from '../../../models/filter';
 import type { BaseDataProps } from '../../../models/baseData';
+import { SubmitFloat } from "./SubmitFloat";
 
 const customTireSeason = [
 	{ name: 'летние', name_ua: 'літні'},
-	{ name: 'зимние', name_ua: 'зимові'},
 	{ name: 'всесезонные', name_ua: 'всесезонні'},
+	{ name: 'зимние', name_ua: 'зимові'},
 ]
 
 interface FilterAltProps {
@@ -24,21 +26,30 @@ interface FilterAltProps {
 }
 
 export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, closeFilter }) => {
-	const { section, subsection } = useAppSelector(state => state.filterReducer);
+	const { section, subsection, filter } = useAppSelector(state => state.filterReducer);
+	const [ element, setElement ] = useState<HTMLElement | null>(null);
 	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
+
+	const onChange = (name: string, value: number | undefined | null, element: HTMLElement) => {
+		setElement(element);
+		dispatch(setParams({ [name]: value }));
+	}
 
 	const renderSelect = (
 		name: string,
 		label: string,
 		variant: 'white' | 'gray',
-		options: Array<{ id?: number, value: number; label: number | string; p?: number, name?: string, name_ua?: string }> = []
+		options: Array<{ id?: number, value: number; label: number | string; p?: number, name?: string, name_ua?: string }> = [],
+		value?: null | number | string
 	) => (
 		<Select
 			name={name}
 			label={label}
 			options={options}
 			variant={variant}
+			onChange={onChange}
+			filterValue={value}
 		/>
 	);
 
@@ -72,7 +83,8 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 				{ renderTab(Section.Tires) }
 				{ renderTab(Section.Disks) }
 			</div>
-			<div className='h-full px-4 py-4 lg:py-7 bg-white border border-gray-200'>
+			<div className='relative h-full px-4 py-4 lg:py-7 bg-white border border-gray-200'>
+				<SubmitFloat element={ element } btnTitle={ t('to apply', true) } setElement={ setElement } />
 				<FilterActive className='flex lg:hidden' />
 				<div className='flex lg:justify-between gap-x-5'>
 					<button
@@ -100,18 +112,21 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						t('width', true),
 						'gray',
 						data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.width,
 					)}
-					{renderSelect(
+					{section === Section.Tires && renderSelect(
 						'height',
 						t('height', true),
 						'gray',
 						data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.height,
 					)}
 					{renderSelect(
 						'diameter',
 						t('diameter', true),
 						'gray',
 						data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
+						filter?.diameter,
 					)}
 				</>}
 				{subsection === 'byCars' && <>
@@ -120,6 +135,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						t('car brand', true),
 						'gray',
 						data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.brand,
 					)}
 					{renderSelect(
 						'model',
@@ -139,37 +155,97 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						'gray',
 						tireSeason?.map(item => ({value: item.id, label: item.name_ua}))
 					)}
-					<button className='btn secondary w-full mt-4 border'>
-						{ t('pick up', true) }
-					</button>
 				</>}
-				{renderSelect(
+				{section === Section.Tires && renderSelect(
 					'season',
 					'Сезон',
 					'white',
-					tireSeason?.map(item => ({value: item.id, label: item.name_ua}))
+					tireSeason?.map(item => ({value: item.id, label: item.name_ua})),
+					filter?.season,
 				)}
+				{section === Section.Disks && <>
+					{renderSelect(
+						'bolt_count_pcd',
+						t('fasteners', true),
+						'white',
+						[],
+					)}
+					<SelectFromTo name='et' from='-140' to='500' title={ `ET(${t('departure', true)})` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='dia' from='46' to='500' title='DIA' btnTitle={ t('to apply') }/>
+					{renderSelect(
+						'type',
+						t('type', true),
+						'gray',
+						[],
+					)}
+					{renderSelect(
+						'color',
+						t('color', true),
+						'white',
+						[],
+					)}
+				</>}
 				{renderSelect(
 					'brand',
 					t('brand', true),
 					'white',
 					[],
+					filter?.brand,
 				)}
 				{renderSelect(
+					'model',
+					t('model', true),
+					'gray',
+					[],
+				)}
+				{section === Section.Tires && renderSelect(
 					'country',
 					t('country', true),
 					'white',
-					data?.manufacture_country?.map(item => ({value: item.id, label: item.name_ua, p: item.p}))
+					data?.manufacture_country?.map(item => ({value: item.id, label: item.name_ua, p: item.p})),
 				)}
-				{renderSelect(
+				{section === Section.Tires && renderSelect(
 					'year',
 					t('year', true),
 					'gray',
 					[{label: 2024, value: 2024}, {label: 2023, value: 2023}, {label: 2022, value: 2022}, {
 						label: 2021,
 						value: 2021
-					}]
+					}],
 				)}
+				<SelectFromTo name='price' from='200' to='10000' title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
+				{section === Section.Tires && <>
+					{renderSelect(
+						'load_index',
+						t('load index', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'speed_index',
+						t('speed index', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'homologation',
+						t('homologation', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'strengthening',
+						t('strengthening', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'other',
+						t('other', true),
+						'white',
+						[],
+					)}
+				</>}
 			</div>
 		</div>
 	</div>

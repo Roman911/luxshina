@@ -1,5 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useState, MouseEvent, ChangeEvent } from 'react';
 import classNames from 'classnames';
+import './index.scss';
 
 import { ChevronDownIcon } from '../../../Lib/Icons';
 
@@ -12,15 +13,22 @@ interface SelectProps {
 		label: number | string
 		p?: number
 	}[] | undefined
+	onChange: (name: string, value: number | undefined | null, element: HTMLElement) => void
+	filterValue?: null | number | string
 }
 
-export const Select: FC<SelectProps> = ({ name, label, variant, options }) => {
+export const Select: FC<SelectProps> = ({ name, label, variant, options, onChange, filterValue }) => {
 	const [ open, setOpen ] = useState( false );
 
-	return <div className="relative mt-2">
+	const handleClick = (event: MouseEvent<HTMLElement> | ChangeEvent<HTMLElement>, value: number | undefined) => {
+		const newValue = filterValue === value ? null : value;
+		onChange(name, newValue, event.currentTarget);
+	}
+
+	return <div className={classNames('relative mt-2 rounded-sm', { 'bg-white': variant === 'white', 'bg-zinc-200': variant === 'gray' })} >
 		<button type="button"
 						onClick={() => setOpen(prev => !prev)}
-						className={ classNames('relative w-full cursor-default rounded-sm py-3 pl-3.5 pr-10 text-left focus:outline-none', { 'bg-white': variant === 'white', 'bg-zinc-200': variant === 'gray' }) }
+						className={classNames('relative w-full cursor-default py-3 pr-10 text-left focus:outline-none', {'font-bold pl-1.5': variant === 'white', 'pl-3.5': variant === 'gray'})}
 						aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
       <span className="flex items-center">
         <span className="block truncate">{ label }</span>
@@ -31,10 +39,10 @@ export const Select: FC<SelectProps> = ({ name, label, variant, options }) => {
 		</button>
 
 		<ul
-			className={ classNames('absolute z-10 mt-1 max-h-[480px] w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm', { 'hidden': !open }) }
+			className={ classNames('item-list max-h-[480px] w-full overflow-auto py-1 text-base ring-black ring-opacity-5 focus:outline-none sm:text-sm', { 'hidden': !open }) }
 			tabIndex={-1} role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
 			{options?.map(item => {
-				return <li key={ item.value } className="relative cursor-default select-none py-1 pl-2.5 pr-9 text-gray-900" id="listbox-option-0" role="option">
+				return <li key={ item.value } onClick={(event) => handleClick(event, item.value)} className="relative cursor-default select-none py-1 pl-2.5 pr-9 text-gray-900" id="listbox-option-0" role="option">
 					<div className="inline-flex items-center">
 						<label
 							className="relative flex cursor-pointer items-center rounded-full"
@@ -42,9 +50,11 @@ export const Select: FC<SelectProps> = ({ name, label, variant, options }) => {
 							data-ripple-dark="true"
 						>
 							<input
+								onChange={(event) => handleClick(event, item.value)}
+								checked={filterValue == item.value}
 								id={`${ name }-${ item.value }`}
 								type="checkbox"
-								className="peer relative h-7 w-7 appearance-none cursor-pointer rounded-sm border border-[#A9ACB2] transition-all checked:border-blue-500 checked:bg-blue-500 hover:border-blue-500"
+								className="peer relative h-7 w-7 bg-white appearance-none cursor-pointer rounded-sm border border-[#A9ACB2] transition-all checked:border-blue-500 checked:bg-blue-500 hover:border-blue-500"
 							/>
 							<div
 								className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white peer-checked:opacity-100">

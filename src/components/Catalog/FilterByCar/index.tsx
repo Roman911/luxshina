@@ -7,6 +7,7 @@ import { BusIcon, CargoIcon, CarIcon, ChevronDownIcon, FilterIcon, MotorcyclesIc
 
 interface FilterByCarProps {
 	openFilter: () => void
+	onSubmit: () => void
 }
 
 export const FilterByCar: FC<FilterByCarProps> = ({ openFilter }) => {

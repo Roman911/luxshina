@@ -1,6 +1,8 @@
 import { initReactI18next } from 'react-i18next';
 import i18n from 'i18next';
 
+import { Language } from '../models/language';
+
 import ua from '../locales/ua.json';
 import ru from '../locales/ru.json';
 
@@ -13,14 +15,12 @@ const resources = {
 	},
 }
 
-const lang = localStorage.getItem('lang');
-
 i18n
 	.use(initReactI18next)
 	.init({
-		lng: lang && JSON.parse(lang),
+		lng: Language.UA,
 		resources,
-		fallbackLng: 'ua',
+		fallbackLng: Language.UA,
 	}).then(r => r);
 
 export default i18n

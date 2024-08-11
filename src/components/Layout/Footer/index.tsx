@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-
+import { Link } from '../../../lib/Links';
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 
 import logoFooter from '../../../assets/logo-footer.svg';

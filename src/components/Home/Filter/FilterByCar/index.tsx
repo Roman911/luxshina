@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../../../lib/Links';
 
 import { useAppTranslation } from '../../../../hooks';
 import { MySelect } from '../Select';

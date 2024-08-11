@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import './index.scss';
 
-const items = [...Array(133).keys()];
 const itemsPerPage = 4;
 
-export const Paginate = () => {
+interface PaginateProps {
+	items: []
+}
+
+export const Paginate: FC<PaginateProps> = ({ items }) => {
 	const [ itemOffset, setItemOffset ] = useState(0);
 	const [ pageRangeDisplayed, setPageRangeDisplayed ] = useState(3);
 

@@ -1,13 +1,23 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 
-import type { itemProps } from '../../models/productCard.ts';
+import { useAppSelector } from '../../hooks';
+import { Link } from '../../lib/Links';
+import { Language } from '../../models/language';
+import type { itemProps } from '../../models/productCard';
 
 interface CarProps {
 	data: itemProps[]
 }
 
 export const CartComponent: FC<CarProps> = ({ data }) => {
+	const { lang } = useAppSelector(state => state.langReducer);
+
+	if(data.length === 0) {
+		return <div className='py-5 px-5 text-center bg-blue-100 w-full mt-4 text-lg font-medium'>
+			{lang === Language.UA ? 'Ви ще не додали до кошику жодного товару' : 'Вы еще не добавили в корзину ни одного товара'}
+		</div>
+	}
+
 	return <div className='flex flex-col lg:flex-row bg-white p-5 rounded-sm shadow-sm gap-10'>
 		<div className='flex-1 divide-y'>
 			{data.map(item => {

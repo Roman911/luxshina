@@ -1,5 +1,5 @@
 import { FC, MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '../../lib/Links';
 import classNames from 'classnames';
 
 import style from './index.module.scss';
@@ -25,7 +25,7 @@ export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, 
 
 	const t = useAppTranslation();
 
-	return <Link to={ `catalog/tyre/${ param }` } className={ classNames(style['product-card'], 'group') }>
+	return <Link to={ `/tires/${ param }` } className={ classNames(style['product-card'], 'group') }>
 		<div className='relative'>
 			<div className='absolute'>
 				<img src="/images/snow-icon.svg" alt=""/>

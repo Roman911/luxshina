@@ -62,11 +62,12 @@ const colourStyles: StylesConfig<IOption | undefined, IsMulti> = {
 			...provided,
 			'::-webkit-scrollbar': {
 				width: '10px',
+				borderRadius: '6px',
 				backgroundColor: '#E4E4E5',
 			},
 			'::-webkit-scrollbar-thumb': {
 				backgroundColor: '#ABAFB2',
-				border: '2px solid transparent',
+				border: '2px solid #E4E4E5',
 				borderRadius: '6px',
 			}
 		};

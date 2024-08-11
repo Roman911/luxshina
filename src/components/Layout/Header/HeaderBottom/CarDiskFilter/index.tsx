@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-
+import { Link } from '../../../../../lib/Links';
 import { useAppTranslation } from '../../../../../hooks';
 
 export const CarDiskFilter = () => {

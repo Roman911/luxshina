@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './index.module.scss';
 
 import { useAppSelector, useAppTranslation } from '../../../../hooks';
-import { Link } from '../../../Links';
+import { Link } from '../../../../lib/Links';
 import { Contacts } from '../Contacts';
 
 import logo from '../../../../assets/logo.svg';
@@ -75,7 +75,7 @@ export const HeaderCenter = () => {
 				<Link to='/cart' className='relative'>
 					<div className="-top-2.5 absolute left-3.5">
 						<p
-							className="flex h-5 w-5 p-2 items-center justify-center rounded-full bg-blue-500 text-[11px] border-2 border-white font-bold text-white">3</p>
+							className="flex h-5 w-5 p-2 items-center justify-center rounded-full bg-natural-400 text-[11px] border-2 border-white font-bold text-white">0</p>
 					</div>
 					<CartIcon/>
 				</Link>

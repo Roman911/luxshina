@@ -1,5 +1,5 @@
 import { useAppTranslation } from '../../../hooks';
-import { Link } from '../../Links';
+import { Link } from '../../../lib/Links';
 
 export const ShowAll = () => {
 	const t = useAppTranslation();

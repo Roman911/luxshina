@@ -7,6 +7,7 @@ import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { FilterComponent } from '../../../components/Home';
 
 import { Section } from '../../../models/filter';
+import { Language } from '../../../models/language';
 import { generateUrl } from '../../Catalog/seo';
 
 export const Filter = () => {
@@ -14,6 +15,7 @@ export const Filter = () => {
 	const navigate = useNavigate();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { section } = useAppSelector(state => state.filterReducer);
+	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
 
 	const getFilters = () => {
@@ -115,7 +117,8 @@ export const Filter = () => {
 	const submit = () => {
 		const searchUrl = generateUrl(filter);
 		const rout = `/catalog/${pathBySection(section)}`;
-		navigate(rout + searchUrl);
+		const newRout = lang === Language.UA ? rout : `/ru${rout}`;
+		navigate(newRout + searchUrl);
 	}
 
 	return <FilterComponent

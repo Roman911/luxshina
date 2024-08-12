@@ -2,46 +2,59 @@ import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
+import { config } from '../../../config';
+import { formatPhoneNumber, formatFreePhoneNumber } from '../../../lib';
+
+import { EmailIcon, PhoneIcon } from '../../Lib/Icons';
 import kievstarLogo from '../../../assets/kievstar-logo.png';
-import lifeLogo from '../../../assets/life-logo.png';
+import lifecellLogo from '../../../assets/life-logo.png';
 import vodafoneLogo from '../../../assets/vodafone-logo.png';
 
+import { PhoneLogo } from '../../../models/config';
+import { Language } from '../../../models/language';
+
+const phoneLogos: Record<PhoneLogo, string> = {
+	vodafone: vodafoneLogo,
+	kievstar: kievstarLogo,
+	lifecell: lifecellLogo,
+};
+
 interface ContactsProps {
-	lang: string
+	lang: Language
 }
 
 export const Contacts: FC<ContactsProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
-		<div className='flex items-center'>
-			<img src={vodafoneLogo} alt="vodafone-logo"/>
-			<span className='ml-2.5 font-bold'>(050) 337 32 05</span>
-		</div>
 		<div className='flex items-center mt-3'>
-			<img src={kievstarLogo} alt="kievstar-logo"/>
-			<span className='ml-2.5 font-bold'>(067) 323 44 81</span>
+			<PhoneIcon className='fill-[#0091E5]'/>
+			<span className='ml-2.5 font-bold'>
+				<a href={`tel:${config.contacts.freePhone}`}>
+					{formatFreePhoneNumber(config.contacts.freePhone)}
+				</a>
+			</span>
 		</div>
-		<div className='flex items-center mt-3'>
-			<img src={lifeLogo} alt="life-logo"/>
-			<span className='ml-2.5 font-bold'>(093) 332 64 71</span>
+		{config.contacts.phone.map(item => {
+			return <div key={item.value} className='flex items-center'>
+				<img src={phoneLogos[item.logo]} alt={item.logo + '-logo'}/>
+				<a href={`tel:${item.value}`} className='ml-2.5 font-bold'>
+					{formatPhoneNumber(item.value)}
+				</a>
+			</div>
+		})}
+		<h4>{ lang === Language.UA ? 'Графік роботи кол-центра' : 'График работы кол-центра' }:</h4>
+		<div className='whitespace-pre-wrap leading-8'>
+			{ config.contacts.workSchedule[lang] }
 		</div>
-		{lang === 'ua' ? <>
-			<h4>Графік роботи кол-центра:</h4>
-			<p>Пн — Пт 9:00 — 19:00</p>
-			<p>Сб - Нд: 9:00 — 19:00</p>
-			<h4>Електрона пошта:</h4>
-			<p>luxshina@gmail.com</p>
-			<h4>Пункти видачі</h4>
-			<p>Київ вул. Березняківська, 11</p>
-			<p>Чернігів вул. І.Мазепи (Щорса), 53А</p>
-		</> : <>
-			<h4>График работы кол-центра:</h4>
-			<p>Пн — Пт 9:00 — 19:00</p>
-			<p>Сб - Вс: 9:00 — 19:00</p>
-			<h4>Електронная почта:</h4>
-			<p>luxshina@gmail.com</p>
-			<h4>Пункти видачі</h4>
-			<p>Киев, ул. Березняковская, 11</p>
-			<p>Чернигов, ул. И.Мазепы (Щорса), 53А</p>
-		</>}
+		<h4>{ lang === Language.UA ? 'Електрона пошта' : 'Електронная почта' }:</h4>
+		<div className='flex items-center mt-5'>
+			<EmailIcon className='fill-black'/>
+			<a href={`mailto:${config.contacts.email}`} className='ml-2.5 font-bold'>
+				{config.contacts.email}
+			</a>
+		</div>
+		<h4>{ lang === Language.UA ? 'Пункти видачі' : 'Пункти видачі' }:</h4>
+		<div className='whitespace-pre-wrap leading-8'>
+			{ config.contacts.address[lang] }
+		</div>
 	</div>
 }

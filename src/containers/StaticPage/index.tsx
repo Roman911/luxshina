@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useAppSelector, useAppTranslation } from '../../hooks';
@@ -27,17 +27,16 @@ export const StaticPage: FC<StaticPageProps> = ({ page, title }) => {
 	]
 
 	const renderPage = (page: string, lang: Language) => {
-		const pageComponents: Record<string, FC<{ lang: Language }>> = {
-			shipment: Shipment,
-			payment: Payment,
-			contacts: Contacts,
-			'guarantee-and-refund': GuaranteeAndRefund,
-			'public-offer': PublicOffer,
-			default: AboutUs,
+		const pageComponents: Record<string, ReactElement | null> = {
+			shipment: <Shipment lang={ lang } />,
+			payment: <Payment lang={ lang } />,
+			contacts: <Contacts lang={ lang } />,
+			'guarantee-and-refund': <GuaranteeAndRefund lang={ lang } />,
+			'public-offer': <PublicOffer lang={ lang } />,
+			default: <AboutUs lang={ lang } />,
 		};
 
-		const PageComponent = pageComponents[page] || pageComponents.default;
-		return <PageComponent lang={ lang } />;
+		return pageComponents[page] || pageComponents.default;
 	};
 
 	return <LayoutWrapper>

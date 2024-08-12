@@ -6,7 +6,7 @@ import { useAppTranslation } from '../../../../../hooks';
 import { BusIcon, CargoIcon, CarIcon, MotorcyclesIcon, SpecialEquipmentIcon, SuvIcon } from '../../../../Lib/Icons';
 
 interface CarTireFilterProps {
-	closeFilter: () => void
+	closeFilter?: () => void
 }
 
 export const CarTireFilter: FC<CarTireFilterProps> = ({ closeFilter }) => {

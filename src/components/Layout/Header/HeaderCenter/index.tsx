@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './index.module.scss';
 
 import { useAppSelector, useAppTranslation } from '../../../../hooks';
-import { Link } from '../../../../lib/Links';
+import { Link } from '../../../../lib';
 import { Contacts } from '../Contacts';
 
 import logo from '../../../../assets/logo.svg';

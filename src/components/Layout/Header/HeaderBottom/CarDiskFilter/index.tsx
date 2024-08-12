@@ -4,7 +4,7 @@ import { Link } from '../../../../../lib';
 import { useAppTranslation } from '../../../../../hooks';
 
 interface CarDiskFilterProps {
-	closeFilter: () => void
+	closeFilter?: () => void
 }
 
 export const CarDiskFilter: FC<CarDiskFilterProps> = ({ closeFilter }) => {

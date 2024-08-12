@@ -8,6 +8,8 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Title } from '../../components/Lib';
 import { AboutUs, Contacts, GuaranteeAndRefund, Payment, PublicOffer, Shipment } from '../../components/StaticPages';
 
+import { Language } from '../../models/language';
+
 interface StaticPageProps {
 	page: string
 	title: string
@@ -24,8 +26,8 @@ export const StaticPage: FC<StaticPageProps> = ({ page, title }) => {
 		}
 	]
 
-	const renderPage = (page: string, lang: string) => {
-		const pageComponents: Record<string, FC<{ lang: string }>> = {
+	const renderPage = (page: string, lang: Language) => {
+		const pageComponents: Record<string, FC<{ lang: Language }>> = {
 			shipment: Shipment,
 			payment: Payment,
 			contacts: Contacts,
@@ -35,7 +37,7 @@ export const StaticPage: FC<StaticPageProps> = ({ page, title }) => {
 		};
 
 		const PageComponent = pageComponents[page] || pageComponents.default;
-		return <PageComponent lang={lang} />;
+		return <PageComponent lang={ lang } />;
 	};
 
 	return <LayoutWrapper>

@@ -2,13 +2,15 @@ import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
+import { Language } from '../../../models/language';
+
 interface PublicOfferProps {
-	lang: string
+	lang: Language
 }
 
 export const PublicOffer: FC<PublicOfferProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
-		{lang === 'ua' ? <>
+		{lang === Language.UA ? <>
 			<h3>ДОГОВІР ПУБЛІЧНОЇ ОФЕРТИ</h3>
 			<p>За цим Договором одна сторона Продавець, з одного боку, і будь-яка особа, яка прийнялаумови даного Договору
 				публічної оферти - Покупець, з іншого боку, далі разом - Сторони, уклали даний Договір публічної оферти,

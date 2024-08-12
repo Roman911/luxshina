@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import styles from './index.module.scss';
 
 import { useAppTranslation } from '../../../../hooks';
-import { Link } from '../../../../lib/Links';
+import { Link } from '../../../../lib';
 import { CarDiskFilter } from './CarDiskFilter';
 import { CarTireFilter } from './CarTireFilter';
 import { ChevronDownIcon } from '../../../Lib/Icons';
@@ -23,6 +23,10 @@ export const HeaderBottom = () => {
 			setSection(value);
 		}
 	};
+
+	const closeFilter = () => {
+		setOpen(false);
+	}
 
 	const handleClickOutside = (e: MouseEvent) => {
 		const target = e.target as Node;
@@ -75,7 +79,7 @@ export const HeaderBottom = () => {
 				className={classNames('absolute left-1/2 top-16 z-20 flex w-full -translate-x-1/2 px-4', {'hidden': !open})}>
 				<div
 					className="w-full flex-auto overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5 py-8 px-12 grid grid-cols-4">
-					{section === 'tires' ? <CarTireFilter/> : <CarDiskFilter/>}
+					{section === 'tires' ? <CarTireFilter closeFilter={ closeFilter } /> : <CarDiskFilter closeFilter={ closeFilter } />}
 				</div>
 			</div>
 		</nav>

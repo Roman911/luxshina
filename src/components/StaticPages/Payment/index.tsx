@@ -2,13 +2,15 @@ import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
+import { Language } from '../../../models/language';
+
 interface PaymentProps {
-	lang: string
+	lang: Language
 }
 
 export const Payment: FC<PaymentProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
-		{ lang === 'ua' ? <>
+		{ lang === Language.UA ? <>
 			<h3>Готівкою</h3>
 			<p>*при отримані товару на віділенні транспортної компанії (накладений платіж) або у точці видачі, розрахунок
 				відбувається у національній валюті.</p>

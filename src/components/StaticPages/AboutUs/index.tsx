@@ -2,13 +2,15 @@ import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
+import { Language } from '../../../models/language';
+
 interface AboutUsProps {
-	lang: string
+	lang: Language
 }
 
 export const AboutUs: FC<AboutUsProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
-		{ lang === 'ua' ? <>
+		{ lang === Language.UA ? <>
 			<h3>Вітаємо Вас у інтернет магазині автомобільних шин та дисків Люксшина.</h3>
 			<p>Ми пропонуємо великий вибір високоякісних шин та дисків для Вашого автомобіля, незалежно від марки, моделі чи
 				стилю водіння. Наш магазин - це місце, де стиль, безпека і ефективність зустрічаються з інноваційними рішеннями

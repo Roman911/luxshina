@@ -2,13 +2,15 @@ import { FC } from 'react';
 
 import styles from '../index.module.scss';
 
+import { Language } from '../../../models/language';
+
 interface GuaranteeAndRefundProps {
-	lang: string
+	lang: Language
 }
 
 export const GuaranteeAndRefund: FC<GuaranteeAndRefundProps> = ({ lang }) => {
 	return <div className={styles['static-page']}>
-		{lang === 'ua' ? <>
+		{lang === Language.UA ? <>
 			<h3>На всі куплені товари у інтернет-магазині On-tires.com діє заводська гарантія від виробника.</h3>
 			<p>Гарантійним випадком вважається наявність заводського браку виявленого при отриманні товару, або при
 				встановленні шини на диск.</p>

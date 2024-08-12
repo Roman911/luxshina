@@ -8,14 +8,15 @@ interface LinkProps {
 	to: string
 	className?: string
 	children: ReactNode
+	onClick?: () => void
 }
 
-export const Link: FC<LinkProps> = ({ children, to, className }) => {
+export const Link: FC<LinkProps> = ({ children, to, className, onClick  }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
 
 	const newPath = lang === Language.UA ? to : `/ru${to}`;
 
-	return <_Link to={ newPath } className={ className } >
+	return <_Link to={ newPath } className={ className } onClick={ onClick } >
 		{ children }
 	</_Link>
 }

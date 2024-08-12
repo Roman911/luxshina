@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
-import { setParams } from '../../store/reducers/filterSlice';
+import { setParams, changeSection } from '../../store/reducers/filterSlice';
 
 import { generateUrl, parseUrl } from './seo';
 import { FilterAlt } from './FilterAlt';
@@ -23,6 +23,12 @@ export const Catalog = () => {
 	const params = useParams();
 
 	useEffect(() => {
+		if(section !== params.section) {
+			dispatch(changeSection(params.section as Section))
+		}
+	}, [dispatch, params.section, section]);
+
+	useEffect(() => {
 		if(params['*']) {
 			const url = parseUrl(params['*']);
 			dispatch(setParams(url));
@@ -34,7 +40,7 @@ export const Catalog = () => {
 		{
 			id: 1,
 			title: t(section, true),
-			url: '/catalog/tyres/'
+			url: '/catalog/tires/'
 		}
 	]
 
@@ -49,7 +55,7 @@ export const Catalog = () => {
 	const pathBySection = (section: Section) => {
 		switch (section) {
 			case Section.Tires:
-				return 'tyres/';
+				return 'tires/';
 			case Section.Disks:
 				return 'disks/';
 			default:

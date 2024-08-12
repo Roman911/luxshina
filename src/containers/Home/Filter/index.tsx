@@ -106,7 +106,7 @@ export const Filter = () => {
 	const pathBySection = (section: Section) => {
 		switch (section) {
 			case Section.Tires:
-				return 'tyres/';
+				return 'tires/';
 			case Section.Disks:
 				return 'disks/';
 			default:

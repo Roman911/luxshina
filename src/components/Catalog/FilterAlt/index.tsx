@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
 import { changeSection, changeSubsection, setParams } from '../../../store/reducers/filterSlice';
+import { Link } from '../../../lib';
 
 import { FilterActive } from '../../../containers/Catalog/FilterActive';
 import { Select } from './Select';
@@ -62,15 +63,15 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 	});
 
 	const renderTab = (value: Section) => {
-		return <button
+		return <Link to={ `/catalog/${value}/` }
 			onClick={ () => dispatch(changeSection(value)) }
-			className={ classNames('text-sm font-bold uppercase py-3.5 rounded-t-sm border border-slate-200 border-b-0', {
+			className={ classNames('text-sm font-bold uppercase py-3.5 rounded-t-sm border border-slate-200 border-b-0 text-center', {
 				'bg-white': section === value,
 				'bg-slate-200 text-gray-500': section !== value,
 			}) }
 		>
 			{ t(value, true) }
-		</button>
+		</Link>
 	}
 
 	return <div
@@ -79,14 +80,14 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 			<CloseIcon className='fill-[#B9B9BA] w-7 h-7' />
 		</button>
 		<div className='filter h-screen lg:h-auto w-[calc(100%-70px)] lg:w-64 mr-6 pt-4 lg:pt-0 bg-white lg:bg-transparent'>
-			<div className='filter-tabs grid grid-cols-2 gap-2.5 -mb-[1px]'>
-				{ renderTab(Section.Tires) }
-				{ renderTab(Section.Disks) }
-			</div>
+			{section !== Section.Battery && <div className='filter-tabs grid grid-cols-2 gap-2.5 -mb-[1px]'>
+				{renderTab(Section.Tires)}
+				{renderTab(Section.Disks)}
+			</div>}
 			<div className='relative h-full px-4 py-4 lg:py-7 bg-white border border-gray-200'>
-				<SubmitFloat element={ element } btnTitle={ t('to apply', true) } setElement={ setElement } />
+				<SubmitFloat element={element} btnTitle={t('to apply', true) } setElement={ setElement } />
 				<FilterActive className='flex lg:hidden' />
-				<div className='flex lg:justify-between gap-x-5'>
+				{section !== Section.Battery && <div className='flex lg:justify-between gap-x-5'>
 					<button
 						onClick={() => dispatch(changeSubsection(Subsection.ByParams))}
 						className={classNames('font-bold uppercase lg:normal-case', {
@@ -105,8 +106,8 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 					>
 						{t('by car', true)}
 					</button>
-				</div>
-				{subsection === 'byParams' && <>
+				</div>}
+				{subsection === 'byParams' && section !== Section.Battery && <>
 					{renderSelect(
 						'width',
 						t('width', true),
@@ -154,6 +155,32 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						t('modification', true),
 						'gray',
 						tireSeason?.map(item => ({value: item.id, label: item.name_ua}))
+					)}
+				</>}
+				{section === Section.Battery && <>
+					{renderSelect(
+						'capacity',
+						t('capacity', true),
+						'gray',
+						[]
+					)}
+					{renderSelect(
+						'capacity',
+						'Пусковий струм',
+						'gray',
+						[]
+					)}
+					{renderSelect(
+						'capacity',
+						'Тип електроліту',
+						'gray',
+						[]
+					)}
+					{renderSelect(
+						'capacity',
+						'Тип корпусу',
+						'white',
+						[]
 					)}
 				</>}
 				{section === Section.Tires && renderSelect(
@@ -214,6 +241,23 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 					}],
 				)}
 				<SelectFromTo name='price' from='200' to='10000' title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
+				{section === Section.Battery && <>
+					<SelectFromTo name='price' from='0' to='600' title={ `Ширина (мм)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='price' from='0' to='190' title={ `Висота (мм)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='price' from='0' to='600' title={ `Довжина (мм)` } btnTitle={ t('to apply') }/>
+					{renderSelect(
+					'load_index',
+					'Напруга',
+					'gray',
+					[],
+					)}
+					{renderSelect(
+						'load_index',
+						'Полюсність',
+						'white',
+						[],
+					)}
+				</>}
 				{section === Section.Tires && <>
 					{renderSelect(
 						'load_index',

@@ -71,7 +71,7 @@ export const HeaderBottom = () => {
 			</button>
 			<Link className={styles.link} to='/'>Вантажні шини</Link>
 			<Link className={styles.link} to='/'>Мотошини</Link>
-			<Link className={styles.link} to='/'>Акумулятори</Link>
+			<Link className={styles.link} to='/catalog/battery/'>Акумулятори</Link>
 			<Link className={styles.link} to='/'>Автотовари</Link>
 			<Link className={styles.link} to='/tyre-disk-size-calc'>Шинний калькулятор</Link>
 			<div

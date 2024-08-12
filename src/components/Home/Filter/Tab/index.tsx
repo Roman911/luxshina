@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import classNames from "classnames";
 
 import styles from "./index.module.scss";
@@ -7,7 +7,7 @@ import { CarFilterIcon, DiskIcon, TireIcon } from "../../../Lib/Icons";
 import { Section } from '../../../../models/filter';
 
 interface TabProps {
-	children: React.ReactNode
+	children: ReactNode
 	name: Section
 	section: Section
 	isOpen: boolean
@@ -18,7 +18,8 @@ interface TabProps {
 const icons = {
 	tires: TireIcon,
 	disks: DiskIcon,
-	car: CarFilterIcon
+	car: CarFilterIcon,
+	battery: CarFilterIcon,
 };
 
 export const Tab: FC<TabProps> = ({ children, name, section, isOpen, handleClick, label }) => {

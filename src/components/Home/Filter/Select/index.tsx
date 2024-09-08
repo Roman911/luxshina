@@ -1,22 +1,19 @@
 import { FC } from 'react';
 import Select, { SingleValue, StylesConfig } from 'react-select';
 
-interface IOption {
-	value: number
-	label: number | string
-	p?: number
-}
+import type { Options } from '../../../../models/baseData';
 
 interface SelectProps {
 	name: string
 	label: string
-	options: IOption[] | undefined
-	onChange: (name: string, value: number | undefined) => void
+	isDisabled?: boolean
+	options: Options[] | undefined
+	onChange: (name: string, value: number | string | undefined) => void
 }
 
 type IsMulti = false;
 
-const colourStyles: StylesConfig<IOption | undefined, IsMulti> = {
+const colourStyles: StylesConfig<Options | undefined, IsMulti> = {
 	control: (styles) => ({
 		...styles,
 		padding: '11px 4px 11px 16px',
@@ -25,7 +22,14 @@ const colourStyles: StylesConfig<IOption | undefined, IsMulti> = {
 		':hover': {
 			borderColor: '#8CC9FF',
 			boxShadow: '0 0 0 1px #8CC9FF',
-		}
+		},
+
+	}),
+	input: (styles) => ({
+		...styles,
+		fontSize: 18,
+		fontWeight: 500,
+		color: '#FFFFFF',
 	}),
 	singleValue: (styles) => ({
 		...styles,
@@ -33,19 +37,19 @@ const colourStyles: StylesConfig<IOption | undefined, IsMulti> = {
 		fontWeight: 500,
 		color: '#FFFFFF',
 	}),
-	placeholder: (styles) => ({
+	placeholder: (styles, { isDisabled}) => ({
 		...styles,
 		fontSize: 18,
 		fontWeight: 500,
-		color: '#FFFFFF',
+		color: isDisabled ? '#ffffff82' : '#FFFFFF',
 	}),
 	indicatorSeparator: (styles) => ({
 		...styles,
 		display: 'none'
 	}),
-	dropdownIndicator: (styles) => ({
+	dropdownIndicator: (styles, { isDisabled}) => ({
 		...styles,
-		color: '#FFFFFF',
+		color: isDisabled ? '#ffffff82' : '#FFFFFF',
 		':hover': {
 			color: '#FFFFFF',
 		},
@@ -74,8 +78,8 @@ const colourStyles: StylesConfig<IOption | undefined, IsMulti> = {
 	},
 };
 
-export const MySelect: FC<SelectProps> = ({ name, label, options = [], onChange }) => {
-	const handleChange = (value: SingleValue<IOption | undefined>) => {
+export const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = false, onChange }) => {
+	const handleChange = (value: SingleValue<Options | undefined>) => {
 		onChange(name, value?.value);
 	}
 
@@ -84,6 +88,7 @@ export const MySelect: FC<SelectProps> = ({ name, label, options = [], onChange 
 		styles={colourStyles}
 		placeholder={label}
 		isClearable={true}
+		isDisabled={isDisabled}
 		onChange={handleChange}
 	/>
 }

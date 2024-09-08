@@ -4,11 +4,11 @@ import { addBookmarks, removeBookmarks } from '../../../store/reducers/bookmarks
 import { addComparison, removeComparison } from '../../../store/reducers/comparisonSlice';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
-import type { itemProps } from "../../../models/productCard";
+import type { Product } from '../../../models/products';
 import { ProductCardComponent } from '../../../components/ProductCard'
 
 interface ProductCardProps {
-	item: itemProps
+	item: Product
 }
 
 export const ProductCard: FC<ProductCardProps> = ({ item }) => {
@@ -29,5 +29,11 @@ export const ProductCard: FC<ProductCardProps> = ({ item }) => {
 		dispatch(isComparison ? removeComparison(id) : addComparison(id));
 	};
 
-	return <ProductCardComponent item={ item } addToDefense={ addToBookmarks } isBookmarks={ isBookmarks } isComparison={ isComparison } addToComparison={ addToComparison } />
+	return <ProductCardComponent
+		item={ item }
+		addToDefense={ addToBookmarks }
+		isBookmarks={ isBookmarks }
+		isComparison={ isComparison }
+		addToComparison={ addToComparison }
+	/>
 }

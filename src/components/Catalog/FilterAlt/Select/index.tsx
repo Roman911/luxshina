@@ -1,26 +1,23 @@
 import { FC, useState, MouseEvent, ChangeEvent } from 'react';
 import classNames from 'classnames';
-import './index.scss';
 
+import './index.scss';
 import { ChevronDownIcon } from '../../../Lib/Icons';
+import type { Options } from '../../../../models/baseData';
 
 interface SelectProps {
 	label: string
 	name: string
 	variant: 'white' | 'gray'
-	options: {
-		value: number
-		label: number | string
-		p?: number
-	}[] | undefined
-	onChange: (name: string, value: number | undefined | null, element: HTMLElement) => void
+	options: Array<Options>
+	onChange: (name: string, value: number | string | undefined | null, element: HTMLElement) => void
 	filterValue?: null | number | string
 }
 
 export const Select: FC<SelectProps> = ({ name, label, variant, options, onChange, filterValue }) => {
 	const [ open, setOpen ] = useState( false );
 
-	const handleClick = (event: MouseEvent<HTMLElement> | ChangeEvent<HTMLElement>, value: number | undefined) => {
+	const handleClick = (event: MouseEvent<HTMLElement> | ChangeEvent<HTMLElement>, value: number | string | undefined) => {
 		const newValue = filterValue === value ? null : value;
 		onChange(name, newValue, event.currentTarget);
 	}
@@ -76,4 +73,4 @@ export const Select: FC<SelectProps> = ({ name, label, variant, options, onChang
 			})}
 		</ul>
 	</div>
-}
+};

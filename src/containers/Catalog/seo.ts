@@ -1,9 +1,12 @@
 interface IFilter {
 	width?: number
 	height?: number
-	diameter?: string
+	radius?: string
 	country?: string
 	year?: number
+	brand?: number
+	krepeg?: string
+	sezon?: number
 }
 
 type OriginalType = {
@@ -22,45 +25,44 @@ const paramTrans: OriginalType = {
 	y: 'year',
 };
 
-type SwappedType = {
-	[K in OriginalType[keyof OriginalType]]: keyof OriginalType;
-};
+// type SwappedType = {
+// 	[K in OriginalType[keyof OriginalType]]: keyof OriginalType;
+// };
 
-const paramTransInvert = Object.keys(paramTrans).reduce((acc, key) => {
-	const value = paramTrans[key as keyof OriginalType];
-	acc[value] = key as keyof OriginalType;
-	return acc;
-}, {} as SwappedType);
+// const paramTransInvert = Object.keys(paramTrans).reduce((acc, key) => {
+// 	const value = paramTrans[key as keyof OriginalType];
+// 	acc[value] = key as keyof OriginalType;
+// 	return acc;
+// }, {} as SwappedType);
 
 const digitValueToUrl = (value: number) => {
 	return value.toString();
 }
 
 export const generateUrl = (filter: IFilter) => {
-	const parts = [];
+	const parts: string[] = [];
 
-	if(filter.width) {
-		parts.push(`${paramTransInvert.width}-${digitValueToUrl(filter.width)}`);
-	}
+	const appendFilterPart = <T extends string | number | string[]>(key: keyof IFilter, transformer?: (val: T) => string) => {
+		const value = filter[key];
+		if (value) {
+			const formattedValue = Array.isArray(value)
+				? (value as string[]).join(',')
+				: transformer ? transformer(value as T) : String(value);
+			parts.push(`${key}=${formattedValue}`);
+		}
+	};
 
-	if(filter.height) {
-		parts.push(`${paramTransInvert.height}-${digitValueToUrl(filter.height)}`);
-	}
+	appendFilterPart('width', digitValueToUrl);
+	appendFilterPart('height', digitValueToUrl);
+	appendFilterPart('radius');
+	appendFilterPart('country');
+	appendFilterPart('krepeg');
+	appendFilterPart('year', digitValueToUrl);
+	appendFilterPart('brand', digitValueToUrl);
+	appendFilterPart('sezon', digitValueToUrl);
 
-	if(filter.diameter) {
-		parts.push(`${paramTransInvert.diameter}-${filter.diameter}`);
-	}
-
-	if(filter.country) {
-		parts.push(`${paramTransInvert.country}-${filter.country}`);
-	}
-
-	if(filter.year) {
-		parts.push(`${paramTransInvert.year}-${digitValueToUrl(filter.year)}`);
-	}
-
-	return parts.join('/');
-}
+	return parts.join('&');
+};
 
 type ParsedResult = {
 	[key: string]: string;

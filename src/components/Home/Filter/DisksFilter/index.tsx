@@ -2,25 +2,9 @@ import { FC } from 'react';
 
 import { useAppTranslation } from '../../../../hooks';
 import { MySelect } from "../Select";
+import type { FilterProps } from '../../../../models/filterHomePage';
 
-interface IOption {
-	value: number
-	label: number | string
-	p?: number
-}
-
-interface DisksFilterProps {
-	filters: {
-		label: string
-		name: string
-		options: IOption[] | undefined
-		wide: boolean
-	}[]
-	onChange: (name: string, value: number | undefined) => void
-	onSubmit: () => void
-}
-
-export const DisksFilter: FC<DisksFilterProps> = ({ filters, onChange, onSubmit }) => {
+export const DisksFilter: FC<FilterProps> = ({ filters, onChange, onSubmit }) => {
 	const t = useAppTranslation();
 
 	return <>

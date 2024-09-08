@@ -9,27 +9,22 @@ import { DisksFilter } from './DisksFilter';
 import { FilterByCar } from '../../../containers/Home/FilterByCar';
 
 import { Section } from '../../../models/filter';
+import type { Options } from '../../../models/baseData';
+import type { OnChange } from '../../../models/filterHomePage';
 
-interface IOption {
-	value: number
-	label: number | string
-	p?: number
-}
-
-interface FilterProps {
+interface IFilterProps {
 	section: Section
 	data: {
 		focusValue?: number | string
 		label: string
 		name: string
-		options: IOption[] | undefined
-		wide: boolean
+		options: Options[] | undefined
 	}[]
-	onChange: (name: string, value: number | undefined) => void
+	onChange: OnChange
 	onSubmit: () => void
 }
 
-export const FilterComponent: FC<FilterProps> = ({ data, section, onChange, onSubmit }) => {
+export const FilterComponent: FC<IFilterProps> = ({ data, section, onChange, onSubmit }) => {
 	const [isOpen, setOpen] = useState(false);
 	const dispatch = useAppDispatch();
 	const t = useAppTranslation();

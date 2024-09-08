@@ -26,8 +26,8 @@ const phoneLogos: Record<PhoneLogo, string> = {
 
 export const InfoBlock = () => {
 	const [open, setOpen] = React.useState(false);
-
 	const { lang } = useAppSelector(state => state.langReducer);
+	//const { settings } = useAppSelector(state => state.settingsReducer);
 	const t = useAppTranslation();
 
 	return <div className='lg:w-64'>

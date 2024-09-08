@@ -38,7 +38,7 @@ export const Filter = () => {
 
 			filterConfigs.push({
 				label: t('diameter', true),
-				name: 'diameter',
+				name: 'radius',
 				focusValue: `R${14}`,
 				options: data?.tyre_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p }))
 			});
@@ -46,48 +46,48 @@ export const Filter = () => {
 			filterConfigs.push({
 				label: t('brand', true),
 				name: 'brand',
-				options: []
+				options: data?.brand?.map(item => ({ value: item.value, label: item.label }))
 			});
 
 			filterConfigs.push({
 				label: t('country', true),
 				name: 'country',
-				options: data?.manufacture_country?.map(item => ({ value: item.id, label: item.name_ua, p: item.p }))
+				options: data?.[lang === Language.UA ? 'country' : 'country_ru']?.map(item => ({ value: item.value, label: item.label }))
 			});
 
 			filterConfigs.push({
 				label: t('year', true),
 				name: 'year',
-				options: [{ label: 2024, value: 2024 }, { label: 2023, value: 2023 }, { label: 2022, value: 2022 }, { label: 2021, value: 2021 }]
+				options: data?.tyre_year?.map(item => ({ value: item.value, label: item.label }))
 			});
 		} else if(section === Section.Disks) {
 			filterConfigs.push({
 				label: t('brand', true),
 				name: 'brand',
-				options: []
+				options: data?.brand?.map(item => ({ value: item.value, label: item.label }))
 			});
 
 			filterConfigs.push({
 				label: t('diameter', true),
 				name: 'diameter',
 				focusValue: `R${14}`,
-				options: data?.tyre_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p }))
+				options: data?.disc_diameter?.map(item => ({ value: item.value, label: `R${item.value}`, p: item.p }))
 			});
 
 			filterConfigs.push({
 				label: t('fasteners', true),
-				name: 'bolt_count_pcd',
-				options: []
+				name: 'krip',
+				options: data?.krip?.map(item => ({ value: item.value, label: item.value, p: item.p }))
 			});
 
 			filterConfigs.push({
 				label: 'ET ' + t('from'), name: 'et_from',
-				options: []
+				options: data?.et?.map(item => ({ value: item.value, label: item.value, p: item.p }))
 			});
 
 			filterConfigs.push({
 				label: 'ET ' + t('to'), name: 'et_to',
-				options: []
+				options: data?.et?.map(item => ({ value: item.value, label: item.value, p: item.p }))
 			});
 		}
 
@@ -97,7 +97,7 @@ export const Filter = () => {
 		}));
 	};
 
-	const onChange = (name: string, value: number | undefined) => {
+	const onChange = (name: string, value: number | string | undefined) => {
 		if(value) {
 			setFilter(prev => ({ ...prev, [name]: value}));
 		}
@@ -106,9 +106,9 @@ export const Filter = () => {
 	const pathBySection = (section: Section) => {
 		switch (section) {
 			case Section.Tires:
-				return 'tires/';
+				return 'tires';
 			case Section.Disks:
-				return 'disks/';
+				return 'disks';
 			default:
 				return section;
 		}
@@ -116,7 +116,7 @@ export const Filter = () => {
 
 	const submit = () => {
 		const searchUrl = generateUrl(filter);
-		const rout = `/catalog/${pathBySection(section)}`;
+		const rout = `/catalog/${pathBySection(section)}?`;
 		const newRout = lang === Language.UA ? rout : `/ru${rout}`;
 		navigate(newRout + searchUrl);
 	}

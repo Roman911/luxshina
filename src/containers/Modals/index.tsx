@@ -1,79 +1,42 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import classNames from 'classnames';
-import type { MouseEventHandler } from "react";
+import { ReactNode, useEffect, useRef, useState, type MouseEventHandler } from 'react';
 
-import Portal, { createContainer } from "../Portal";
+import Portal, { createContainer } from '../Portal';
+import { useClickOutside } from '../../hooks';
+import { ModalLayout } from '../../components/Modals/ModalLayout';
 
-const MODAL_CONTAINER_ID = "modal-container-id";
+const MODAL_CONTAINER_ID = 'modal-container-id';
 
 type Props = {
 	size: string;
-	onClose?: () => void;
-	children: React.ReactNode | React.ReactNode[];
+	onClose: () => void;
+	children: ReactNode | ReactNode[];
 };
 
 const Modal = (props: Props) => {
 	const { onClose, size, children } = props;
-
 	const rootRef = useRef<HTMLDivElement>(null);
-	const [isMounted, setMounted] = useState(false);
+	const [ isMounted, setMounted ] = useState(false);
+
+	useClickOutside({ ref: rootRef, open: isMounted, onClose })
 
 	useEffect(() => {
 		createContainer({ id: MODAL_CONTAINER_ID });
 		setMounted(true);
 	}, []);
 
-	useEffect(() => {
-		const handleWrapperClick = (event: MouseEvent) => {
-			const { target } = event;
-
-			if (target instanceof Node && rootRef.current === target) {
-				onClose?.();
-			}
-		};
-		const handleEscapePress = (event: KeyboardEvent) => {
-			if (event.key === "Escape") {
-				onClose?.();
-			}
-		};
-
-		window.addEventListener("click", handleWrapperClick);
-		window.addEventListener("keydown", handleEscapePress);
-
-		return () => {
-			window.removeEventListener("click", handleWrapperClick);
-			window.removeEventListener("keydown", handleEscapePress);
-		};
-	}, [onClose]);
-
-	const handleClose: MouseEventHandler<
-		HTMLDivElement | HTMLButtonElement
-	> = useCallback(() => {
-		onClose?.();
-	}, [onClose]);
+	const handleClose: MouseEventHandler<HTMLDivElement | HTMLButtonElement> = () => {
+		onClose && onClose();
+	};
 
 	return isMounted ? (
-		<Portal id={MODAL_CONTAINER_ID}>
-			<div ref={rootRef} className="relative z-10">
-				<div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-				<div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-					<div className="flex min-h-full items-start justify-center p-4 text-center sm:p-0">
-						<div
-							className={classNames('relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full', size)}>
-							<button
-								type="button"
-								className='absolute right-3 top-3'
-								onClick={handleClose}
-								data-testid="modal-close-button"
-							>
-								Х
-							</button>
-							{ children }
-						</div>
-					</div>
-				</div>
-			</div>
+		<Portal id={ MODAL_CONTAINER_ID }>
+			<ModalLayout
+				handleClose={ handleClose }
+				rootRef={ rootRef }
+				size={ size }
+			>
+				{ children }
+			</ModalLayout>
 		</Portal>
 	) : null;
 };

@@ -13,17 +13,18 @@ export enum Subsection {
 export interface IFilter {
 	width?: null | string
 	height?: null | string
-	diameter?: null | string
+	radius?: null | string
 	brand?: null | string
 	season?: null | string
 	bolt_count?: null | string
 	pcd?: null | string
+	krepeg?: null | string
 	vehicle_type?: string[]
 	price_from?: null | string
 	price_to?: null | string
 	city?: string[]
 	model?: string[]
-	country?: string[]
+	country?: null | string | string[]
 	speed_index?: string[]
 	load_index?: string[]
 	year?: string[]

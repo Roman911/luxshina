@@ -15,7 +15,7 @@ const initialState: FilterState = {
 	filter: {
 		width: null,
 		height: null,
-		diameter: null,
+		radius: null,
 		brand: null,
 		season: null,
 		bolt_count: null,
@@ -66,12 +66,12 @@ export const filterSlice = createSlice({
 			state.filter = {...state.filter, ...actions.payload}
 		},
 		removeParam: (state, actions: PayloadAction<IFilter>) => {
-			console.log({...state.filter, ...actions.payload})
 			state.filter = {...state.filter, ...actions.payload}
 		},
+		reset: () => initialState,
 	},
-})
+});
 
-export const { changeSubsection, changeSection, setParams, removeParam } = filterSlice.actions
+export const { changeSubsection, changeSection, setParams, removeParam, reset } = filterSlice.actions;
 
-export default filterSlice.reducer
+export default filterSlice.reducer;

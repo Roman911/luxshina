@@ -11,14 +11,21 @@ import { SelectFromTo } from './SelectFromTo';
 import { CloseIcon } from '../../Lib/Icons';
 
 import { Section, Subsection } from '../../../models/filter';
-import type { BaseDataProps } from '../../../models/baseData';
+import type { BaseDataProps, Options } from '../../../models/baseData';
 import { SubmitFloat } from "./SubmitFloat";
+import { Language } from "../../../models/language";
 
 const customTireSeason = [
-	{ name: 'летние', name_ua: 'літні'},
-	{ name: 'всесезонные', name_ua: 'всесезонні'},
-	{ name: 'зимние', name_ua: 'зимові'},
-]
+	{ value: 1, name: 'Летние', name_ua: 'Літні'},
+	{ value: 3, name: 'Всесезонные', name_ua: 'Всесезонні'},
+	{ value: 2, name: 'Зимние', name_ua: 'Зимові'},
+];
+
+const typeDisc = [
+	{ value: 1, name: 'Стальной', name_ua: 'Сталевий'},
+	{ value: 2, name: 'Кованый', name_ua: 'Кований'},
+	{ value: 3, name: 'Литой', name_ua: 'Литий'},
+];
 
 interface FilterAltProps {
 	data: BaseDataProps | undefined
@@ -28,11 +35,13 @@ interface FilterAltProps {
 
 export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, closeFilter }) => {
 	const { section, subsection, filter } = useAppSelector(state => state.filterReducer);
+	const { lang } = useAppSelector(state => state.langReducer);
 	const [ element, setElement ] = useState<HTMLElement | null>(null);
 	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
+	const country = lang === Language.UA ? data?.country : data?.country_ru;
 
-	const onChange = (name: string, value: number | undefined | null, element: HTMLElement) => {
+	const onChange = (name: string, value: number | string | undefined | null, element: HTMLElement) => {
 		setElement(element);
 		dispatch(setParams({ [name]: value }));
 	}
@@ -41,7 +50,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 		name: string,
 		label: string,
 		variant: 'white' | 'gray',
-		options: Array<{ id?: number, value: number; label: number | string; p?: number, name?: string, name_ua?: string }> = [],
+		options: Array<Options> = [],
 		value?: null | number | string
 	) => (
 		<Select
@@ -54,13 +63,13 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 		/>
 	);
 
-	const tireSeason = data?.tyre_season.map((i, index) => {
-		return {
-			...i,
-			name: customTireSeason[index].name,
-			name_ua: customTireSeason[index].name_ua
-		}
-	});
+	// const tireSeason = data?.tyre_season.map((i, index) => {
+	// 	return {
+	// 		...i,
+	// 		name: customTireSeason[index].name,
+	// 		name_ua: customTireSeason[index].name_ua
+	// 	}
+	// });
 
 	const renderTab = (value: Section) => {
 		return <Link to={ `/catalog/${value}/` }
@@ -74,8 +83,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 		</Link>
 	}
 
-	return <div
-		className={classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block', {'hidden': !isOpenFilter }) }>
+	return <div className={classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block', {'hidden': !isOpenFilter }) }>
 		<button onClick={ () => closeFilter() } className='absolute top-5 right-5 lg:hidden'>
 			<CloseIcon className='fill-[#B9B9BA] w-7 h-7' />
 		</button>
@@ -138,56 +146,56 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
 						filter?.brand,
 					)}
-					{renderSelect(
-						'model',
-						t('model', true),
-						'gray',
-						data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
-					)}
-					{renderSelect(
-						'year',
-						t('graduation year', true),
-						'gray',
-						data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
-					)}
-					{renderSelect(
-						'modification',
-						t('modification', true),
-						'gray',
-						tireSeason?.map(item => ({value: item.id, label: item.name_ua}))
-					)}
+					{/*{renderSelect(*/}
+					{/*	'model',*/}
+					{/*	t('model', true),*/}
+					{/*	'gray',*/}
+					{/*	data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),*/}
+					{/*)}*/}
+					{/*{renderSelect(*/}
+					{/*	'year',*/}
+					{/*	t('graduation year', true),*/}
+					{/*	'gray',*/}
+					{/*	data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),*/}
+					{/*)}*/}
+					{/*{renderSelect(*/}
+					{/*	'modification',*/}
+					{/*	t('modification', true),*/}
+					{/*	'gray',*/}
+					{/*	tireSeason?.map(item => ({value: item.id, label: item.name_ua}))*/}
+					{/*)}*/}
 				</>}
-				{section === Section.Battery && <>
-					{renderSelect(
-						'capacity',
-						t('capacity', true),
-						'gray',
-						[]
-					)}
-					{renderSelect(
-						'capacity',
-						'Пусковий струм',
-						'gray',
-						[]
-					)}
-					{renderSelect(
-						'capacity',
-						'Тип електроліту',
-						'gray',
-						[]
-					)}
-					{renderSelect(
-						'capacity',
-						'Тип корпусу',
-						'white',
-						[]
-					)}
-				</>}
+				{/*{section === Section.Battery && <>*/}
+				{/*	{renderSelect(*/}
+				{/*		'capacity',*/}
+				{/*		t('capacity', true),*/}
+				{/*		'gray',*/}
+				{/*		[]*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'capacity',*/}
+				{/*		'Пусковий струм',*/}
+				{/*		'gray',*/}
+				{/*		[]*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'capacity',*/}
+				{/*		'Тип електроліту',*/}
+				{/*		'gray',*/}
+				{/*		[]*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'capacity',*/}
+				{/*		'Тип корпусу',*/}
+				{/*		'white',*/}
+				{/*		[]*/}
+				{/*	)}*/}
+				{/*</>}*/}
 				{section === Section.Tires && renderSelect(
 					'season',
 					'Сезон',
 					'white',
-					tireSeason?.map(item => ({value: item.id, label: item.name_ua})),
+					customTireSeason.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
 					filter?.season,
 				)}
 				{section === Section.Disks && <>
@@ -195,7 +203,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						'bolt_count_pcd',
 						t('fasteners', true),
 						'white',
-						[],
+						data?.krip?.map(item => ({value: item.value, label: item.value, p: item.p})),
 					)}
 					<SelectFromTo name='et' from='-140' to='500' title={ `ET(${t('departure', true)})` } btnTitle={ t('to apply') }/>
 					<SelectFromTo name='dia' from='46' to='500' title='DIA' btnTitle={ t('to apply') }/>
@@ -203,7 +211,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						'type',
 						t('type', true),
 						'gray',
-						[],
+						typeDisc.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
 					)}
 					{renderSelect(
 						'color',
@@ -216,80 +224,77 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 					'brand',
 					t('brand', true),
 					'white',
-					[],
+					data?.brand?.map(item => ({ value: item.value, label: item.label })),
 					filter?.brand,
 				)}
-				{renderSelect(
-					'model',
-					t('model', true),
-					'gray',
-					[],
-				)}
+				{/*{renderSelect(*/}
+				{/*	'model',*/}
+				{/*	t('model', true),*/}
+				{/*	'gray',*/}
+				{/*	[],*/}
+				{/*)}*/}
 				{section === Section.Tires && renderSelect(
 					'country',
 					t('country', true),
 					'white',
-					data?.manufacture_country?.map(item => ({value: item.id, label: item.name_ua, p: item.p})),
+					country?.map(item => ({ value: item.value, label: item.label })),
 				)}
 				{section === Section.Tires && renderSelect(
 					'year',
 					t('year', true),
 					'gray',
-					[{label: 2024, value: 2024}, {label: 2023, value: 2023}, {label: 2022, value: 2022}, {
-						label: 2021,
-						value: 2021
-					}],
+					data?.tyre_year?.map(item => ({ value: item.value, label: item.label })),
 				)}
 				<SelectFromTo name='price' from='200' to='10000' title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
-				{section === Section.Battery && <>
-					<SelectFromTo name='price' from='0' to='600' title={ `Ширина (мм)` } btnTitle={ t('to apply') }/>
-					<SelectFromTo name='price' from='0' to='190' title={ `Висота (мм)` } btnTitle={ t('to apply') }/>
-					<SelectFromTo name='price' from='0' to='600' title={ `Довжина (мм)` } btnTitle={ t('to apply') }/>
-					{renderSelect(
-					'load_index',
-					'Напруга',
-					'gray',
-					[],
-					)}
-					{renderSelect(
-						'load_index',
-						'Полюсність',
-						'white',
-						[],
-					)}
-				</>}
-				{section === Section.Tires && <>
-					{renderSelect(
-						'load_index',
-						t('load index', true),
-						'white',
-						[],
-					)}
-					{renderSelect(
-						'speed_index',
-						t('speed index', true),
-						'white',
-						[],
-					)}
-					{renderSelect(
-						'homologation',
-						t('homologation', true),
-						'white',
-						[],
-					)}
-					{renderSelect(
-						'strengthening',
-						t('strengthening', true),
-						'white',
-						[],
-					)}
-					{renderSelect(
-						'other',
-						t('other', true),
-						'white',
-						[],
-					)}
-				</>}
+				{/*{section === Section.Battery && <>*/}
+				{/*	<SelectFromTo name='price' from='0' to='600' title={ `Ширина (мм)` } btnTitle={ t('to apply') }/>*/}
+				{/*	<SelectFromTo name='price' from='0' to='190' title={ `Висота (мм)` } btnTitle={ t('to apply') }/>*/}
+				{/*	<SelectFromTo name='price' from='0' to='600' title={ `Довжина (мм)` } btnTitle={ t('to apply') }/>*/}
+				{/*	{renderSelect(*/}
+				{/*	'load_index',*/}
+				{/*	'Напруга',*/}
+				{/*	'gray',*/}
+				{/*	[],*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'load_index',*/}
+				{/*		'Полюсність',*/}
+				{/*		'white',*/}
+				{/*		[],*/}
+				{/*	)}*/}
+				{/*</>}*/}
+				{/*{section === Section.Tires && <>*/}
+				{/*	{renderSelect(*/}
+				{/*		'load_index',*/}
+				{/*		t('load index', true),*/}
+				{/*		'white',*/}
+				{/*		[],*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'speed_index',*/}
+				{/*		t('speed index', true),*/}
+				{/*		'white',*/}
+				{/*		[],*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'homologation',*/}
+				{/*		t('homologation', true),*/}
+				{/*		'white',*/}
+				{/*		[],*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'strengthening',*/}
+				{/*		t('strengthening', true),*/}
+				{/*		'white',*/}
+				{/*		[],*/}
+				{/*	)}*/}
+				{/*	{renderSelect(*/}
+				{/*		'other',*/}
+				{/*		t('other', true),*/}
+				{/*		'white',*/}
+				{/*		[],*/}
+				{/*	)}*/}
+				{/*</>}*/}
 			</div>
 		</div>
 	</div>

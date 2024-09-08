@@ -3,7 +3,8 @@ import classNames from "classnames";
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 
-import { BusIcon, CargoIcon, CarIcon, ChevronDownIcon, FilterIcon, MotorcyclesIcon, SpecialEquipmentIcon, SuvIcon } from '../../Lib/Icons';
+import { TypeCarLinks } from '../../Lib/TypeCarLinks';
+import { ChevronDownIcon, FilterIcon } from '../../Lib/Icons';
 
 interface FilterByCarProps {
 	openFilter: () => void
@@ -17,43 +18,7 @@ export const FilterByCar: FC<FilterByCarProps> = ({ openFilter }) => {
 
 	return <div className='flex justify-between lg:justify-end items-center lg:items-start mb-4'>
 		{subsection === 'byParams' && <div className='hidden lg:flex gap-x-3 xl:gap-x-6 mr-3 xl:mr-8'>
-			<button className='group'>
-				<CarIcon className='mx-auto transition fill-gray-500 group-hover:fill-blue-500'/>
-				<div className='transition text-sm text-gray-500 font-bold group-hover:text-blue-500'>
-					{t('light', true)}
-				</div>
-			</button>
-			<button className='group'>
-				<SuvIcon
-					className='mx-auto transition fill-gray-500 stroke-gray-500 group-hover:fill-blue-500 group-hover:stroke-blue-500'/>
-				<div className='transition text-sm text-gray-500 font-bold group-hover:text-blue-500'>
-					{t('SUVs', true)}
-				</div>
-			</button>
-			<button className='group'>
-				<BusIcon className='mx-auto transition fill-gray-500 group-hover:fill-blue-500'/>
-				<div className='transition text-sm text-gray-500 font-bold group-hover:text-blue-500'>
-					{t('buses', true)}
-				</div>
-			</button>
-			<button className='group'>
-				<CargoIcon className='mx-auto transition fill-gray-500 group-hover:fill-blue-500'/>
-				<div className='transition text-sm text-gray-500 font-bold group-hover:text-blue-500'>
-					{t('cargo', true)}
-				</div>
-			</button>
-			<button className='group'>
-				<SpecialEquipmentIcon className='mx-auto transition fill-gray-500 group-hover:fill-blue-500'/>
-				<div className='transition text-sm text-gray-500 font-bold group-hover:text-blue-500'>
-					{t('special equipment', true)}
-				</div>
-			</button>
-			<button className='group'>
-				<MotorcyclesIcon className='mx-auto transition fill-gray-500 group-hover:fill-blue-500'/>
-				<div className='transition text-sm text-gray-500 font-bold group-hover:text-blue-500'>
-					{t('motorcycles', true)}
-				</div>
-			</button>
+			<TypeCarLinks section='catalog' />
 		</div>}
 		<button
 			onClick={ () => openFilter() }

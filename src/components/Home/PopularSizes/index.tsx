@@ -3,19 +3,43 @@ import { useAppSelector } from '../../../hooks';
 
 import { PopularItem, Title } from '../../Lib';
 
-import { popularSizes } from './popularSizes.ts';
+import { popularSizes } from './popularSizes';
 
 export const PopularSizes = () => {
 	const { lang } = useAppSelector(state => state.langReducer);
 
+	const Item = ({x}: {x: number}) => {
+		const radius = popularSizes[x].size;
+		return <div>
+			<div className='text-center text-lg font-bold mb-4'>R{radius}</div>
+			{popularSizes[x].items.map((i, index) => {
+				return <PopularItem
+					key={index}
+					label={ `${i.width}/${i.height} R${radius}` }
+					link={ `?width=${i.width}&height=${i.height}&radius=${radius}` }/>
+			})}
+		</div>
+	}
+
+	const BlockItems = ({ x, y }: { x: number, y?: number }) => {
+		return <div className='grid grid-cols-2 gap-x-2.5 mx-1'>
+			<Item x={ x } />
+			{ y && <Item x={ y } /> }
+		</div>
+	}
+
 	return <div className='mt-28'>
-		<Title title={ lang === 'ua' ? 'Популярні розміри легкових шин' : 'Популярные размеры легковых шин' } />
+		<Title title={lang === 'ua' ? 'Популярні розміри легкових шин' : 'Популярные размеры легковых шин'}/>
 		<div className='lg:grid grid-cols-9 mt-12 gap-x-5 hidden'>
 			{popularSizes.map(item => {
-				return <div key={ item.size }>
-					<div className='text-center text-lg font-bold mb-4'>{ item.size }</div>
+				return <div key={item.size}>
+					<div className='text-center text-lg font-bold mb-4'>R{item.size}</div>
 					{item.items.map((i, index) => {
-						return <PopularItem key={ index } label={ i.label } link={ i.link } />
+						return <PopularItem
+							key={ index }
+							label={ `${i.width}/${i.height} R${item.size}` }
+							link={ `?width=${i.width}&height=${i.height}&radius=${item.size}` }
+						/>
 					})}
 				</div>
 			})}
@@ -30,71 +54,12 @@ export const PopularSizes = () => {
 				showStatus={false}
 				showIndicators={false}
 			>
-				<div className='grid grid-cols-2 gap-x-2.5 mx-1'>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[0].size}</div>
-						{popularSizes[0].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[1].size}</div>
-						{popularSizes[1].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-				</div>
-				<div className='grid grid-cols-2 gap-x-2.5 mx-1'>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[2].size}</div>
-						{popularSizes[2].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[3].size}</div>
-						{popularSizes[3].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-				</div>
-				<div className='grid grid-cols-2 gap-x-2.5 mx-1'>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[4].size}</div>
-						{popularSizes[2].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[5].size}</div>
-						{popularSizes[3].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-				</div>
-				<div className='grid grid-cols-2 gap-x-2.5 mx-1'>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[6].size}</div>
-						{popularSizes[2].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[7].size}</div>
-						{popularSizes[3].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-				</div>
-				<div className='grid grid-cols-2 gap-x-2.5 mx-1'>
-					<div>
-						<div className='text-center text-lg font-bold mb-4'>{popularSizes[8].size}</div>
-						{popularSizes[2].items.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-				</div>
+				<BlockItems x={ 0 } y={ 1 } />
+				<BlockItems x={ 2 } y={ 3 } />
+				<BlockItems x={ 4 } y={ 5 } />
+				<BlockItems x={ 6 } y={ 7 } />
+				<BlockItems x={ 8 } />
 			</Carousel>
 		</div>
 	</div>
-}
+};

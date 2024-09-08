@@ -4,12 +4,14 @@ import styles from './index.module.scss';
 
 import { useAppSelector, useAppTranslation } from '../../../../hooks';
 import { Link } from '../../../../lib';
-import { Contacts } from '../Contacts';
+import { Contacts } from '../../../../containers/Contacts';
+import { Search } from '../../../../containers/Layout/Header/Search';
 
 import logo from '../../../../assets/logo.svg';
-import { CartIcon, ChevronDownIcon, CloseMenuIcon, HeartIcon, LibraIcon, MenuIcon, SearchIcon } from '../../../Lib/Icons';
+import { CartIcon, ChevronDownIcon, CloseMenuIcon, HeartIcon, LibraIcon, MenuIcon } from '../../../Lib/Icons';
 import { CarTireFilter } from "../HeaderBottom/CarTireFilter";
 import { CarDiskFilter } from "../HeaderBottom/CarDiskFilter";
+import { links } from '../links';
 
 export const HeaderCenter = () => {
 	const [ filterIsOpen, setFilterOpen ] = useState<boolean | string>(false);
@@ -33,17 +35,7 @@ export const HeaderCenter = () => {
 			<Link to='/' className='logo w-40 lg:w-auto'>
 				<img src={logo} className="logo" alt="logo"/>
 			</Link>
-			<div
-				className={classNames('flex rounded-full mx-auto bg-white p-0.5 mt-4 lg:mt-0 border border-gray-300 w-full lg:max-w-[600px]', styles.search)}>
-				<input
-					type="text"
-					className="w-full flex bg-transparent pl-4 text-[15px] text-gray-500 font-medium outline-0"
-					placeholder="235/65R17"
-				/>
-				<button type="submit" className="btn primary w-14 h-9">
-					<SearchIcon className='fill-white' />
-				</button>
-			</div>
+			<Search />
 			<Contacts className='hidden lg:inline-block' />
 			<div className={classNames('flex gap-7 justify-end', styles.menu)}>
 				<Link to='/comparison' className='relative'>
@@ -115,11 +107,11 @@ export const HeaderCenter = () => {
 					</div>
 				}
 			</div>
-			<Link className='py-5 px-7 block uppercase font-bold' to='/'>Вантажні шини</Link>
-			<Link className='py-5 px-7 block uppercase font-bold' to='/'>Мотошини</Link>
-			<Link className='py-5 px-7 block uppercase font-bold' to='/'>Акумулятори</Link>
-			<Link className='py-5 px-7 block uppercase font-bold' to='/'>Автотовари</Link>
-			<Link className='py-5 px-7 block uppercase font-bold' to='/tyre-disk-size-calc'>Шинний калькулятор</Link>
+			{links.map((item, index) => {
+				return <Link key={ index } className={styles.link} to={ item.url }>
+					{ t(item.title) }
+				</Link>
+			})}
 		</div>
 	</div>
 }

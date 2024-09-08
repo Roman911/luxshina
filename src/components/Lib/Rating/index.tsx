@@ -36,7 +36,7 @@ export const Rating: FC<RatingProps> = ({ commentsAvgRate, commentsCount }) => {
 			</svg>
 		</div>
 		{commentsCount && <div className='flex ml-2.5 hover:cursor-pointer'>
-			<div className='text-sm text-blue-500 font-medium'>{commentsCount}</div>
+			<div className='text-sm text-blue-500 font-medium'>{ commentsCount }</div>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className='stroke-blue-500 w-4 h-4 ml-1 mt-0.5'>
 				<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
 							d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812 0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>

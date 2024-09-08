@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppTranslation } from '../../hooks';
 import { itemProps } from '../../models/productCard';
 import { Language } from '../../models/language';
 
@@ -10,17 +10,23 @@ interface ComparisonProps {
 
 export const ComparisonComponent: FC<ComparisonProps> = ({ data }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
+	const t = useAppTranslation();
 
 	return <div className='flex relative'>
 		{data.length === 0 ?
 			<div className='py-5 px-5 text-center bg-blue-100 w-full mt-4 text-lg font-medium'>
 				{ lang === Language.UA ? 'Ви ще не додали в порівняння жодного товару' : 'Вы не добавили в сравнение ни одного товара' }
 			</div> : <>
-				<div className='w-60'>
+				<div className='w-28 md:w-60 px-2'>
 					<div>Скинути все</div>
+					<div className='mt-56 text-center md:text-end font-bold'>
+						<div className='p-2.5'>Сезон:</div>
+						<div className='p-2.5'>{ t('car type', true) }:</div>
+						<div className='p-2.5'>{ t('profile height', true) }:</div>
+					</div>
 				</div>
-				<div className='flex-1 '>
-					<div className='flex'>
+				<div className='flex-1 w-[calc(100%-15rem)]'>
+					<div className='flex overflow-x-auto whitespace-nowrap max-w-full'>
 						{data.map(item => {
 							return <div key={item.group}>
 								<div className='w-60 relative m-1'>

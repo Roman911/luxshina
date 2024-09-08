@@ -2,7 +2,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 
-import { Link } from '../../../lib/Links';
+import { Link } from '../../../lib';
 import { PopularItem, Title } from '../../Lib';
 
 import { popularBrands } from './popularBrands';
@@ -20,10 +20,10 @@ export const PopularBrands = () => {
 	}
 
 	return <div className='mt-24'>
-		<Title title={ lang === 'ua' ? 'Популярні марки авто' : 'Популярные марки авто' } />
+		<Title title={lang === 'ua' ? 'Популярні марки авто' : 'Популярные марки авто'}/>
 		<div className='lg:grid grid-cols-6 mt-12 gap-x-5 mb-8 hidden'>
 			{popularBrands.map((i, index) => {
-				return <PopularItem key={ index } label={ i.label } link={ i.link } />
+				return <PopularItem key={index} label={i.label} link={i.link}/>
 			})}
 		</div>
 		<div className='lg:hidden'>
@@ -37,9 +37,9 @@ export const PopularBrands = () => {
 				showIndicators={false}
 			>
 				{splitArrayIntoChunks(popularBrands, 10).map((item, index) => {
-					return <div key={ index } className='grid grid-cols-2 gap-x-2.5 mx-1'>
+					return <div key={index} className='grid grid-cols-2 gap-x-2.5 mx-1'>
 						{item.map((i, index) => {
-							return <PopularItem key={ index } label={ i.label } link={ i.link } />
+							return <PopularItem key={index} label={i.label} link={i.link}/>
 						})}
 					</div>
 				})}

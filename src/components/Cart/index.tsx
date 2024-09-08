@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useAppSelector } from '../../hooks';
-import { Link } from '../../lib/Links';
+import { Link } from '../../lib';
 import { Language } from '../../models/language';
 import type { itemProps } from '../../models/productCard';
 

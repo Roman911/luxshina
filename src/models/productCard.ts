@@ -6,8 +6,13 @@ export interface itemProps {
 	comments_count: number
 	comments_avg_rate: number
 	min_price: number
+	max_price: number
 	diameter: number
 	best_offer: {
+		id: number
+		price: number
+		city: number
+		country: number
 		year: number | null
 	}
 }

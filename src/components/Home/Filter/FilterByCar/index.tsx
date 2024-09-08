@@ -1,28 +1,27 @@
 import { FC } from 'react';
-import { Link } from '../../../../lib/Links';
 
+import { Link } from '../../../../lib';
 import { useAppTranslation } from '../../../../hooks';
 import { MySelect } from '../Select';
+import type { Options } from '../../../../models/baseData';
 
 interface FilterByCarProps {
 	filters: {
 		label: string
 		name: string
-		options: never[]
+		options?: Options[]
+		isDisabled?: boolean
 	}[]
+	onChange: (name: string, value: number | string | undefined) => void
 }
 
-export const FilterByCarComponents: FC<FilterByCarProps> = ({ filters }) => {
+export const FilterByCarComponents: FC<FilterByCarProps> = ({ filters, onChange }) => {
 	const t = useAppTranslation();
-
-	const onChange = (name: string, value: number | undefined) => {
-		console.log(name, value)
-	}
 
 	return <>
 		<div className='grid grid-cols-1 md:grid-cols-2 gap-2.5 md:mt-7'>
 			{filters.map(item => {
-				return <MySelect key={item.name} name={item.name} label={item.label} options={item.options} onChange={onChange} />
+				return <MySelect key={item.name} name={item.name} label={item.label} options={item.options} onChange={onChange} isDisabled={item.isDisabled} />
 			})}
 		</div>
 		<div className='mt-4 md:mt-10 flex gap-4 flex-col md:flex-row'>

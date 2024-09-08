@@ -28,7 +28,7 @@ export const FilterActiveComponent: FC<FilterActiveProps> = ({ className, filter
 		className={classNames('mb-4 flex-wrap justify-end gap-x-2 gap-y-3 lg:gap-4 text-end bg-blue-50 lg:bg-transparent p-4 lg:p-0', className)}>
 		{ filter.width && renderItem('width', filter.width) }
 		{ filter.height && renderItem('height', filter.height) }
-		{ filter.diameter && renderItem('diameter', filter.diameter) }
+		{ filter.radius && renderItem('diameter', filter.radius) }
 		<button className='flex items-center gap-2 text-sm font-medium group text-gray-500'>
 			{t('reset everything', true)}
 			<CloseIcon className='fill-[#B9B9BA] hidden lg:block'/>

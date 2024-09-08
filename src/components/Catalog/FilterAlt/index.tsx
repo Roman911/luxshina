@@ -135,7 +135,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						t('diameter', true),
 						'gray',
 						data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
-						filter?.diameter,
+						filter?.radius,
 					)}
 				</>}
 				{subsection === 'byCars' && <>

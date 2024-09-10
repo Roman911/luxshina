@@ -5,10 +5,11 @@ import { ContactsComponent } from '../../components/Contacts';
 import { useAppTranslation } from '../../hooks';
 
 interface ContactsProps {
+	isInfoBlock?: boolean
 	className?: string
 }
 
-export const Contacts: FC<ContactsProps> = ({className}) => {
+export const Contacts: FC<ContactsProps> = ({ isInfoBlock, className}) => {
 	const [ showOptions, setShowOptions ] = useState<boolean>(false);
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { settings } = useAppSelector(state => state.settingsReducer);
@@ -31,6 +32,7 @@ export const Contacts: FC<ContactsProps> = ({className}) => {
 		url: settings[lang].config_telephone_besk_url,
 	}
 
+	const freePhoneText = lang === 'ua' ? 'Безкоштовно по Україні' : 'Бесплатно по Украине';
 	const telephones: { phone: string; url: string; logo: "vodafone" | "kievstar" | "lifecell"; }[] = [
 		{ phone: settings[lang].config_telephone_vodafone, url: settings[lang].config_telephone_vodafone_url, logo: 'vodafone' },
 		{ phone: settings[lang].config_telephone_kievstar, url: settings[lang].config_telephone_kievstar_url, logo: 'kievstar' },
@@ -38,10 +40,13 @@ export const Contacts: FC<ContactsProps> = ({className}) => {
 	];
 
 	return <ContactsComponent
+		isInfoBlock={ isInfoBlock }
 		className={ className }
 		showOptions={ showOptions }
 		handleClick={ handleClick }
 		text={ t('free') }
+		label={ t('phones') }
+		freePhoneText={ freePhoneText }
 		tooltipRef={ tooltipRef }
 		telephoneFree={ telephoneFree }
 		telephones={ telephones }

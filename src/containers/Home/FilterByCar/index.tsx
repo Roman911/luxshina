@@ -9,7 +9,8 @@ export const FilterByCar = () => {
 	const dispatch = useAppDispatch();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { data: model, refetch: modelRefetch } = baseDataAPI.useFetchAutoModelQuery(`${filter.brand}`);
-	const { data: modelKit, refetch: modelKitRefetch } = baseDataAPI.useFetchAutoModelKitQuery(`${filter.modification}/${filter.year}`);
+	const { data: modelYear } = baseDataAPI.useFetchAutoYearQuery(`${filter.model}`);
+	const { data: modelKit, refetch: modelKitRefetch } = baseDataAPI.useFetchAutoModelKitQuery(`${filter.model}/${filter.year}`);
 
 	const filterConfigs = [
 		{
@@ -26,8 +27,8 @@ export const FilterByCar = () => {
 		{
 			label: t('graduation year', true),
 			name: 'year',
-			options: [],
-			isDisabled: true,
+			options: modelYear?.map(item => ({ value: item, label: item })),
+			isDisabled: modelYear?.length === 0,
 		},
 		{
 			label: t('modification', true),

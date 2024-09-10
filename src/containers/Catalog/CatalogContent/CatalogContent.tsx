@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { baseDataAPI } from '../../../services/baseDataService';
-import { useAppSelector, useAppSearchParams } from '../../../hooks';
+import { useAppDispatch, useAppSelector, useAppSearchParams } from '../../../hooks';
+import { setParams } from '../../../store/reducers/filterSlice';
 import { ProductList } from '../../ProductList';
 import { FilterByCar } from '../../../components/Catalog/FilterByCar';
 import { FilterActive } from '../FilterActive';
@@ -18,10 +19,14 @@ interface CatalogContentProps {
 
 export const CatalogContent: FC<CatalogContentProps> = ({ openFilter, onSubmit }) => {
 	const location = useLocation();
+	const dispatch = useAppDispatch();
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery(location?.search);
+	const searchParams = useAppSearchParams();
 
-	useAppSearchParams();
+	useEffect(() => {
+		dispatch(setParams(searchParams));
+	}, [dispatch, searchParams]);
 
 	return (
 		<div className='flex-1'>

@@ -1,46 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useAppDispatch } from './redux';
-import { setParams } from '../store/reducers/filterSlice';
-
 interface FilterParams {
-	width?: string | null;
-	height?: string | null;
-	radius?: string | null;
-	country?: string | null;
-	krepeg?: string | null;
+	[key: string]: string;
 }
 
+const PARAM_KEYS = ['brand', 'width', 'height', 'radius', 'country', 'krepeg'] as const;
+
 export const useAppSearchParams = () => {
+	const [filter, setFilter] = useState<FilterParams>({});
 	const [searchParams] = useSearchParams();
-	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		if (searchParams.size > 0) {
-			const newFilter: FilterParams = {};
+		const newFilter: FilterParams = {};
 
-			if (searchParams.get('width')) {
-				newFilter.width = searchParams.get('width');
-			}
+		PARAM_KEYS.forEach(key => {
+			const value = searchParams.get(key);
+			if(value) newFilter[key] = value;
+		});
 
-			if (searchParams.get('height')) {
-				newFilter.height = searchParams.get('height');
-			}
+		setFilter(newFilter);
+	}, [searchParams]);
 
-			if (searchParams.get('radius')) {
-				newFilter.radius = searchParams.get('radius');
-			}
-
-			if (searchParams.get('country')) {
-				newFilter.country = searchParams.get('country');
-			}
-
-			if (searchParams.get('krepeg')) {
-				newFilter.krepeg = searchParams.get('krepeg');
-			}
-
-			dispatch(setParams(newFilter));
-		}
-	}, [dispatch, searchParams]);
+	return filter;
 };

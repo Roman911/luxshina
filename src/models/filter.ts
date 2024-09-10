@@ -19,28 +19,28 @@ export interface IFilter {
 	bolt_count?: null | string
 	pcd?: null | string
 	krepeg?: null | string
-	vehicle_type?: string[]
+	vehicle_type?: null | string
 	price_from?: null | string
 	price_to?: null | string
-	city?: string[]
-	model?: string[]
-	country?: null | string | string[]
-	speed_index?: string[]
-	load_index?: string[]
-	year?: string[]
-	ply_rating?: string[]
+	city?: null | string
+	model?: null | string
+	country?: null | string
+	speed_index?: null | string
+	load_index?: null | string
+	year?: null | string
+	ply_rating?: null | string
 	dia_from?: null | string
 	dia_to?: null | string
-	color?: string[]
+	color?: null | string
 	et_from?: null | string
 	et_to?: null | string
-	bolt_count_pcd?: string[]
+	bolt_count_pcd?: null | string
 	only_xl?: boolean
 	only_owl?: boolean
 	only_retread?: boolean
 	only_provider_with_tax?: boolean
-	homologation?: string[]
-	vehicle_type_alt?: string[]
+	homologation?: null | string
+	vehicle_type_alt?: null | string
 	only_run_flat?: boolean
 	only_flange_protector?: boolean
 	only_studded?: boolean

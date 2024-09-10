@@ -31,6 +31,11 @@ export const baseDataAPI = createApi({
 				url: `/baseData/getAutoBrandModel/${id}`,
 			}),
 		}),
+		fetchAutoYear: build.query<number[], string>({
+			query: (id) => ({
+				url: `/baseData/getAutoBrandModelYear/${id}`,
+			}),
+		}),
 		fetchAutoModelKit: build.query<CarModelProps[], string>({
 			query: (id) => ({
 				url: `/baseData/getAutoBrandModelKit/${id}`,

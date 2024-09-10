@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { baseDataAPI } from '../../../services/baseDataService';
+import { useAppDispatch, useAppSearchParams } from '../../../hooks';
 import { removeParam } from '../../../store/reducers/filterSlice';
-
 import { FilterActiveComponent } from '../../../components/Catalog/FilterActive';
 
 interface FilterActiveProps {
@@ -10,12 +10,18 @@ interface FilterActiveProps {
 }
 
 export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
-	const { filter } = useAppSelector(state => state.filterReducer);
 	const dispatch = useAppDispatch();
+	const searchParams = useAppSearchParams();
+	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 
 	const clearParam = (name: string) => {
 		dispatch(removeParam({[name]: null}))
 	}
 
-	return <FilterActiveComponent className={ className } filter={ filter } clearParam={ clearParam } />
+	return <FilterActiveComponent
+		data={ data }
+		className={ className }
+		searchParams={ searchParams }
+		clearParam={ clearParam }
+	/>
 }

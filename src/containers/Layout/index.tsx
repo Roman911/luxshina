@@ -14,7 +14,7 @@ export const Layout = () => {
 	const { data: settings } = baseDataAPI.useFetchSettingsQuery('');
 
 	useEffect(() => {
-		if(!user) return navigate('/auth');
+		//if(!user) return navigate('/auth');
 		if(settings) {
 			dispatch(setSettings(settings));
 		}

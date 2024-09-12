@@ -5,7 +5,7 @@ import { Layout } from './containers/Layout';
 import { Home } from './containers/Home';
 import { Catalog } from './containers/Catalog';
 import { Product } from './containers/Product';
-import { Auth } from './containers/Auth';
+//import { Auth } from './containers/Auth';
 import { Bookmarks } from './containers/Bookmarks';
 import { Comparison } from './containers/Comparison';
 import { Cart } from './containers/Cart';
@@ -56,34 +56,34 @@ const router = createBrowserRouter([
 			},
 			{
 				path: ROUTES.aboutUs,
-				element: <StaticPage page='about-us' title='about us' />
+				element: <StaticPage id={1} page='about-us' />
 			},
 			{
 				path: ROUTES.shipment,
-				element: <StaticPage page='shipment' title='delivery' />
+				element: <StaticPage id={2} page='shipment' />
 			},
 			{
 				path: ROUTES.payment,
-				element: <StaticPage page='payment' title='payment' />
+				element: <StaticPage id={3} page='payment' />
 			},
 			{
 				path: ROUTES.contacts,
-				element: <StaticPage page='contacts' title='contacts' />
+				element: <StaticPage id={5} page='contacts' />
 			},
 			{
 				path: ROUTES.guaranteeAndRefund,
-				element: <StaticPage page='guarantee-and-refund' title='guarantee and refund' />
+				element: <StaticPage id={6} page='credit' />
 			},
 			{
 				path: ROUTES.publicOffer,
-				element: <StaticPage page='public-offer' title='public offer agreement' />
+				element: <StaticPage id={4} page='public-offer' />
 			},
 		]
 	},
-	{
-		path: '/auth',
-		element: <Auth />
-	}
+	// {
+	// 	path: '/auth',
+	// 	element: <Auth />
+	// }
 ]);
 
 export const App = () => <RouterProvider router={ router } />

@@ -1,54 +1,48 @@
-import { FC, ReactElement } from 'react';
+import { FC, memo } from 'react';
+import DOMPurify from 'dompurify';
 import { Helmet } from 'react-helmet-async';
 
 import { baseDataAPI } from '../../services/baseDataService';
-import { useAppSelector, useAppTranslation } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import { Title } from '../../components/Lib';
-import { AboutUs, Contacts, GuaranteeAndRefund, Payment, PublicOffer, Shipment } from '../../components/StaticPages';
-
-import { Language } from '../../models/language';
+import { Spinner, Title } from '../../components/Lib';
 
 interface StaticPageProps {
+	id: number
 	page: string
-	title: string
 }
 
-export const StaticPage: FC<StaticPageProps> = ({ page, title }) => {
-	const t = useAppTranslation();
-	const { data } = baseDataAPI.useFetchStatiAliasQuery('1');
+export const StaticPage: FC<StaticPageProps> = ({ id, page }) => {
+	const { data, isLoading } = baseDataAPI.useFetchStatiAliasQuery(`${ id }`);
 	const { lang } = useAppSelector(state => state.langReducer);
+	const { settings } = useAppSelector(state => state.settingsReducer);
+	const title = data ? data?.[page].description[lang].title : '';
+
 	const path = [
 		{
 			id: 1,
-			title: t(title, true),
+			title: data?.[page].description[lang].meta_title,
 			url: '/'
 		}
 	];
 
-	console.log(data)
-
-	const renderPage = (page: string, lang: Language) => {
-		const pageComponents: Record<string, ReactElement | null> = {
-			shipment: <Shipment lang={ lang } />,
-			payment: <Payment lang={ lang } />,
-			contacts: <Contacts lang={ lang } />,
-			'guarantee-and-refund': <GuaranteeAndRefund lang={ lang } />,
-			'public-offer': <PublicOffer lang={ lang } />,
-			default: <AboutUs lang={ lang } />,
-		};
-
-		return pageComponents[page] || pageComponents.default;
-	};
+	const HtmlContent = memo(({ htmlString }: { htmlString: string }) => {
+		const sanitizedHtml = DOMPurify.sanitize(htmlString);
+		return (
+			<div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+		);
+	});
 
 	return <LayoutWrapper>
 		<Helmet>
-			<title>{ t(title, true) } | luxshina.ua</title>
+			<title>{ title } | { settings.ua.config_email }</title>
 		</Helmet>
 		<Breadcrumbs path={ path }/>
-		<Title title={ title } />
-		{ renderPage(page, lang) }
+		<Spinner height='h-60' show={ isLoading }>
+			<Title title={ data?.[page].description[lang].meta_h1 } />
+			<HtmlContent htmlString={ data?.[page].description[lang].content } />
+		</Spinner>
 	</LayoutWrapper>
-}
+};

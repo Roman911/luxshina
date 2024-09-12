@@ -1,6 +1,6 @@
 import { baseDataAPI } from '../../../services/baseDataService';
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
-import { setCarFilter } from '../../../store/reducers/filterCarSlice';
+import {setCarFilter, setSend} from '../../../store/reducers/filterCarSlice';
 import { FilterByCarComponents } from '../../../components/Home/Filter/FilterByCar';
 
 export const FilterByCar = () => {
@@ -47,5 +47,14 @@ export const FilterByCar = () => {
 		}
 	}
 
-	return <FilterByCarComponents filters={ filterConfigs } onChange={ onChange } />
+	const onClick = () => {
+		dispatch(setSend());
+	}
+
+	return <FilterByCarComponents
+		filters={ filterConfigs }
+		onClick={ onClick }
+		onChange={ onChange }
+		disabled={ filter.modification === 0 }
+	/>
 }

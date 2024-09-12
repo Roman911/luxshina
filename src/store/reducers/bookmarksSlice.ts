@@ -1,5 +1,5 @@
-import type {PayloadAction} from '@reduxjs/toolkit';
-import {createSlice} from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface BookmarksState {
 	bookmarksItems: number[]
@@ -20,7 +20,7 @@ export const bookmarksSlice = createSlice({
 			state.bookmarksItems = state.bookmarksItems.filter(item => item !== actions.payload);
 		},
 	},
-})
+});
 
 export const { addBookmarks, removeBookmarks } = bookmarksSlice.actions
 

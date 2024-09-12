@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet-async';
 
 import { baseDataAPI } from '../../services/baseDataService';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { reset } from '../../store/reducers/filterSlice';
+import { reset as resetFilter } from '../../store/reducers/filterSlice';
+import { reset as resetFilterCar } from '../../store/reducers/filterCarSlice';
 import { LayoutWrapper } from '../../components/Layout';
 import { Filter } from './Filter';
 import { ProductList } from '../ProductList';
@@ -18,7 +19,8 @@ export const Home = () => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(reset());
+		dispatch(resetFilter());
+		dispatch(resetFilterCar());
 	}, [dispatch]);
 
 	return <main>

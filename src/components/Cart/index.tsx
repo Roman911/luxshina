@@ -3,16 +3,16 @@ import { FC } from 'react';
 import { useAppSelector } from '../../hooks';
 import { Link } from '../../lib';
 import { Language } from '../../models/language';
-import type { itemProps } from '../../models/productCard';
+import type { ProductsProps } from '../../models/products';
 
 interface CarProps {
-	data: itemProps[]
+	data: ProductsProps | undefined
 }
 
 export const CartComponent: FC<CarProps> = ({ data }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
 
-	if(data.length === 0) {
+	if(!data) {
 		return <div className='py-5 px-5 text-center bg-blue-100 w-full mt-4 text-lg font-medium'>
 			{lang === Language.UA ? 'Ви ще не додали до кошику жодного товару' : 'Вы еще не добавили в корзину ни одного товара'}
 		</div>
@@ -20,9 +20,9 @@ export const CartComponent: FC<CarProps> = ({ data }) => {
 
 	return <div className='flex flex-col lg:flex-row bg-white p-5 rounded-sm shadow-sm gap-10'>
 		<div className='flex-1 divide-y'>
-			{data.map(item => {
+			{data?.data.products.map(item => {
 				return <div key={item.group} className='flex py-4 items-center relative'>
-					<img className='w-20' src='https://opt.tyreclub.com.ua/api/public/img/user/s217/tyre/5558.400x400.jpg' alt=""/>
+					<img className='w-20' src={ item.default_photo } alt=""/>
 					<div className='flex flex-col md:flex-row justify-between w-full ml-4 pr-4 md:pr-0'>
 						<div className='flex-1'>
 							<div className='font-bold'>{item.full_name}</div>

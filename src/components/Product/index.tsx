@@ -1,14 +1,14 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import './index.scss';
 
-import { useAppSelector, useAppTranslation } from '../../hooks';
-
+import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
+import { addCart } from '../../store/reducers/cartSlice';
 import { InfoBlock } from './InfoBlock';
 import { ActionsBlock } from './ActionsBlock';
 import { ImgGallery } from './ImageGallery';
 import { CharacteristicsBlock } from './CharacteristicsBlock';
 
-import { countryCodeTransform } from '../../lib';
+import { countryCodeTransform, Link } from '../../lib';
 import { CountryInfo, Rating, Spinner } from '../Lib';
 import { CartIcon } from "../Lib/Icons";
 
@@ -24,14 +24,21 @@ interface ProductComponentProps {
 }
 
 export const ProductComponent: FC<ProductComponentProps> = ({ data, isLoading, handleModalOpen }) => {
+	const [toCart, setToCart] = useState(false);
 	const { lang } = useAppSelector(state => state.langReducer);
+	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
 
-	const { id = 0, full_name = '', offers = [], min_price = 0, photo } = data?.data || {};
+	const { id = 0, full_name = '', offers = [], min_price = 0, photo, model } = data?.data || {};
 	const images = [{
 		original: photo?.url_part2 || '',
 		thumbnail: photo?.url_part || '',
 	}];
+
+	const onClick = () => {
+		setToCart(true);
+		dispatch(addCart(model ? model.id : 0));
+	}
 
 	return <section className='product-page flex flex-col lg:flex-row justify-between gap-1 xl:gap-x-6'>
 		<div className='max-w-[900px] flex-1 pr-3 xl:pr-5'>
@@ -102,10 +109,15 @@ export const ProductComponent: FC<ProductComponentProps> = ({ data, isLoading, h
 					{t('delivery calculation', true)}
 				</button>
 				<div className='buttons-buy md:justify-self-end mt-8 md:0'>
-					<button className='btn primary uppercase w-full md:w-72'>
-						<CartIcon className='stroke-white'/>
-						<span className='ml-2.5'>{t('buy')}</span>
-					</button>
+					{toCart ?
+						<Link to={`/cart`} className='btn success uppercase w-full md:w-72'>
+							<span className='ml-2.5'>Перейти до кошика</span>
+						</Link> :
+						<button onClick={() => onClick()} className='btn primary uppercase w-full md:w-72'>
+							<CartIcon className='stroke-white'/>
+							<span className='ml-2.5'>{t('buy')}</span>
+						</button>
+					}
 					<button onClick={() => handleModalOpen('QuickOrder')}
 									className='btn secondary uppercase mt-2.5 w-full md:w-72'>
 						<span className='ml-2.5'>{t('quick order')}</span>

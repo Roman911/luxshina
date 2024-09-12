@@ -40,6 +40,7 @@ export interface Options {
 export interface BaseDataProps {
 	auto: Auto[]
 	brand: Brand[]
+	brand_disc: Brand[]
 	country: Country[]
 	country_ru: Country[]
 	dia: Item[]
@@ -57,4 +58,35 @@ export interface BaseDataProps {
 export interface CarModelProps {
 	label: string
 	value: number
+}
+
+interface Kits {
+	id: number
+	model: number
+	year: number
+	name: string
+	pcd: number
+	bolt_count:number
+	dia: number
+	bolt_size: string
+	car2_model: {
+		id: number
+		brand: number
+		name: string
+		car2_brand: {
+			id: number
+			name: string
+		}
+	}
+}
+
+export interface KitTyreSize {
+	value: number
+	kits: Kits
+	width: number
+	height: number
+	diameter: number
+	type: number
+	axle: number
+	axle_group: null
 }

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import classNames from 'classnames';
 
 import { Link } from '../../../../lib';
 import { useAppTranslation } from '../../../../hooks';
@@ -6,16 +7,18 @@ import { MySelect } from '../Select';
 import type { Options } from '../../../../models/baseData';
 
 interface FilterByCarProps {
+	disabled: boolean
 	filters: {
 		label: string
 		name: string
 		options?: Options[]
 		isDisabled?: boolean
 	}[]
+	onClick: () => void
 	onChange: (name: string, value: number | string | undefined) => void
 }
 
-export const FilterByCarComponents: FC<FilterByCarProps> = ({ filters, onChange }) => {
+export const FilterByCarComponents: FC<FilterByCarProps> = ({ disabled, filters, onClick, onChange }) => {
 	const t = useAppTranslation();
 
 	return <>
@@ -25,11 +28,11 @@ export const FilterByCarComponents: FC<FilterByCarProps> = ({ filters, onChange 
 			})}
 		</div>
 		<div className='mt-4 md:mt-10 flex gap-4 flex-col md:flex-row'>
-			<Link to='/catalog/tires' className='btn secondary w-full md:w-56 uppercase'>
-				{t('choose tires')}
+			<Link to='/catalog/tires' onClick={ onClick } className={classNames('btn secondary w-full md:w-56 uppercase', { 'pointer-events-none opacity-60': disabled })}>
+				{ t('choose tires') }
 			</Link>
-			<Link to='/catalog/disk' className='btn secondary w-full md:w-56 uppercase'>
-				{t('choose disks')}
+			<Link to='/catalog/disk' onClick={ onClick } className={classNames('btn secondary w-full md:w-56 uppercase', { 'pointer-events-none opacity-60': disabled })}>
+				{ t('choose disks') }
 			</Link>
 		</div>
 	</>

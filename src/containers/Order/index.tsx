@@ -26,8 +26,10 @@ export const Order = () => {
 		<Helmet>
 			<title>{ t('placing an order', true) } | luxshina.ua</title>
 		</Helmet>
-		<Breadcrumbs path={ path } />
-		<Title title='placing an order'/>
-		<OrderComponent/>
+		<div className='max-w-5xl mx-auto'>
+			<Breadcrumbs path={ path } />
+			<Title title='placing an order'/>
+			<OrderComponent/>
+		</div>
 	</LayoutWrapper>
 }

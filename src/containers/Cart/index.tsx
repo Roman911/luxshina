@@ -1,28 +1,20 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import { useAppTranslation } from '../../hooks';
+import { baseDataAPI } from '../../services/baseDataService';
+import { useAppSelector, useAppTranslation } from '../../hooks';
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Title } from '../../components/Lib';
 import { CartComponent } from '../../components/Cart';
-import { itemProps } from '../../models/productCard';
 
-const data: itemProps[] = []
-
-interface CartProps {
-
-}
-
-export const Cart: React.FC<CartProps> = () => {
+export const Cart: React.FC = () => {
 	const t = useAppTranslation();
-	const path = [
-		{
-			id: 1,
-			title: t('cart', true),
-			url: '/'
-		}
-	];
+	const { cartItems } = useAppSelector(state => state.cartReducer);
+	const { data } = baseDataAPI.useFetchProductsQuery(`?model_id=${cartItems.join(',')}`);
+	const path = [{ id: 1, title: t('cart', true), url: '/' }];
+
+	console.log(data)
 
 	return <LayoutWrapper>
 		<Helmet>

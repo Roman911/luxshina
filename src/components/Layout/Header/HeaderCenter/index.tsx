@@ -6,6 +6,7 @@ import { useAppSelector, useAppTranslation } from '../../../../hooks';
 import { Link } from '../../../../lib';
 import { Contacts } from '../../../../containers/Contacts';
 import { Search } from '../../../../containers/Layout/Header/Search';
+import { Badge } from '../../../Lib';
 
 import logo from '../../../../assets/logo.svg';
 import { CartIcon, ChevronDownIcon, CloseMenuIcon, HeartIcon, LibraIcon, MenuIcon } from '../../../Lib/Icons';
@@ -20,6 +21,7 @@ export const HeaderCenter = () => {
 	const t = useAppTranslation();
 	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
 	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
+	const { cartItems } = useAppSelector(state => state.cartReducer);
 
 	const handleClick = (value: SetStateAction<boolean | string>) => {
 		if (filterIsOpen !== value) {
@@ -39,36 +41,15 @@ export const HeaderCenter = () => {
 			<Contacts className='hidden lg:inline-block' />
 			<div className={classNames('flex gap-7 justify-end', styles.menu)}>
 				<Link to='/comparison' className='relative'>
-					<div className="-top-2.5 absolute left-3.5">
-						<p
-							className={classNames(
-								'flex h-5 w-5 p-2 items-center justify-center rounded-full text-[11px] border-2 border-white font-bold text-white',
-								{'bg-natural-400': comparisonItems.length === 0},
-								{'bg-blue-500': comparisonItems.length > 0},
-							)}>
-							{comparisonItems.length}
-						</p>
-					</div>
+					<Badge value={ comparisonItems.length } />
 					<LibraIcon/>
 				</Link>
 				<Link to='/bookmarks' className='relative'>
-					<div className="-top-2.5 absolute left-3.5">
-						<p
-							className={classNames(
-								'flex h-5 w-5 p-2 items-center justify-center rounded-full text-[11px] border-2 border-white font-bold text-white',
-								{ 'bg-natural-400': bookmarksItems.length === 0 },
-								{ 'bg-blue-500': bookmarksItems.length > 0 },
-							)}>
-							{ bookmarksItems.length }
-						</p>
-					</div>
+					<Badge value={ bookmarksItems.length } />
 					<HeartIcon/>
 				</Link>
 				<Link to='/cart' className='relative'>
-					<div className="-top-2.5 absolute left-3.5">
-						<p
-							className="flex h-5 w-5 p-2 items-center justify-center rounded-full bg-natural-400 text-[11px] border-2 border-white font-bold text-white">0</p>
-					</div>
+					<Badge value={ cartItems.length } />
 					<CartIcon/>
 				</Link>
 				<button onClick={() => setOpenMenu(prev => !prev)} className='lg:hidden'>

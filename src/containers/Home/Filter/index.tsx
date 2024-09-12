@@ -64,7 +64,7 @@ export const Filter = () => {
 			filterConfigs.push({
 				label: t('brand', true),
 				name: 'brand',
-				options: data?.brand?.map(item => ({ value: item.value, label: item.label }))
+				options: data?.brand_disc?.map(item => ({ value: item.value, label: item.label }))
 			});
 
 			filterConfigs.push({
@@ -106,9 +106,9 @@ export const Filter = () => {
 	const pathBySection = (section: Section) => {
 		switch (section) {
 			case Section.Tires:
-				return 'tires';
+				return 'tires?';
 			case Section.Disks:
-				return 'disks';
+				return 'disks?typeproduct=3';
 			default:
 				return section;
 		}
@@ -116,7 +116,7 @@ export const Filter = () => {
 
 	const submit = () => {
 		const searchUrl = generateUrl(filter);
-		const rout = `/catalog/${pathBySection(section)}?`;
+		const rout = `/catalog/${pathBySection(section)}`;
 		const newRout = lang === Language.UA ? rout : `/ru${rout}`;
 		navigate(newRout + searchUrl);
 	}

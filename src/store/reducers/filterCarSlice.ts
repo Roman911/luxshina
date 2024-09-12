@@ -12,11 +12,13 @@ interface Filter {
 
 export interface FilterCarState {
 	section: Section
+	isSend: boolean
 	filter: Filter
 }
 
 const initialState: FilterCarState = {
 	section: Section.Tires,
+	isSend: false,
 	filter: {
 		brand: 0,
 		model: 0,
@@ -32,9 +34,13 @@ export const filterCarSlice = createSlice({
 		setCarFilter: (state, actions: PayloadAction<Filter>) => {
 			state.filter = {...state.filter, ...actions.payload}
 		},
+		setSend: (state) => {
+			state.isSend = true
+		},
+		reset: () => initialState,
 	},
 })
 
-export const { setCarFilter } = filterCarSlice.actions
+export const { setCarFilter, setSend, reset } = filterCarSlice.actions
 
 export default filterCarSlice.reducer

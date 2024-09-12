@@ -1,3 +1,4 @@
+export { Badge } from './Badge';
 export { CloseButton } from './CloseButton';
 export { CountryInfo } from './CountryInfo';
 export { NoResult } from './NoResult';

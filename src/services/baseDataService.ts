@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { BaseDataProps, CarModelProps } from '../models/baseData';
+import type { BaseDataProps, CarModelProps, KitTyreSize } from '../models/baseData';
 import type { SettingsProps } from '../models/settings';
 import type { ProductsProps } from '../models/products';
 import type { ProductProps } from '../models/product';
@@ -41,19 +41,29 @@ export const baseDataAPI = createApi({
 				url: `/baseData/getAutoBrandModelKit/${id}`,
 			}),
 		}),
+		fetchKitTyreSize: build.query<KitTyreSize[], string>({
+			query: (id) => ({
+				url: `/baseData/getKitTyreSize/${id}`,
+			}),
+		}),
+		fetchKitDiskSize: build.query<CarModelProps[], string>({
+			query: (id) => ({
+				url: `/baseData/getKitDiskSize/${id}`,
+			}),
+		}),
 		fetchStatiAlias: build.query({
 			query: (id) => ({
 				url: `/baseData/StatiAlias/${id}`,
-				// headers: {
-				// 	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-				// 	'Cache-Control': 'max-age=0',
-				// 	'Upgrade-Insecure-Requests': '1',
-				// }
 			}),
 		}),
 		fetchProducts: build.query<ProductsProps | undefined, string>({
 			query: (id) => ({
 				url: `/api/getProducts${id}`,
+				method: 'POST',
+				body: {
+					start: 0,
+					length: 12
+				}
 			}),
 		}),
 		fetchProduct: build.query<ProductProps, string>({

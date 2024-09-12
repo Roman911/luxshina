@@ -1,17 +1,18 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import classNames from 'classnames';
 
-import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
-import { changeSection, changeSubsection, setParams } from '../../../store/reducers/filterSlice';
+import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { Link } from '../../../lib';
 
 import { FilterActive } from '../../../containers/Catalog/FilterActive';
 import { Select } from './Select';
 import { SelectFromTo } from './SelectFromTo';
+import { MySelect } from './SelectToByCar';
 import { CloseIcon } from '../../Lib/Icons';
+import { Badge } from '../../Lib/';
 
 import { Section, Subsection } from '../../../models/filter';
-import type { BaseDataProps, Options } from '../../../models/baseData';
+import type { CarModelProps, BaseDataProps, Options } from '../../../models/baseData';
 import { SubmitFloat } from "./SubmitFloat";
 import { Language } from "../../../models/language";
 
@@ -28,23 +29,40 @@ const typeDisc = [
 ];
 
 interface FilterAltProps {
+	element: HTMLElement | null
 	data: BaseDataProps | undefined
 	isOpenFilter: boolean
 	closeFilter: () => void
+	handleClick: (value: Subsection) => void
+	onClick: (value: Section) => void
+	onChange: (name: string, value: number | string | undefined | null, element: HTMLElement) => void
+	onChangeByCar: (name: string, value: number | string | undefined) => void
+	setElement: (value: null) => void
+
+	model?: CarModelProps[]
+	modelYear?: number[]
+	modelKit?: CarModelProps[]
 }
 
-export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, closeFilter }) => {
+export const FilterAltComponent: FC<FilterAltProps> = (
+	{
+		element,
+		data,
+		isOpenFilter,
+		closeFilter,
+		handleClick,
+		onClick,
+		onChange,
+		onChangeByCar,
+		setElement,
+		model,
+		modelYear,
+		modelKit
+	}) => {
 	const { section, subsection, filter } = useAppSelector(state => state.filterReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
-	const [ element, setElement ] = useState<HTMLElement | null>(null);
-	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
 	const country = lang === Language.UA ? data?.country : data?.country_ru;
-
-	const onChange = (name: string, value: number | string | undefined | null, element: HTMLElement) => {
-		setElement(element);
-		dispatch(setParams({ [name]: value }));
-	}
 
 	const renderSelect = (
 		name: string,
@@ -53,35 +71,36 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 		options: Array<Options> = [],
 		value?: null | number | string
 	) => (
-		<Select
-			name={name}
-			label={label}
-			options={options}
-			variant={variant}
-			onChange={onChange}
-			filterValue={value}
-		/>
+		<div className='relative'>
+			<Select
+				name={name}
+				label={label}
+				options={options}
+				variant={variant}
+				onChange={onChange}
+				filterValue={value}
+			/>
+			{ value && <Badge value={ 1 } className='-left-2' />}
+		</div>
 	);
 
-	// const tireSeason = data?.tyre_season.map((i, index) => {
-	// 	return {
-	// 		...i,
-	// 		name: customTireSeason[index].name,
-	// 		name_ua: customTireSeason[index].name_ua
-	// 	}
-	// });
-
 	const renderTab = (value: Section) => {
-		return <Link to={ `/catalog/${value}/` }
-			onClick={ () => dispatch(changeSection(value)) }
-			className={ classNames('text-sm font-bold uppercase py-3.5 rounded-t-sm border border-slate-200 border-b-0 text-center', {
-				'bg-white': section === value,
-				'bg-slate-200 text-gray-500': section !== value,
-			}) }
-		>
-			{ t(value, true) }
-		</Link>
-	}
+		const typeproduct = value === Section.Disks ? '?typeproduct=3' : '';
+		const url = `/catalog/${value}${typeproduct}`;
+
+		return (
+			<Link
+				to={url}
+				onClick={() => onClick(value)}
+				className={classNames(
+					'text-sm font-bold uppercase py-3.5 rounded-t-sm border border-slate-200 border-b-0 text-center',
+					{ 'bg-white': section === value, 'bg-slate-200 text-gray-500': section !== value }
+				)}
+			>
+				{ t(value, true) }
+			</Link>
+		);
+	};
 
 	return <div className={classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block', {'hidden': !isOpenFilter }) }>
 		<button onClick={ () => closeFilter() } className='absolute top-5 right-5 lg:hidden'>
@@ -97,7 +116,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 				<FilterActive className='flex lg:hidden' />
 				{section !== Section.Battery && <div className='flex lg:justify-between gap-x-5'>
 					<button
-						onClick={() => dispatch(changeSubsection(Subsection.ByParams))}
+						onClick={() => handleClick(Subsection.ByParams)}
 						className={classNames('font-bold uppercase lg:normal-case', {
 							'text-blue-500': subsection === 'byParams',
 							'text-gray-500': subsection !== 'byParams'
@@ -106,7 +125,7 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 						{t('by parameters', true)}
 					</button>
 					<button
-						onClick={() => dispatch(changeSubsection(Subsection.ByCars))}
+						onClick={() => handleClick(Subsection.ByCars)}
 						className={classNames('font-bold uppercase lg:normal-case', {
 							'text-blue-500': subsection === 'byCars',
 							'text-gray-500': subsection !== 'byCars'
@@ -139,58 +158,42 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 					)}
 				</>}
 				{subsection === 'byCars' && <>
-					{renderSelect(
-						'brand',
-						t('car brand', true),
-						'gray',
-						data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
-						filter?.brand,
-					)}
-					{/*{renderSelect(*/}
-					{/*	'model',*/}
-					{/*	t('model', true),*/}
-					{/*	'gray',*/}
-					{/*	data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),*/}
-					{/*)}*/}
-					{/*{renderSelect(*/}
-					{/*	'year',*/}
-					{/*	t('graduation year', true),*/}
-					{/*	'gray',*/}
-					{/*	data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),*/}
-					{/*)}*/}
-					{/*{renderSelect(*/}
-					{/*	'modification',*/}
-					{/*	t('modification', true),*/}
-					{/*	'gray',*/}
-					{/*	tireSeason?.map(item => ({value: item.id, label: item.name_ua}))*/}
-					{/*)}*/}
+					<div className='mt-2'>
+						{<MySelect
+							name='brand'
+							label={t('car brand', true)}
+							options={data?.auto?.map(item => ({value: item.value, label: item.label}))}
+							onChange={onChangeByCar}
+						/>}
+					</div>
+					<div className='mt-2'>
+						<MySelect
+							name='model'
+							label={t('model', true)}
+							options={model?.map(item => ({value: item.value, label: item.label}))}
+							isDisabled={model?.length === 0}
+							onChange={onChangeByCar}
+						/>
+					</div>
+					<div className='mt-2'>
+						<MySelect
+							name='year'
+							label={t('graduation year', true)}
+							options={modelYear?.map(item => ({value: item, label: item}))}
+							isDisabled={modelYear?.length === 0}
+							onChange={onChangeByCar}
+						/>
+					</div>
+					<div className='mt-2'>
+						<MySelect
+							name='modification'
+							label={t('modification', true)}
+							options={modelKit?.map(item => ({ value: item.value, label: item.label }))}
+							isDisabled={modelKit?.length === 0}
+							onChange={onChangeByCar}
+						/>
+					</div>
 				</>}
-				{/*{section === Section.Battery && <>*/}
-				{/*	{renderSelect(*/}
-				{/*		'capacity',*/}
-				{/*		t('capacity', true),*/}
-				{/*		'gray',*/}
-				{/*		[]*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'capacity',*/}
-				{/*		'Пусковий струм',*/}
-				{/*		'gray',*/}
-				{/*		[]*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'capacity',*/}
-				{/*		'Тип електроліту',*/}
-				{/*		'gray',*/}
-				{/*		[]*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'capacity',*/}
-				{/*		'Тип корпусу',*/}
-				{/*		'white',*/}
-				{/*		[]*/}
-				{/*	)}*/}
-				{/*</>}*/}
 				{section === Section.Tires && renderSelect(
 					'season',
 					'Сезон',
@@ -246,55 +249,6 @@ export const FilterAltComponent: FC<FilterAltProps> = ({ data, isOpenFilter, clo
 					data?.tyre_year?.map(item => ({ value: item.value, label: item.label })),
 				)}
 				<SelectFromTo name='price' from='200' to='10000' title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
-				{/*{section === Section.Battery && <>*/}
-				{/*	<SelectFromTo name='price' from='0' to='600' title={ `Ширина (мм)` } btnTitle={ t('to apply') }/>*/}
-				{/*	<SelectFromTo name='price' from='0' to='190' title={ `Висота (мм)` } btnTitle={ t('to apply') }/>*/}
-				{/*	<SelectFromTo name='price' from='0' to='600' title={ `Довжина (мм)` } btnTitle={ t('to apply') }/>*/}
-				{/*	{renderSelect(*/}
-				{/*	'load_index',*/}
-				{/*	'Напруга',*/}
-				{/*	'gray',*/}
-				{/*	[],*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'load_index',*/}
-				{/*		'Полюсність',*/}
-				{/*		'white',*/}
-				{/*		[],*/}
-				{/*	)}*/}
-				{/*</>}*/}
-				{/*{section === Section.Tires && <>*/}
-				{/*	{renderSelect(*/}
-				{/*		'load_index',*/}
-				{/*		t('load index', true),*/}
-				{/*		'white',*/}
-				{/*		[],*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'speed_index',*/}
-				{/*		t('speed index', true),*/}
-				{/*		'white',*/}
-				{/*		[],*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'homologation',*/}
-				{/*		t('homologation', true),*/}
-				{/*		'white',*/}
-				{/*		[],*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'strengthening',*/}
-				{/*		t('strengthening', true),*/}
-				{/*		'white',*/}
-				{/*		[],*/}
-				{/*	)}*/}
-				{/*	{renderSelect(*/}
-				{/*		'other',*/}
-				{/*		t('other', true),*/}
-				{/*		'white',*/}
-				{/*		[],*/}
-				{/*	)}*/}
-				{/*</>}*/}
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { BaseDataProps, CarModelProps, KitTyreSize } from '../models/baseData';
+import type { BaseDataProps, CarModelProps, KitTyreSize, KitDiskSize, ManufModels } from '../models/baseData';
 import type { SettingsProps } from '../models/settings';
 import type { ProductsProps } from '../models/products';
 import type { ProductProps } from '../models/product';
@@ -46,9 +46,14 @@ export const baseDataAPI = createApi({
 				url: `/baseData/getKitTyreSize/${id}`,
 			}),
 		}),
-		fetchKitDiskSize: build.query<CarModelProps[], string>({
+		fetchKitDiskSize: build.query<KitDiskSize[], string>({
 			query: (id) => ({
 				url: `/baseData/getKitDiskSize/${id}`,
+			}),
+		}),
+		fetchManufModels: build.query<ManufModels[], string>({
+			query: (id) => ({
+				url: `/api/getManufModels/${id}`,
 			}),
 		}),
 		fetchStatiAlias: build.query({
@@ -56,13 +61,13 @@ export const baseDataAPI = createApi({
 				url: `/baseData/StatiAlias/${id}`,
 			}),
 		}),
-		fetchProducts: build.query<ProductsProps | undefined, string>({
-			query: (id) => ({
+		fetchProducts: build.query<ProductsProps | undefined, {id: string, start?: number, length?: number}>({
+			query: ({ id, start = 0, length = 10 }) => ({
 				url: `/api/getProducts${id}`,
 				method: 'POST',
 				body: {
-					start: 0,
-					length: 12
+					start,
+					length
 				}
 			}),
 		}),

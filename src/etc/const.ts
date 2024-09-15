@@ -7,7 +7,7 @@ export const ROUTES = {
 	guaranteeAndRefund: 'ru?/guarantee-and-refund',
 	publicOffer: 'ru?/public-offer',
 	catalog: 'ru?/catalog/:section/*',
-	product: 'ru?/:section/:productId',
+	product: 'ru?/*',
 	bookmarks: 'ru?/bookmarks/',
 	comparison: 'ru?/comparison/',
 	cart: 'ru?/cart/',

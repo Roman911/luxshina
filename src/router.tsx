@@ -5,22 +5,21 @@ import { Layout } from './containers/Layout';
 import { Home } from './containers/Home';
 import { Catalog } from './containers/Catalog';
 import { Product } from './containers/Product';
-//import { Auth } from './containers/Auth';
 import { Bookmarks } from './containers/Bookmarks';
 import { Comparison } from './containers/Comparison';
 import { Cart } from './containers/Cart';
 import { Order } from './containers/Order';
 import { CalculatorForTires } from './containers/CalculatorForTiresPage';
-
-import { StaticPage } from './containers/StaticPage';
-
+import { AboutUs, Contacts, Credit, Payment, PublicOffer, Shipment } from './containers/StaticPage/';
 import { ErrorPage } from './containers/Error/404';
 
 const router = createBrowserRouter([
 	{
 		path: ROUTES.home,
 		element: <Layout />,
-		errorElement: <ErrorPage />,
+		errorElement: <Layout >
+			<ErrorPage />
+		</Layout>,
 		children: [
 			{
 				index: true,
@@ -56,34 +55,30 @@ const router = createBrowserRouter([
 			},
 			{
 				path: ROUTES.aboutUs,
-				element: <StaticPage id={1} page='about-us' />
+				element: <AboutUs />,
 			},
 			{
 				path: ROUTES.shipment,
-				element: <StaticPage id={2} page='shipment' />
+				element: <Shipment />
 			},
 			{
 				path: ROUTES.payment,
-				element: <StaticPage id={3} page='payment' />
+				element: <Payment />
 			},
 			{
 				path: ROUTES.contacts,
-				element: <StaticPage id={5} page='contacts' />
+				element: <Contacts />
 			},
 			{
 				path: ROUTES.guaranteeAndRefund,
-				element: <StaticPage id={6} page='credit' />
+				element: <Credit />
 			},
 			{
 				path: ROUTES.publicOffer,
-				element: <StaticPage id={4} page='public-offer' />
+				element: <PublicOffer />
 			},
 		]
 	},
-	// {
-	// 	path: '/auth',
-	// 	element: <Auth />
-	// }
 ]);
 
 export const App = () => <RouterProvider router={ router } />

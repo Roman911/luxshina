@@ -5,6 +5,7 @@ import { useAppSelector, useAppTranslation } from '../../../hooks';
 
 import { TypeCarLinks } from '../../Lib/TypeCarLinks';
 import { ChevronDownIcon, FilterIcon } from '../../Lib/Icons';
+import {Section} from "../../../models/filter.ts";
 
 interface FilterByCarProps {
 	openFilter: () => void
@@ -13,11 +14,11 @@ interface FilterByCarProps {
 
 export const FilterByCar: FC<FilterByCarProps> = ({ openFilter }) => {
 	const [ openSort, setOpenSort ] = useState(false);
-	const { subsection } = useAppSelector(state => state.filterReducer);
+	const { section, subsection } = useAppSelector(state => state.filterReducer);
 	const t = useAppTranslation();
 
 	return <div className='flex justify-between lg:justify-end items-center lg:items-start mb-4'>
-		{subsection === 'byParams' && <div className='hidden lg:flex gap-x-3 xl:gap-x-6 mr-3 xl:mr-8'>
+		{subsection === 'byParams' && section === Section.Tires && <div className='hidden lg:flex gap-x-3 xl:gap-x-6 mr-3 xl:mr-8'>
 			<TypeCarLinks section='catalog' />
 		</div>}
 		<button
@@ -53,4 +54,4 @@ export const FilterByCar: FC<FilterByCarProps> = ({ openFilter }) => {
 			</div>
 		</div>
 	</div>
-}
+};

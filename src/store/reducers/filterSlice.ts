@@ -17,8 +17,12 @@ const initialState: FilterState = {
 		height: null,
 		radius: null,
 		brand: null,
-		season: null,
-		bolt_count: null,
+		sezon: null,
+		krip: null,
+
+		typedisk: null,
+		brand_disc: null,
+
 		pcd: null,
 		vehicle_type: null,
 		price_from: null,
@@ -44,7 +48,7 @@ const initialState: FilterState = {
 		vehicle_type_alt: null,
 		only_run_flat: false,
 		only_flange_protector: false,
-		only_studded: false,
+		only_studded: null,
 		only_off_road: false,
 		only_c: false,
 		only_not_c: false,

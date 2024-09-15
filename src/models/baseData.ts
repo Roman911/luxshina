@@ -32,6 +32,11 @@ interface Year {
 	value: number
 }
 
+interface colirAbbr {
+	value: string
+	p: string
+}
+
 export interface Options {
 	label: number | string
 	value: number | string
@@ -41,6 +46,7 @@ export interface BaseDataProps {
 	auto: Auto[]
 	brand: Brand[]
 	brand_disc: Brand[]
+	colir_abbr: colirAbbr[]
 	country: Country[]
 	country_ru: Country[]
 	dia: Item[]
@@ -89,4 +95,23 @@ export interface KitTyreSize {
 	type: number
 	axle: number
 	axle_group: null
+}
+
+export interface KitDiskSize {
+	value: number
+	kits: Kits
+	width: number
+	et: number
+	diameter: number
+	type: number
+	axle: number
+	axle_group: null
+}
+
+export interface ManufModels {
+	value: number
+	label: string
+	types: number
+	manufacturer_id: number
+	alias: string
 }

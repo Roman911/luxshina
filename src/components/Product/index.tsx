@@ -1,55 +1,85 @@
-import { FC, useState } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 import './index.scss';
 
-import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
-import { addCart } from '../../store/reducers/cartSlice';
+import { useAppSelector, useAppTranslation } from '../../hooks';
 import { InfoBlock } from './InfoBlock';
 import { ActionsBlock } from './ActionsBlock';
 import { ImgGallery } from './ImageGallery';
 import { CharacteristicsBlock } from './CharacteristicsBlock';
-
 import { countryCodeTransform, Link } from '../../lib';
-import { CountryInfo, Rating, Spinner } from '../Lib';
+import { CountryInfo, Quantity, Rating, Spinner } from '../Lib';
 import { CartIcon } from "../Lib/Icons";
-
 import truckIcon from '../../assets/icons/truck-icon.svg';
-
 import { Language } from '../../models/language';
 import type { ProductProps } from '../../models/product';
 
 interface ProductComponentProps {
 	data: ProductProps | undefined
 	isLoading: boolean
+	offerId: number
+	quantity: number
+	onChange: (e: { target: HTMLInputElement }) => void
+	handleClick: (id: number) => void
+	onSubmit: () => void
+	setQuantity: Dispatch<SetStateAction<number>>
 	handleModalOpen: (type: 'QuickOrder' | 'OnlineInstallment') => void
 }
 
-export const ProductComponent: FC<ProductComponentProps> = ({ data, isLoading, handleModalOpen }) => {
-	const [toCart, setToCart] = useState(false);
+export const ProductComponent: FC<ProductComponentProps> = (
+	{
+		data,
+		isLoading,
+		offerId,
+		quantity,
+		onChange,
+		onSubmit,
+		handleClick,
+		handleModalOpen,
+		setQuantity
+	}) => {
 	const { lang } = useAppSelector(state => state.langReducer);
-	const dispatch = useAppDispatch();
+	const { cartItems } = useAppSelector(state => state.cartReducer);
 	const t = useAppTranslation();
 
-	const { id = 0, full_name = '', offers = [], min_price = 0, photo, model } = data?.data || {};
+	const { id = 0, full_name = '', offers = [], min_price = 0, photo, model, labels } = data?.data || {};
+	const offer = offers.find(item => item.offer_id === offerId);
 	const images = [{
 		original: photo?.url_part2 || '',
 		thumbnail: photo?.url_part || '',
 	}];
 
-	const onClick = () => {
-		setToCart(true);
-		dispatch(addCart(model ? model.id : 0));
+	const icon = (season: string) => {
+		if(season === '1') {
+			return <img src="/images/sun-icon.svg" alt=""/>
+		} else if(season === '2') {
+			return <img src="/images/snow-icon.svg" alt=""/>
+		} else if(season === '3') {
+			return <img src="/images/cloud-icon.svg" alt=""/>
+		}
+
+		return null;
 	}
 
-	return <section className='product-page flex flex-col lg:flex-row justify-between gap-1 xl:gap-x-6'>
+	return <section className='product-page flex flex-col lg:flex-row justify-between gap-1 xl:gap-x-6 mt-10'>
 		<div className='max-w-[900px] flex-1 pr-3 xl:pr-5'>
 			<Spinner height='h-96' show={ isLoading }>
 				{data?.result &&
-					<div className='flex flex-col md:flex-row items-center md:items-start md:border-b border-[#DEE2EB] pb-5'>
-						<div className='gallery w-64 relative mb-7'>
-							<div className='absolute '>
-								<img src="/images/snow-icon.svg" alt=""/>
+					<div className='flex flex-col md:flex-row items-center md:items-start md:border-b border-[#DEE2EB]'>
+						<div className='gallery w-64 relative mb-7 pt-10 pb-5'>
+							<div className='absolute z-10 -mt-10 w-full flex justify-between items-start'>
+								<div>
+									{labels?.length !== 0 && labels?.map(item => {
+										return <div key={item.label_id}
+																className='text-center text-xs font-semibold text-white uppercase py-1.5 px-2.5 max-w-max rounded-sm my-1'
+																style={{backgroundColor: item.label.color}}>
+											{lang === Language.UA ? item.label.name : item.label.name_ru}
+										</div>
+									})}
+									{ model?.season && icon(model?.season) }
+								</div>
+								{ model?.brand_image && <img className='max-w-28 object-contain' src={ model?.brand_image } alt=""/> }
 							</div>
-							<ImgGallery images={ images } />
+							<ImgGallery images={images } />
 						</div>
 						<ActionsBlock className='flex md:hidden'/>
 						<div className='flex-1 md:ml-6 xl:ml-20'>
@@ -73,12 +103,12 @@ export const ProductComponent: FC<ProductComponentProps> = ({ data, isLoading, h
 							</div>
 							<div className='offers mt-7'>
 								{offers.map(item => {
-									return <div key={item.offer_id} className='offers__item grid md:grid-cols-9 gap-4 mt-3 py-3.5 md:py-0 px-5 md:px-0 bg-white md:bg-transparent border md:border-0 rounded-full'>
-										<div className='input flex flex-row md:col-span-2 relative cursor-pointer'>
-											<input type="checkbox" id="cb1" value="cb1" className='appearance-none h-6 w-6 bg-white rounded-full border border-zinc-400 hover:border-blue-500 checked:border-blue-500 transition-all duration-200 peer'/>
+									return <div key={item.offer_id} onClick={() => handleClick(item.offer_id)} className='offers__item cursor-pointer grid md:grid-cols-9 gap-4 mt-3 py-3.5 md:py-0 px-5 md:px-0 bg-white md:bg-transparent border md:border-0 rounded-full'>
+										<div className='input flex flex-row md:col-span-2 relative'>
+											<input type="checkbox" onChange={() => handleClick(item.offer_id)} checked={item.offer_id === offerId} className='appearance-none h-6 w-6 bg-white rounded-full border border-zinc-400 hover:border-blue-500 checked:border-blue-500 transition-all duration-200 peer'/>
 											<div
-												className='h-4 w-4 absolute inset-1 rounded-full pointer-events-none peer-checked:border-blue-500 peer-checked:bg-blue-500'/>
-											<label htmlFor='cb1' className='flex ml-2.5 md:ml-7 flex-col justify-center text-sm font-medium select-none'>{item.quantity} шт.</label>
+												className='h-4 w-4 absolute inset-1 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500'/>
+											<label className='flex ml-2.5 md:ml-7 flex-col justify-center text-sm font-medium cursor-pointer'>{item.quantity} шт.</label>
 										</div>
 										<div className='country md:col-span-4'>
 											<CountryInfo country={lang === Language.UA ? item.country : item.country_ru} countryCode={countryCodeTransform(item.country)} year={item.year}/>
@@ -91,29 +121,18 @@ export const ProductComponent: FC<ProductComponentProps> = ({ data, isLoading, h
 					</div>}
 			</Spinner>
 			<div className='purchase-information grid justify-self-stretch mt-5 md:mt-10'>
-				<div className='quantity flex items-center'>
-					<div className='flex gap-1.5'>
-						<button
-							className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] bg-gray-200 hover:bg-[#D2D3D6] transition'>-
-						</button>
-						<input className='w-10 rounded-sm border border-[#C1C4CC] text-center font-medium' placeholder='4' type="text"/>
-						<button
-							className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] bg-gray-200 hover:bg-[#D2D3D6] transition'>+
-						</button>
-					</div>
-					<div className='ml-6 text-4xl md:text-2xl font-bold'>{ min_price * 4 } ₴</div>
-				</div>
+				<Quantity quantity={ quantity } offerQuantity={ (Number(offer?.price) || 0) } onChange={ onChange } setQuantity={ setQuantity } />
 				<button
 					className='delivery-calculation btn secondary mt-6 text-sm font-medium border border-black w-full md:w-72'>
 					<img className='mr-2.5' src={truckIcon} alt=""/>
 					{t('delivery calculation', true)}
 				</button>
 				<div className='buttons-buy md:justify-self-end mt-8 md:0'>
-					{toCart ?
+					{cartItems.find(item => item.id === offerId) ?
 						<Link to={`/cart`} className='btn success uppercase w-full md:w-72'>
-							<span className='ml-2.5'>Перейти до кошика</span>
+							<span className='ml-2.5'>{ lang === Language.UA ? 'Перейти до кошика' : 'Перейти в корзину' }</span>
 						</Link> :
-						<button onClick={() => onClick()} className='btn primary uppercase w-full md:w-72'>
+						<button onClick={() => onSubmit()} className='btn primary uppercase w-full md:w-72'>
 							<CartIcon className='stroke-white'/>
 							<span className='ml-2.5'>{t('buy')}</span>
 						</button>
@@ -128,8 +147,8 @@ export const ProductComponent: FC<ProductComponentProps> = ({ data, isLoading, h
 					</button>
 				</div>
 			</div>
-			<CharacteristicsBlock/>
+			<CharacteristicsBlock data={ data } />
 		</div>
 		<InfoBlock/>
 	</section>
-}
+};

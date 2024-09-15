@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import classNames from 'classnames';
 
-import { useAppTranslation } from '../../../hooks';
-
+import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { ChevronDownIcon, InfoIcon } from '../../Lib/Icons';
-import {Rating} from "../../Lib";
+import { NoResult, Rating } from '../../Lib';
+import { Link } from '../../../lib';
+import type { ProductProps } from '../../../models/product';
+import { Language } from '../../../models/language';
 
 const tabs = [
 	{ label: 'main characteristics' },
@@ -12,10 +14,39 @@ const tabs = [
 	{ label: 'reviews' }
 ];
 
-export const CharacteristicsBlock = () => {
+interface CharacteristicsBlockProps {
+	data: ProductProps | undefined
+}
+
+export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) => {
 	const [tab, setTab] = useState('main characteristics');
 	const [showOptions, setShowOptions] = useState(false);
+	const { section } = useAppSelector(state => state.filterReducer);
+	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
+
+	console.log(data, section)
+
+	const link = (to: string) => {
+		if(section === 'tires') {
+			return `/catalog/tires?${to}`
+		} else {
+			return `/catalog/disks?typeproduct=3&${to}`
+		}
+	};
+
+	const formatDate = (dateString: string) => {
+		const date = new Date(dateString);
+
+		const day = String(date.getDate()).padStart(2, '0');
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+		const year = date.getFullYear();
+
+		const hours = String(date.getHours()).padStart(2, '0');
+		const minutes = String(date.getMinutes()).padStart(2, '0');
+
+		return `${day}.${month}.${year} ${hours}:${minutes}`;
+	};
 
 	return <section className='mt-8 md:mt-16'>
 		<div className='gap-x-2.5 border-b border-[#E0E4E8] hidden md:flex'>
@@ -64,62 +95,76 @@ export const CharacteristicsBlock = () => {
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						Ширина
+						{ t('width', true) }
 					</div>
-					<div className='text-blue-500'>175</div>
+					<Link to={link(`width=${data?.data.offer_group.width}`)} className='text-blue-500 hover:underline'>
+						{ data?.data.offer_group.width }
+					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						Висота
+						{ t('height', true) }
 					</div>
-					<div className='text-blue-500'>70</div>
+					<Link to={link(`height=${data?.data.offer_group.height}`)} className='text-blue-500 hover:underline'>
+						{ data?.data.offer_group.height }
+					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						Діаметр
+						{ t('diameter', true) }
 					</div>
-					<div className='text-blue-500'>13</div>
+					<Link to={link(`radius=${data?.data.offer_group.diameter}`)} className='text-blue-500 hover:underline'>
+						{ data?.data.offer_group.diameter }
+					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						Індекс швидкості
+						{ t('speed index', true) }
 					</div>
-					<div className='text-blue-500 max-w-max w-full'>Н (210 км)</div>
+					<Link to={link(`radius=${data?.data.offer_group.diameter}`)} className='text-blue-500 max-w-max w-full hover:underline'>
+						{ lang === Language.UA ? data?.data.offer_group.speed_index : data?.data.offer_group.speed_index_ru }
+					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						Індекс навантаження
+						{ t('load index', true) }
 					</div>
-					<div className='text-blue-500 max-w-max w-full'>82 (475 кг)</div>
+					<Link to={link(`radius=${data?.data.offer_group.diameter}`)} className='text-blue-500 max-w-max w-full hover:underline'>
+						{ lang === Language.UA ? data?.data.offer_group.load_index : data?.data.offer_group.load_index_ru }
+					</Link>
 				</div>
 			</div>
 			<div className='flex-1'>
 				<div className='flex md:my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						Бренд
+						{ t('brand', true) }
 					</div>
-					<div className='text-blue-500'>Uniroyal</div>
+					<Link to={link(`brand=${data?.data.brand.id}`)} className='text-blue-500 hover:underline'>
+						{ data?.data.brand.name }
+					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						Модель
+						{ t('model', true) }
 					</div>
-					<div className='text-blue-500'>WinterExpert</div>
+					<Link to={link(`model=${data?.data.brand.id}`)} className='text-blue-500 hover:underline'>
+						{ data?.data.brand.name }
+					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						Призначення
+						{ t('appointment', true) }
 					</div>
 					<div className='text-blue-500'>легкові</div>
 				</div>
@@ -128,13 +173,18 @@ export const CharacteristicsBlock = () => {
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						Сезон
 					</div>
-					<div className='text-blue-500 max-w-max w-full'>зимові шини</div>
+					<Link to={link(`sizon=${data?.data.model.season}`)} className='text-blue-500 max-w-max w-full hover:underline'>
+						{ data?.data.model.season }
+					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						Типорозмір
+						{ t('type size', true) }
 					</div>
+					<Link to={link(`width=${data?.data.offer_group.width}&height=${data?.data.offer_group.height}&radius=${data?.data.offer_group.diameter}`)} className='text-blue-500 max-w-max w-full hover:underline'>
+						{ `${data?.data.offer_group.width}/${data?.data.offer_group.height} R${data?.data.offer_group.diameter}` }
+					</Link>
 					<div className='text-blue-500 max-w-max w-full'>195/65 R1</div>
 				</div>
 			</div>
@@ -153,33 +203,28 @@ export const CharacteristicsBlock = () => {
 			</p>
 		</div> }
 		{ tab === 'reviews' && <div className='my-5 md:my-6 max-w-xl w-full'>
-			<div className='bg-white py-4 px-6 shadow-md'>
-				<div className='flex justify-between'>
-					<div className='flex items-center gap-4'>
-						<div className='font-bold text-lg'>Андрій</div>
-						<div className='text-xs'>09.02.2024 13:13</div>
+			{data?.data.review && data?.data.review.length > 0 ? data?.data.review.map(item => {
+				return <div key={ item.review_id } className='bg-white py-4 px-6 shadow-md'>
+					<div className='flex justify-between'>
+						<div className='flex items-center gap-4'>
+							<div className='font-bold text-lg'>{ item.name }</div>
+							<div className='text-xs'>
+								{ formatDate(item.created_at) }
+							</div>
+						</div>
+						<Rating commentsAvgRate={item.score}/>
 					</div>
-					<Rating commentsAvgRate={4}/>
-				</div>
-				<div className='w-10 h-0.5 bg-black'></div>
-				<div className='mt-3 text-sm'>
-					Відмінні шини, м'які, добре керовані, відмінне гальмування на сухому та мокрому покритті, прослужили 5 років,
-					мінятиму на аналогічні, оскільки знос підійшов до контрольного індикатора зносу.
-				</div>
-			</div>
-			<div className='bg-white mt-3 py-4 px-6 shadow-md'>
-				<div className='flex justify-between'>
-					<div className='flex items-center gap-4'>
-						<div className='font-bold text-lg'>Іван</div>
-						<div className='text-xs'>31.01.2024 15:37</div>
+					<div className='w-10 h-0.5 bg-black'></div>
+					<div className='mt-3 text-sm'>
+						{ item.text }
 					</div>
-					<Rating commentsAvgRate={5}/>
 				</div>
-				<div className='w-10 h-0.5 bg-black'></div>
-				<div className='mt-3 text-sm'>
-					Відмінні шини, тихі, дорогу тримають чудово, ціна прийнятна
-				</div>
-			</div>
+			}) : <NoResult
+				noResultText={lang === Language.UA ?
+					'До цього товару немає відгуків. Стати першим!' :
+					'К этому товару нет отзывов. Станьте первым!'
+				}
+			/>}
 		</div>}
 	</section>
 }

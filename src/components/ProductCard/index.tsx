@@ -28,10 +28,9 @@ interface ProductCardProps {
 }
 
 export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, isComparison, addToDefense, addToComparison }) => {
-	const { best_offer, default_photo, full_name, group, min_price, season, vehicle_type, product_id } = item;
+	const { best_offer, default_photo, full_name, group, min_price, season, vehicle_type, page_url } = item;
 	const { lang } =useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
-	const param = `v-${product_id}-${full_name.replace(/[\s/]+/g, '-').toLowerCase()}`;
 
 	const seasonIcon = season === '1' ? 'sun' : season === '2' ? 'snow' : season === '3' ? 'all-season' : undefined;
 	const vehicle_type_number = vehicle_type as unknown as keyof typeof icons;
@@ -39,7 +38,7 @@ export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, 
 	const Icon = icons[vehicle_type_number] || null;
 
 	return (
-		<Link to={`/tires/${param}`} className={classNames(style['product-card'], 'group')}>
+		<Link to={`/${page_url}`} className={classNames(style['product-card'], 'group')}>
 			<div className='relative'>
 				<div className='absolute'>
 					{ seasonIcon && <img src={`/images/${seasonIcon}-icon.svg`} alt=""/> }

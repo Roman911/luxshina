@@ -29,6 +29,7 @@ export interface Product {
 	brand: number
 	brand_name: string
 	diameter: string
+	page_url: string
 	model: Model
 	best_offer: BestOffer
 	labels: []

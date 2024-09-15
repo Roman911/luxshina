@@ -108,7 +108,7 @@ export const Filter = () => {
 			case Section.Tires:
 				return 'tires?';
 			case Section.Disks:
-				return 'disks?typeproduct=3';
+				return 'disks?typeproduct=3&';
 			default:
 				return section;
 		}

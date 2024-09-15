@@ -57,7 +57,7 @@ export const HeaderCenter = () => {
 				</button>
 			</div>
 		</div>
-		<div className={ classNames('absolute top-14 bg-white w-full divide-y divide-[#E6E9EB] border-t border-[#E6E9EB] z-10 lg:hidden', { 'hidden': !openMenu }) }>
+		<div className={ classNames('absolute top-14 bg-white w-full divide-y divide-[#E6E9EB] border-t border-b border-[#E6E9EB] z-10 lg:hidden', { 'hidden': !openMenu }) }>
 			<div className='py-5'>
 				<button onClick={() => handleClick('tires')}
 								className={classNames('px-7 w-full flex items-center justify-between uppercase font-bold group transition hover:text-blue-500', {'text-blue-500': filterIsOpen === 'tires'})}>
@@ -89,7 +89,7 @@ export const HeaderCenter = () => {
 				}
 			</div>
 			{links.map((item, index) => {
-				return <Link key={ index } className={styles.link} to={ item.url }>
+				return <Link key={ index } className='py-5 px-7 block uppercase font-bold' to={ item.url }>
 					{ t(item.title) }
 				</Link>
 			})}

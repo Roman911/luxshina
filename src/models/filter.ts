@@ -15,7 +15,14 @@ export interface IFilter {
 	height?: null | string
 	radius?: null | string
 	brand?: null | string
-	season?: null | string
+	sezon?: null | string
+	krip?: null | string
+
+
+	typedisk?: null | string
+	brand_disc?: null | string
+
+
 	bolt_count?: null | string
 	pcd?: null | string
 	krepeg?: null | string
@@ -43,7 +50,7 @@ export interface IFilter {
 	vehicle_type_alt?: null | string
 	only_run_flat?: boolean
 	only_flange_protector?: boolean
-	only_studded?: boolean
+	only_studded?: null | string
 	only_off_road?: boolean
 	only_c?: boolean
 	only_not_c?: boolean

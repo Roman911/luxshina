@@ -14,9 +14,10 @@ interface FilterActiveProps {
 	className: string
 	searchParams: IFilter
 	clearParam: (name: string) => void
+	clearAllParams: () => void
 }
 
-export const FilterActiveComponent: FC<FilterActiveProps> = ({ data, className, searchParams, clearParam }) => {
+export const FilterActiveComponent: FC<FilterActiveProps> = ({ data, className, searchParams, clearParam, clearAllParams }) => {
 	const t = useAppTranslation();
 
 	const renderItem = (name: string, label: string | null) => {
@@ -40,7 +41,7 @@ export const FilterActiveComponent: FC<FilterActiveProps> = ({ data, className, 
 			}
 			return renderItem(item, label)
 		})}
-		{Object.keys(searchParams).length !== 0 && <button className='flex items-center gap-2 text-sm font-medium group text-gray-500'>
+		{Object.keys(searchParams).length !== 0 && <button onClick={() => clearAllParams()} className='flex items-center gap-2 text-sm font-medium group text-gray-500'>
 			{t('reset everything', true)}
 			<CloseIcon className='fill-[#B9B9BA] hidden lg:block'/>
 		</button>}

@@ -5,7 +5,7 @@ import { FilterAltComponent } from '../../../components/Catalog/FilterAlt';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { changeSection, changeSubsection, setParams } from '../../../store/reducers/filterSlice';
 import { Section, Subsection } from '../../../models/filter';
-import {setCarFilter} from "../../../store/reducers/filterCarSlice.ts";
+import { setCarFilter } from '../../../store/reducers/filterCarSlice';
 
 interface FilterAltProps {
 	isOpenFilter: boolean
@@ -20,6 +20,9 @@ export const FilterAlt: FC<FilterAltProps> = ({ isOpenFilter, closeFilter }) => 
 	const { data: model, refetch: modelRefetch } = baseDataAPI.useFetchAutoModelQuery(`${filter.brand}`);
 	const { data: modelYear } = baseDataAPI.useFetchAutoYearQuery(`${filter.model}`);
 	const { data: modelKit, refetch: modelKitRefetch } = baseDataAPI.useFetchAutoModelKitQuery(`${filter.model}/${filter.year}`);
+	//const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${29}`);
+
+	//console.log(manufModels)
 
 	useEffect(() => {
 		if(isSend) {
@@ -59,7 +62,6 @@ export const FilterAlt: FC<FilterAltProps> = ({ isOpenFilter, closeFilter }) => 
 		onChange={ onChange }
 		onChangeByCar={ onChangeByCar }
 		setElement={ setElement }
-
 		model={ model }
 		modelYear={ modelYear }
 		modelKit={ modelKit }

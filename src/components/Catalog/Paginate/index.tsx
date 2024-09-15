@@ -1,21 +1,22 @@
-import { FC, useState, useEffect } from 'react';
+import { Dispatch, FC, SetStateAction, useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import './index.scss';
 
-const itemsPerPage = 12;
-
 interface PaginateProps {
+	itemsPerPage: number
+	paginateCount: number
 	total_count: number | undefined
+	setPaginateCount: Dispatch<SetStateAction<number>>
 }
 
-export const Paginate: FC<PaginateProps> = ({ total_count = 0 }) => {
+export const Paginate: FC<PaginateProps> = ({ itemsPerPage, total_count = 0, setPaginateCount }) => {
 	const [ itemOffset, setItemOffset ] = useState(0);
 	const [ pageRangeDisplayed, setPageRangeDisplayed ] = useState(3);
 
 	useEffect(() => {
 		if(window.innerWidth < 768) {
-			setPageRangeDisplayed(1);
+			setPageRangeDisplayed(5);
 		}
 	}, [])
 
@@ -28,10 +29,12 @@ export const Paginate: FC<PaginateProps> = ({ total_count = 0 }) => {
 		console.log(
 			`User requested page number ${event.selected}, which is offset ${newOffset}`
 		);
+		setPaginateCount(event.selected);
 		setItemOffset(newOffset);
 	};
 
 	return <ReactPaginate
+		//forcePage={5}
 		className='paginate'
 		breakLabel='...'
 		nextLabel='>'

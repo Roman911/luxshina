@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
 import { baseDataAPI } from '../../../services/baseDataService';
-import { useAppDispatch, useAppSearchParams } from '../../../hooks';
-import { removeParam } from '../../../store/reducers/filterSlice';
+import { useAppDispatch, useAppSearchParams, useAppSubmit } from '../../../hooks';
+import { removeParam, reset } from '../../../store/reducers/filterSlice';
 import { FilterActiveComponent } from '../../../components/Catalog/FilterActive';
 
 interface FilterActiveProps {
@@ -12,10 +12,17 @@ interface FilterActiveProps {
 export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
 	const searchParams = useAppSearchParams();
+	const { handleClearAll, handleClear } = useAppSubmit();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 
 	const clearParam = (name: string) => {
-		dispatch(removeParam({[name]: null}))
+		dispatch(removeParam({[name]: null}));
+		handleClear(name);
+	}
+
+	const clearAllParams = () => {
+		dispatch(reset());
+		handleClearAll();
 	}
 
 	return <FilterActiveComponent
@@ -23,5 +30,6 @@ export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
 		className={ className }
 		searchParams={ searchParams }
 		clearParam={ clearParam }
+		clearAllParams={ clearAllParams }
 	/>
-}
+};

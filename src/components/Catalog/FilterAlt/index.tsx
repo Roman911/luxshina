@@ -17,15 +17,15 @@ import { SubmitFloat } from "./SubmitFloat";
 import { Language } from "../../../models/language";
 
 const customTireSeason = [
-	{ value: 1, name: 'Летние', name_ua: 'Літні'},
-	{ value: 3, name: 'Всесезонные', name_ua: 'Всесезонні'},
-	{ value: 2, name: 'Зимние', name_ua: 'Зимові'},
+	{ value: '1', name: 'Летние', name_ua: 'Літні'},
+	{ value: '3', name: 'Всесезонные', name_ua: 'Всесезонні'},
+	{ value: '2', name: 'Зимние', name_ua: 'Зимові'},
 ];
 
 const typeDisc = [
-	{ value: 1, name: 'Стальной', name_ua: 'Сталевий'},
-	{ value: 2, name: 'Кованый', name_ua: 'Кований'},
-	{ value: 3, name: 'Литой', name_ua: 'Литий'},
+	{ value: '1', name: 'Стальной', name_ua: 'Сталевий'},
+	{ value: '2', name: 'Кованый', name_ua: 'Кований'},
+	{ value: '3', name: 'Литой', name_ua: 'Литий'},
 ];
 
 interface FilterAltProps {
@@ -60,6 +60,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 		modelKit
 	}) => {
 	const { section, subsection, filter } = useAppSelector(state => state.filterReducer);
+	const { filter: filterCar } = useAppSelector(state => state.filterCarReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
 	const country = lang === Language.UA ? data?.country : data?.country_ru;
@@ -69,7 +70,8 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 		label: string,
 		variant: 'white' | 'gray',
 		options: Array<Options> = [],
-		value?: null | number | string
+		value?: null | number | string,
+		valueStudded?: null | number | string,
 	) => (
 		<div className='relative'>
 			<Select
@@ -79,6 +81,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 				variant={variant}
 				onChange={onChange}
 				filterValue={value}
+				valueStudded={valueStudded}
 			/>
 			{ value && <Badge value={ 1 } className='-left-2' />}
 		</div>
@@ -150,7 +153,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						filter?.height,
 					)}
 					{renderSelect(
-						'diameter',
+						'radius',
 						t('diameter', true),
 						'gray',
 						data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
@@ -164,6 +167,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							label={t('car brand', true)}
 							options={data?.auto?.map(item => ({value: item.value, label: item.label}))}
 							onChange={onChangeByCar}
+							defaultValue={filterCar?.brand ? data?.auto?.find(i => i.value === filterCar.brand) : undefined}
 						/>}
 					</div>
 					<div className='mt-2'>
@@ -173,6 +177,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							options={model?.map(item => ({value: item.value, label: item.label}))}
 							isDisabled={model?.length === 0}
 							onChange={onChangeByCar}
+							defaultValue={filterCar?.model ? model?.find(i => i.value === filterCar.model) : undefined}
 						/>
 					</div>
 					<div className='mt-2'>
@@ -182,6 +187,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							options={modelYear?.map(item => ({value: item, label: item}))}
 							isDisabled={modelYear?.length === 0}
 							onChange={onChangeByCar}
+							defaultValue={filterCar?.year ? {value: filterCar?.year, label: filterCar?.year} : undefined}
 						/>
 					</div>
 					<div className='mt-2'>
@@ -191,45 +197,59 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							options={modelKit?.map(item => ({ value: item.value, label: item.label }))}
 							isDisabled={modelKit?.length === 0}
 							onChange={onChangeByCar}
+							defaultValue={filterCar?.modification ? modelKit?.find(i => i.value === filterCar.modification) : undefined}
 						/>
 					</div>
 				</>}
-				{section === Section.Tires && renderSelect(
-					'season',
-					'Сезон',
-					'white',
-					customTireSeason.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
-					filter?.season,
-				)}
+				{section === Section.Tires && <>
+					{renderSelect(
+						'sezon',
+						'Сезон',
+						'white',
+						customTireSeason.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						filter?.sezon,
+						filter?.only_studded
+					)}
+					{renderSelect(
+						'brand',
+						t('brand', true),
+						'white',
+						data?.brand?.map(item => ({value: item.value, label: item.label})),
+						filter?.brand,
+					)}
+				</>}
 				{section === Section.Disks && <>
 					{renderSelect(
-						'bolt_count_pcd',
+						'krip',
 						t('fasteners', true),
 						'white',
 						data?.krip?.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.krip,
 					)}
-					<SelectFromTo name='et' from='-140' to='500' title={ `ET(${t('departure', true)})` } btnTitle={ t('to apply') }/>
-					<SelectFromTo name='dia' from='46' to='500' title='DIA' btnTitle={ t('to apply') }/>
+					<SelectFromTo name='et' from='-140' to='500' title={`ET(${t('departure', true)})`} btnTitle={t('to apply')}/>
+					<SelectFromTo name='dia' from='46' to='500' title='DIA' btnTitle={t('to apply')}/>
 					{renderSelect(
-						'type',
+						'typedisk',
 						t('type', true),
 						'gray',
 						typeDisc.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						filter?.typedisk,
 					)}
 					{renderSelect(
-						'color',
+						'colir',
 						t('color', true),
 						'white',
-						[],
+						data?.colir_abbr?.map(item => ({value: item.value, label: item.value, p: item.p})),
+					)}
+					{renderSelect(
+						'brand_disc',
+						t('brand', true),
+						'white',
+						data?.brand_disc?.map(item => ({value: item.value, label: item.label})),
+						filter?.brand_disc,
 					)}
 				</>}
-				{renderSelect(
-					'brand',
-					t('brand', true),
-					'white',
-					data?.brand?.map(item => ({ value: item.value, label: item.label })),
-					filter?.brand,
-				)}
+
 				{/*{renderSelect(*/}
 				{/*	'model',*/}
 				{/*	t('model', true),*/}

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import classNames from 'classnames';
 
-import { Link } from '../../lib/Links';
+import { Link } from '../../lib';
 import { HomeIcon } from '../Lib/Icons';
 
 interface BreadcrumbsItem {

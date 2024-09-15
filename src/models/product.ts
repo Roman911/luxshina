@@ -8,7 +8,7 @@ interface Posts {
 	city_ru: string
 }
 
-interface Offers {
+export interface Offers {
 	offer_id: number
 	product_id: number
 	quantity: number
@@ -56,6 +56,7 @@ interface Model {
 	id: number
 	name: string
 	brand: number
+	brand_image: string
 	alias: string
 	season: string
 	images: []
@@ -66,6 +67,35 @@ interface ModelDescription {
 	meta_title: null
 	meta_h1: null
 	meta_description: null
+}
+
+interface Labels {
+	product_id: number
+	label_id: number
+	label: {
+		label_id: number
+		name: string
+		class: string
+		color: string
+		name_ru: string
+		status: number
+	}
+}
+
+interface Review {
+	review_id: number
+	score: number
+	status: number
+	model_id: number
+	product_id: number
+	trc_id: null
+	text: string
+	minus: null
+	plus: null
+	name: string
+	email: string
+	created_at: string
+	updated_at: string
 }
 
 export interface Product {
@@ -95,7 +125,8 @@ export interface Product {
 		ru: ModelDescription
 	}
 	page_url: string
-	labels: []
+	labels: Labels[]
+	review: Review[]
 }
 
 export interface ProductProps {

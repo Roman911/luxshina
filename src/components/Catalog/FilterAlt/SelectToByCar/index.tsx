@@ -9,6 +9,7 @@ interface SelectProps {
 	isDisabled?: boolean
 	options: Options[] | undefined
 	onChange: (name: string, value: number | string | undefined) => void
+	defaultValue?: Options | undefined
 }
 
 type IsMulti = false;
@@ -75,7 +76,7 @@ const colourStyles: StylesConfig<Options | undefined, IsMulti> = {
 	},
 };
 
-export const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = false, onChange }) => {
+export const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = false, onChange, defaultValue }) => {
 	const handleChange = (value: SingleValue<Options | undefined>) => {
 		onChange(name, value?.value);
 	}
@@ -87,5 +88,6 @@ export const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisable
 		isClearable={true}
 		isDisabled={isDisabled}
 		onChange={handleChange}
+		defaultValue={defaultValue}
 	/>
 }

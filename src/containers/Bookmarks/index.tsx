@@ -1,23 +1,19 @@
 import { Helmet } from 'react-helmet-async';
 
-import { useAppTranslation } from '../../hooks';
-// import {useAppSelector, useAppTranslation } from '../../hooks';
-// import { ProductList } from '../ProductList';
+import { baseDataAPI } from '../../services/baseDataService';
+import { useAppSelector, useAppTranslation } from '../../hooks';
+import { ProductList } from '../ProductList';
 import { LayoutWrapper } from '../../components/Layout';
-import { Title } from '../../components/Lib';
-// import { Language } from '../../models/language';
+import { NoResult, Spinner, Title } from '../../components/Lib';
+import { Language } from '../../models/language';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 
-// const data = {
-// 	"count": 0,
-// 	"is_had_items": true,
-// 	"data": []
-// }
-
 export const Bookmarks = () => {
-	// const { lang } = useAppSelector(state => state.langReducer);
+	const { lang } = useAppSelector(state => state.langReducer);
+	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
+	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({ id: `?product_ids=${bookmarksItems.join(',')}` });
 	const t = useAppTranslation();
-	// const noDataText = lang === Language.UA ? 'Ви ще не додали в обране жодного товару' : 'Вы еще не добавили в избранное ни одного товара';
+	const noDataText = lang === Language.UA ? 'Ви ще не додали в обране жодного товару' : 'Вы еще не добавили в избранное ни одного товара';
 	const path = [
 		{
 			id: 1,
@@ -32,6 +28,8 @@ export const Bookmarks = () => {
 		</Helmet>
 		<Breadcrumbs path={ path }/>
 		<Title title='favorites' />
-		{/*<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4' data={ data } noDataText={ noDataText } />*/}
+		{bookmarksItems.length > 0 ? <Spinner height='h-40' show={ isLoading } >
+			<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4' data={ data?.data } />
+		</Spinner> : <NoResult noResultText={ noDataText } />}
 	</LayoutWrapper>
-}
+};

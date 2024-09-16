@@ -1,9 +1,12 @@
 import { FC } from 'react';
 
 import { Link } from '../../../../../lib';
-import { useAppTranslation } from '../../../../../hooks';
+import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../../../hooks';
+import { setCarFilter } from '../../../../../store/reducers/filterCarSlice';
+import { changeSubsection } from '../../../../../store/reducers/filterSlice';
 import { LinkComponent } from '../LinkComponent';
 import { typeDiskLinks, brandsLinks, carBrandsLinks, diameterLinks } from './links';
+import { Subsection } from '../../../../../models/filter';
 
 interface CarDiskFilterProps {
 	closeFilter?: () => void
@@ -11,6 +14,16 @@ interface CarDiskFilterProps {
 
 export const CarDiskFilter: FC<CarDiskFilterProps> = ({ closeFilter }) => {
 	const t = useAppTranslation();
+	const dispatch = useAppDispatch();
+	const { filter } = useAppSelector(state => state.filterCarReducer);
+
+	const handleClick = (brand: number) => {
+		dispatch(setCarFilter({ ...filter, brand }));
+		dispatch(changeSubsection(Subsection.ByCars));
+		if(closeFilter) {
+			closeFilter();
+		}
+	}
 
 	return <>
 		<div>
@@ -55,7 +68,7 @@ export const CarDiskFilter: FC<CarDiskFilterProps> = ({ closeFilter }) => {
 						key={ item.label }
 						to={ item.to }
 						label={ t(item.label, true) }
-						onClick={ closeFilter }
+						onClick={ () => handleClick(item.brand) }
 					/>
 				})}
 			</div>

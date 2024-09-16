@@ -39,6 +39,7 @@ export const FilterByCar = () => {
 	];
 
 	const onChange = (name: string, value: number | string | undefined) => {
+		console.log(name, value)
 		dispatch(setCarFilter({ ...filter, [name]: value }));
 		if(name === 'model') {
 			modelRefetch();

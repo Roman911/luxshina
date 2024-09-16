@@ -70,51 +70,63 @@ export const brandsLinks = [
 export const carBrandsLinks = [
 	{
 		label: 'Audi',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 4,
 	},
 	{
 		label: 'BMW',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 11,
 	},
 	{
 		label: 'Chevrolet',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 20,
 	},
 	{
 		label: 'Citroen',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 22,
 	},
 	{
 		label: 'Ford',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 44,
 	},
 	{
 		label: 'Honda',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 57,
 	},
 	{
 		label: 'Hyundai',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 59,
 	},
 	{
 		label: 'Kia',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 69,
 	},
 	{
 		label: 'Lexus',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 75,
 	},
 	{
 		label: 'Mazda',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 83,
 	},
 	{
 		label: 'Mercedes',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 85,
 	},
 	{
 		label: 'Mitsubishi',
-		to: '/catalog/disks',
+		to: '/catalog/disks?typeproduct=3',
+		brand: 89,
 	},
 ];
 

@@ -98,6 +98,11 @@ interface Review {
 	updated_at: string
 }
 
+interface Photo {
+	big: string
+	small: string
+}
+
 export interface Product {
 	disabled: boolean
 	size_format: number
@@ -106,7 +111,7 @@ export interface Product {
 		url_part2: string
 	}
 	photos: {
-		urls: []
+		urls: Photo[] | false
 	}
 	min_price: number
 	max_price: number

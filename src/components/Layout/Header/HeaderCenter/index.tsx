@@ -39,7 +39,7 @@ export const HeaderCenter = () => {
 			</Link>
 			<Search />
 			<Contacts className='hidden lg:inline-block' />
-			<div className={classNames('flex gap-7 justify-end', styles.menu)}>
+			<div className={classNames('flex gap-4 md:gap-7 justify-end', styles.menu)}>
 				<Link to='/comparison' className='relative'>
 					<Badge value={ comparisonItems.length } />
 					<LibraIcon/>

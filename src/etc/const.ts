@@ -13,4 +13,5 @@ export const ROUTES = {
 	cart: 'ru?/cart/',
 	order: 'ru?/order/',
 	tyreDiskSizeCalc: 'ru?/tyre-disk-size-calc/',
+	search: 'ru?/search/',
 };

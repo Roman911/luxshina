@@ -9,6 +9,7 @@ import { Bookmarks } from './containers/Bookmarks';
 import { Comparison } from './containers/Comparison';
 import { Cart } from './containers/Cart';
 import { Order } from './containers/Order';
+import { Search } from './containers/Search';
 import { CalculatorForTires } from './containers/CalculatorForTiresPage';
 import { AboutUs, Contacts, Credit, Payment, PublicOffer, Shipment } from './containers/StaticPage/';
 import { ErrorPage } from './containers/Error/404';
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
 			{
 				path: ROUTES.order,
 				element: <Order />
+			},
+			{
+				path: ROUTES.search,
+				element: <Search />
 			},
 			{
 				path: ROUTES.tyreDiskSizeCalc,

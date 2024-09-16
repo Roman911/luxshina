@@ -43,10 +43,18 @@ export const ProductComponent: FC<ProductComponentProps> = (
 
 	const { id = 0, full_name = '', offers = [], min_price = 0, photo, model, labels } = data?.data || {};
 	const offer = offers.find(item => item.offer_id === offerId);
+
+	const imgArr = data?.data.photos.urls ? data.data.photos.urls.map(item => {
+		return {
+			original: item.big,
+			thumbnail: item.small
+		}
+	}) : [];
+
 	const images = [{
 		original: photo?.url_part2 || '',
 		thumbnail: photo?.url_part || '',
-	}];
+	}, ...imgArr];
 
 	const icon = (season: string) => {
 		if(season === '1') {

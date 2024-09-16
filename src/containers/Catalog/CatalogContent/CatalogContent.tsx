@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 import { config } from '../../../config';
 import { baseDataAPI } from '../../../services/baseDataService';
@@ -22,6 +22,7 @@ export const CatalogContent: FC<CatalogContentProps> = ({ openFilter, onSubmit }
 	const [ paginateCount, setPaginateCount ] = useState(0);
 	const location = useLocation();
 	const dispatch = useAppDispatch();
+	const [ searchParam, setSearchParams ] = useSearchParams();
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({ id: location?.search, length: config.catalog.itemsProduct, start: paginateCount * config.catalog.itemsProduct });
 	const searchParams = useAppSearchParams();
@@ -30,9 +31,14 @@ export const CatalogContent: FC<CatalogContentProps> = ({ openFilter, onSubmit }
 		dispatch(setParams(searchParams));
 	}, [dispatch, searchParams]);
 
+	const handleClick = (param: string) => {
+		console.log(searchParam);
+		setSearchParams(param);
+	}
+
 	return (
 		<div className='flex-1'>
-			<FilterByCar openFilter={openFilter} onSubmit={onSubmit}/>
+			<FilterByCar openFilter={ openFilter } onSubmit={ onSubmit } handleClick={ handleClick } />
 			<SelectionByCar />
 			<FilterActive className='hidden lg:flex'/>
 			<Spinner height='h-60' show={isLoading} size='large'>

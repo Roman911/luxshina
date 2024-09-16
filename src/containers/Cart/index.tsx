@@ -15,10 +15,10 @@ export const Cart: React.FC = () => {
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
 	const { lang } = useAppSelector(state => state.langReducer);
-	//const { cartItems } = useAppSelector(state => state.cartReducer);
+	const { cartItems } = useAppSelector(state => state.cartReducer);
 	const cartStorage = localStorage.reducerCart ? JSON.parse( localStorage.reducerCart ) : [];
-	//const id = cartItems.map(item => item.id).join(',');
-	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({id: `?Offer_id=2022,2025`});
+	const id = cartItems.map(item => item.id).join(',');
+	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({id: `?Offer_id=${id}`});
 	const path = [{ id: 1, title: t('cart', true), url: '/' }];
 
 	useEffect(() => {

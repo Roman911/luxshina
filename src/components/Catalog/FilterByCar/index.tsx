@@ -10,12 +10,20 @@ import {Section} from "../../../models/filter.ts";
 interface FilterByCarProps {
 	openFilter: () => void
 	onSubmit: () => void
+	handleClick: (param: string) => void
 }
 
-export const FilterByCar: FC<FilterByCarProps> = ({ openFilter }) => {
+export const FilterByCar: FC<FilterByCarProps> = ({ openFilter, handleClick }) => {
 	const [ openSort, setOpenSort ] = useState(false);
+	const [ sort, setSort ] = useState('sorting');
 	const { section, subsection } = useAppSelector(state => state.filterReducer);
 	const t = useAppTranslation();
+
+	const onClick = (label: string, param: string) => {
+		setSort(label);
+		setOpenSort(false);
+		handleClick(param);
+	}
 
 	return <div className='flex justify-between lg:justify-end items-center lg:items-start mb-4'>
 		{subsection === 'byParams' && section === Section.Tires && <div className='hidden lg:flex gap-x-3 xl:gap-x-6 mr-3 xl:mr-8'>
@@ -32,24 +40,24 @@ export const FilterByCar: FC<FilterByCarProps> = ({ openFilter }) => {
 			<button type="button" onClick={() => setOpenSort(prev => !prev)}
 							className="w-56 xl:w-64 h-11 p-3 flex items-center justify-between bg-white text-xs uppercase font-bold border border-gray-200 rounded-sm"
 							id="menu-button" aria-expanded="true" aria-haspopup="true">
-				<div>{t('sorting', true)}</div>
+				<div>{t(sort, true)}</div>
 				<div className={classNames('transition-transform', {'rotate-180': openSort})}>
 					<ChevronDownIcon/>
 				</div>
 			</button>
 			<div
-				className={classNames('absolute right-0 z-10 w-56 xl:w-64 origin-top-right border border-gray-200 bg-white shadow-lg p-3 xl:p-5 rounded-sm', {hidden: !openSort})}
+				className={classNames('absolute right-0 z-10 w-56 xl:w-64 origin-top-right border border-gray-200 bg-white shadow-lg p-3 xl:p-5 rounded-sm', { hidden: !openSort })}
 				tabIndex={-1}>
 				<div className="py-1 text-sm xl:text-base">
-					<div className='flex items-center'>
-						{t('by price', true)}
-					</div>
-					<div className='flex items-center mt-3'>
-						{t('by popularity', true)}
-					</div>
-					<div className='flex items-center mt-3'>
+					<button className='flex items-center' onClick={() => onClick('cheap at first', 'order[asc]=1')}>
+						{t('cheap at first', true)}
+					</button>
+					<button className='flex items-center mt-3' onClick={() => onClick('expensive at first', 'order[asc]=0')}>
+						{t('expensive at first', true)}
+					</button>
+					<button className='flex items-center mt-3' onClick={() => onClick('expensive at first', 'order[value]=offers')}>
 						{t('by number of offers', true)}
-					</div>
+					</button>
 				</div>
 			</div>
 		</div>

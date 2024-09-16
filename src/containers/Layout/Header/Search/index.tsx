@@ -1,4 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, ChangeEvent } from 'react';
+
+import { baseDataAPI } from '../../../../services/baseDataService';
+import { useAppDispatch } from '../../../../hooks';
+import { setSearch } from '../../../../store/reducers/searchSlice';
 import { SearchComponent } from '../../../../components/Layout/Header/Search';
 
 const placeHolderExamples = [
@@ -15,8 +19,11 @@ const placeHolderExamples = [
 
 export const Search = () => {
 	const [placeholder, setPlaceholder] = useState('');
+	const [value, setValue] = useState('');
 	const [currentPlaceholderIndex, setCurrentPlaceholderIndex] = useState(0);
+	const { data } = baseDataAPI.useFetchProductsQuery({ id: `?name=${value}` })
 	const currentLetter = useRef(0);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		const typePlaceholder = () => {
@@ -45,5 +52,26 @@ export const Search = () => {
 		setCurrentPlaceholderIndex(nextIndex);
 	};
 
-	return <SearchComponent placeholder={ placeholder } />;
+	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setValue(e.target.value)
+	}
+
+	const handleClick = () => {
+		setValue('');
+	}
+
+	const handleClickAllProduct = () => {
+		dispatch(setSearch(value));
+		handleClick();
+	}
+
+	return <SearchComponent
+		placeholder={ placeholder }
+		onChange={ onChange }
+		data={ data?.data }
+		handleClick={ handleClick }
+		value={ value }
+		isOpen={ value.length > 2 }
+		handleClickAllProduct={ handleClickAllProduct }
+	/>;
 };

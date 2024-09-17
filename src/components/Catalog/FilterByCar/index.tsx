@@ -10,7 +10,7 @@ import {Section} from "../../../models/filter.ts";
 interface FilterByCarProps {
 	openFilter: () => void
 	onSubmit: () => void
-	handleClick: (param: string) => void
+	handleClick: (param1: string, param2: string) => void
 }
 
 export const FilterByCar: FC<FilterByCarProps> = ({ openFilter, handleClick }) => {
@@ -19,10 +19,10 @@ export const FilterByCar: FC<FilterByCarProps> = ({ openFilter, handleClick }) =
 	const { section, subsection } = useAppSelector(state => state.filterReducer);
 	const t = useAppTranslation();
 
-	const onClick = (label: string, param: string) => {
+	const onClick = (label: string, param1: string, param2: string) => {
 		setSort(label);
 		setOpenSort(false);
-		handleClick(param);
+		handleClick(param1, param2);
 	}
 
 	return <div className='flex justify-between lg:justify-end items-center lg:items-start mb-4'>
@@ -49,13 +49,13 @@ export const FilterByCar: FC<FilterByCarProps> = ({ openFilter, handleClick }) =
 				className={classNames('absolute right-0 z-10 w-56 xl:w-64 origin-top-right border border-gray-200 bg-white shadow-lg p-3 xl:p-5 rounded-sm', { hidden: !openSort })}
 				tabIndex={-1}>
 				<div className="py-1 text-sm xl:text-base">
-					<button className='flex items-center' onClick={() => onClick('cheap at first', 'order[asc]=1')}>
+					<button className='flex items-center' onClick={() => onClick('cheap at first', 'order[asc]', '1')}>
 						{t('cheap at first', true)}
 					</button>
-					<button className='flex items-center mt-3' onClick={() => onClick('expensive at first', 'order[asc]=0')}>
+					<button className='flex items-center mt-3' onClick={() => onClick('expensive at first', 'order[asc]', '0')}>
 						{t('expensive at first', true)}
 					</button>
-					<button className='flex items-center mt-3' onClick={() => onClick('expensive at first', 'order[value]=offers')}>
+					<button className='flex items-center mt-3' onClick={() => onClick('expensive at first', 'order[value]', 'offers')}>
 						{t('by number of offers', true)}
 					</button>
 				</div>

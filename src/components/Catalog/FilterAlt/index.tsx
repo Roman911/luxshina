@@ -201,6 +201,32 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						/>
 					</div>
 				</>}
+				{section === Section.Battery && <>
+					{renderSelect(
+						'capacity',
+						t('capacity', true),
+						'gray',
+						[]
+					)}
+					{renderSelect(
+						'capacity',
+						'Пусковий струм',
+						'gray',
+						[]
+					)}
+					{renderSelect(
+						'capacity',
+						'Тип електроліту',
+						'gray',
+						[]
+					)}
+					{renderSelect(
+						'capacity',
+						'Тип корпусу',
+						'white',
+						[]
+					)}
+				</>}
 				{section === Section.Tires && <>
 					{renderSelect(
 						'sezon',
@@ -269,6 +295,55 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					data?.tyre_year?.map(item => ({ value: item.value, label: item.label })),
 				)}
 				<SelectFromTo name='price' from='200' to='10000' title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
+				{section === Section.Battery && <>
+					<SelectFromTo name='price' from='0' to='600' title={ `Ширина (мм)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='price' from='0' to='190' title={ `Висота (мм)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='price' from='0' to='600' title={ `Довжина (мм)` } btnTitle={ t('to apply') }/>
+					{renderSelect(
+					'load_index',
+					'Напруга',
+					'gray',
+					[],
+					)}
+					{renderSelect(
+						'load_index',
+						'Полюсність',
+						'white',
+						[],
+					)}
+				</>}
+				{section === Section.Tires && <>
+					{renderSelect(
+						'load_index',
+						t('load index', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'speed_index',
+						t('speed index', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'homologation',
+						t('homologation', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'strengthening',
+						t('strengthening', true),
+						'white',
+						[],
+					)}
+					{renderSelect(
+						'other',
+						t('other', true),
+						'white',
+						[],
+					)}
+				</>}
 			</div>
 		</div>
 	</div>

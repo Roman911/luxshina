@@ -9,7 +9,7 @@ export const links = [
 	},
 	{
 		title: 'accumulators',
-		url: '/',
+		url: '/catalog/battery?typeproduct=4',
 	},
 	{
 		title: 'auto goods',

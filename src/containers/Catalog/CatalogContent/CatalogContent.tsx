@@ -31,9 +31,12 @@ export const CatalogContent: FC<CatalogContentProps> = ({ openFilter, onSubmit }
 		dispatch(setParams(searchParams));
 	}, [dispatch, searchParams]);
 
-	const handleClick = (param: string) => {
+	const handleClick = (param1: string, param2: string) => {
 		console.log(searchParam);
-		setSearchParams(param);
+		setSearchParams(params => {
+			params.set(param1, param2)
+			return params
+		});
 	}
 
 	return (

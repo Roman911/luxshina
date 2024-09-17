@@ -76,5 +76,10 @@ export const baseDataAPI = createApi({
 				url: `/api/getProduct/${id}`,
 			}),
 		}),
+		fetchDataAkum: build.query<ProductProps, string>({
+			query: () => ({
+				url: `/baseDataAkum/`,
+			}),
+		}),
 	})
 });

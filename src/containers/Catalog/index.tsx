@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
+import { baseDataAPI } from '../../services/baseDataService';
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
 import { setParams, changeSection } from '../../store/reducers/filterSlice';
 
@@ -16,11 +17,14 @@ import { Section } from '../../models/filter';
 export const Catalog = () => {
 	const [ isOpenFilter, setOpenFilter ] = useState(false);
 	const { filter, section } = useAppSelector(state => state.filterReducer);
+	const { data } = baseDataAPI.useFetchDataAkumQuery('');
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
 	const params = useParams();
+
+	console.log(data)
 
 	useEffect(() => {
 		if(section !== params.section) {

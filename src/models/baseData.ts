@@ -32,7 +32,7 @@ interface Year {
 	value: number
 }
 
-interface colirAbbr {
+interface ItemP {
 	value: string
 	p: string
 }
@@ -46,7 +46,7 @@ export interface BaseDataProps {
 	auto: Auto[]
 	brand: Brand[]
 	brand_disc: Brand[]
-	colir_abbr: colirAbbr[]
+	colir_abbr: ItemP[]
 	country: Country[]
 	country_ru: Country[]
 	dia: Item[]
@@ -54,6 +54,9 @@ export interface BaseDataProps {
 	disc_width: Item[]
 	et: Item[]
 	krip: Item[]
+	load: Item[]
+	omolog: ItemP[]
+	speed: ItemP[]
 	tyre_diameter: Item[]
 	tyre_height: Item[]
 	tyre_season: Season[]

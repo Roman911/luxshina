@@ -12,8 +12,9 @@ import { CloseIcon } from '../../Lib/Icons';
 import { Badge } from '../../Lib/';
 
 import { Section, Subsection } from '../../../models/filter';
-import type { CarModelProps, BaseDataProps, Options } from '../../../models/baseData';
-import { SubmitFloat } from "./SubmitFloat";
+import type { CarModelProps, BaseDataProps, Options, ManufModels } from '../../../models/baseData';
+import type { AkumProps } from '../../../models/akumData';
+import { SubmitFloat } from './SubmitFloat';
 import { Language } from "../../../models/language";
 
 const customTireSeason = [
@@ -31,6 +32,7 @@ const typeDisc = [
 interface FilterAltProps {
 	element: HTMLElement | null
 	data: BaseDataProps | undefined
+	dataAkum: AkumProps | undefined
 	isOpenFilter: boolean
 	closeFilter: () => void
 	handleClick: (value: Subsection) => void
@@ -38,7 +40,7 @@ interface FilterAltProps {
 	onChange: (name: string, value: number | string | undefined | null, element: HTMLElement) => void
 	onChangeByCar: (name: string, value: number | string | undefined) => void
 	setElement: (value: null) => void
-
+	manufModels: ManufModels[] | undefined
 	model?: CarModelProps[]
 	modelYear?: number[]
 	modelKit?: CarModelProps[]
@@ -48,6 +50,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 	{
 		element,
 		data,
+		dataAkum,
 		isOpenFilter,
 		closeFilter,
 		handleClick,
@@ -55,6 +58,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 		onChange,
 		onChangeByCar,
 		setElement,
+		manufModels,
 		model,
 		modelYear,
 		modelKit
@@ -138,27 +142,45 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					</button>
 				</div>}
 				{subsection === 'byParams' && section !== Section.Battery && <>
-					{renderSelect(
-						'width',
-						t('width', true),
-						'gray',
-						data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
-						filter?.width,
-					)}
-					{section === Section.Tires && renderSelect(
-						'height',
-						t('height', true),
-						'gray',
-						data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
-						filter?.height,
-					)}
-					{renderSelect(
-						'radius',
-						t('diameter', true),
-						'gray',
-						data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
-						filter?.radius,
-					)}
+					{section === Section.Tires && <>
+						{renderSelect(
+							'width',
+							t('width', true),
+							'gray',
+							data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							filter?.width,
+						)}
+						{section === Section.Tires && renderSelect(
+							'height',
+							t('height', true),
+							'gray',
+							data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							filter?.height,
+						)}
+						{renderSelect(
+							'radius',
+							t('diameter', true),
+							'gray',
+							data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
+							filter?.radius,
+						)}
+					</>}
+					{section === Section.Disks && <>
+						{renderSelect(
+							'width',
+							t('width', true),
+							'gray',
+							data?.disc_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							filter?.width,
+						)}
+						{renderSelect(
+							'radius',
+							t('diameter', true),
+							'gray',
+							data?.disc_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
+							filter?.radius,
+						)}
+					</>}
 				</>}
 				{subsection === 'byCars' && <>
 					<div className='mt-2'>
@@ -203,28 +225,32 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 				</>}
 				{section === Section.Battery && <>
 					{renderSelect(
-						'capacity',
+						'jemnist',
 						t('capacity', true),
 						'gray',
-						[]
+						dataAkum?.jemnist.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.jemnist,
 					)}
 					{renderSelect(
-						'capacity',
-						'Пусковий струм',
+						'puskovii_strum',
+						t('starting current', true),
 						'gray',
-						[]
+						dataAkum?.['puskovii-strum'].map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.puskovii_strum,
 					)}
 					{renderSelect(
-						'capacity',
-						'Тип електроліту',
+						'tip_elektrolitu',
+						t('type of electrolyte', true),
 						'gray',
-						[]
+						dataAkum?.['tip-elektrolitu'].map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.tip_elektrolitu,
 					)}
 					{renderSelect(
-						'capacity',
-						'Тип корпусу',
+						'tip_korpusu',
+						t('body type', true),
 						'white',
-						[]
+						dataAkum?.['tip-korpusu'].map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.tip_korpusu,
 					)}
 				</>}
 				{section === Section.Tires && <>
@@ -246,14 +272,14 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 				</>}
 				{section === Section.Disks && <>
 					{renderSelect(
-						'krip',
+						'krepeg',
 						t('fasteners', true),
 						'white',
 						data?.krip?.map(item => ({value: item.value, label: item.value, p: item.p})),
-						filter?.krip,
+						filter?.krepeg,
 					)}
-					<SelectFromTo name='et' from='-140' to='500' title={`ET(${t('departure', true)})`} btnTitle={t('to apply')}/>
-					<SelectFromTo name='dia' from='46' to='500' title='DIA' btnTitle={t('to apply')}/>
+					<SelectFromTo name='et' nameMin='etMin' nameMax='etMax' minus={ true } from={ -140 } to={ 500 } title={`ET(${t('departure', true)})`} btnTitle={t('to apply')}/>
+					<SelectFromTo name='dia' nameMin='diaMin' nameMax='diaMax' from={ 46 } to={ 500 } title='DIA' btnTitle={t('to apply')}/>
 					{renderSelect(
 						'typedisk',
 						t('type', true),
@@ -266,6 +292,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('color', true),
 						'white',
 						data?.colir_abbr?.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.colir,
 					)}
 					{renderSelect(
 						'brand_disc',
@@ -275,76 +302,77 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						filter?.brand_disc,
 					)}
 				</>}
-
-				{/*{renderSelect(*/}
-				{/*	'model',*/}
-				{/*	t('model', true),*/}
-				{/*	'gray',*/}
-				{/*	[],*/}
-				{/*)}*/}
+				{manufModels && manufModels.length > 0 && renderSelect(
+					'model_id',
+					t('model', true),
+					'gray',
+					manufModels?.map(item => ({value: item.value, label: item.label})),
+					filter?.model_id,
+				)}
 				{section === Section.Tires && renderSelect(
 					'country',
 					t('country', true),
 					'white',
 					country?.map(item => ({ value: item.value, label: item.label })),
+					filter?.country,
 				)}
 				{section === Section.Tires && renderSelect(
 					'year',
 					t('year', true),
 					'gray',
 					data?.tyre_year?.map(item => ({ value: item.value, label: item.label })),
+					filter?.year,
 				)}
-				<SelectFromTo name='price' from='200' to='10000' title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
+				<SelectFromTo name='price' nameMin='minPrice' nameMax='maxPrice' from={ 200 } to={ 10000 } title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
 				{section === Section.Battery && <>
-					<SelectFromTo name='price' from='0' to='600' title={ `Ширина (мм)` } btnTitle={ t('to apply') }/>
-					<SelectFromTo name='price' from='0' to='190' title={ `Висота (мм)` } btnTitle={ t('to apply') }/>
-					<SelectFromTo name='price' from='0' to='600' title={ `Довжина (мм)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='sirina' nameMin='minShirina' nameMax='maxShirina' from={ 0 } to={ 600 } title={ `Ширина (см)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='visota' nameMin='minVisota' nameMax='maxVisota' from={ 0 } to={ 190 } title={ `Висота (см)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='dovzina' nameMin='minDovzina' nameMax='maxDovzina' from={ 0 } to={ 600 } title={ `Довжина (см)` } btnTitle={ t('to apply') }/>
 					{renderSelect(
-					'load_index',
-					'Напруга',
+					'napruga',
+					t('high-voltage', true),
 					'gray',
-					[],
+						dataAkum?.napruga.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.napruga,
 					)}
 					{renderSelect(
-						'load_index',
-						'Полюсність',
+						'poliarnist',
+						t('polarity', true),
 						'white',
-						[],
+						dataAkum?.poliarnist.map(item => ({value: item.value, label: item.value, p: item.p})),
+						filter?.poliarnist,
 					)}
 				</>}
 				{section === Section.Tires && <>
 					{renderSelect(
-						'load_index',
+						'load',
 						t('load index', true),
 						'white',
-						[],
+						data?.load.map(item => ({ value: item.value, label: item.value })),
+						filter?.load,
 					)}
 					{renderSelect(
-						'speed_index',
+						'speed',
 						t('speed index', true),
 						'white',
-						[],
+						data?.speed.map(item => ({ value: item.value, label: item.value })),
+						filter?.speed,
 					)}
 					{renderSelect(
-						'homologation',
+						'omolog',
 						t('homologation', true),
 						'white',
-						[],
+						data?.omolog.map(item => ({ value: item.value, label: item.value })),
+						filter?.omolog,
 					)}
-					{renderSelect(
-						'strengthening',
-						t('strengthening', true),
-						'white',
-						[],
-					)}
-					{renderSelect(
-						'other',
-						t('other', true),
-						'white',
-						[],
-					)}
+					{/*{renderSelect(*/}
+					{/*	'other',*/}
+					{/*	t('other', true),*/}
+					{/*	'white',*/}
+					{/*	[],*/}
+					{/*)}*/}
 				</>}
 			</div>
 		</div>
 	</div>
-}
+};

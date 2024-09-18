@@ -1,28 +1,39 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { baseDataAPI } from '../../../services/baseDataService';
-import { useAppDispatch, useAppSearchParams, useAppSubmit } from '../../../hooks';
+import { useAppDispatch, useAppSelector, useAppSearchParams } from '../../../hooks';
 import { removeParam, reset } from '../../../store/reducers/filterSlice';
 import { FilterActiveComponent } from '../../../components/Catalog/FilterActive';
+import { Section } from '../../../models/filter';
 
 interface FilterActiveProps {
 	className: string
 }
 
 export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
+	const { filter, section } = useAppSelector(state => state.filterReducer);
+	const [ , setSearchParams ] = useSearchParams();
 	const dispatch = useAppDispatch();
 	const searchParams = useAppSearchParams();
-	const { handleClearAll, handleClear } = useAppSubmit();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
+	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${filter.brand}`);
+
+	useEffect(() => {
+		dispatch(reset());
+	}, [dispatch]);
 
 	const clearParam = (name: string) => {
 		dispatch(removeParam({[name]: null}));
-		handleClear(name);
+		setSearchParams(params => {
+			params.delete(name);
+			return params;
+		});
 	}
 
 	const clearAllParams = () => {
 		dispatch(reset());
-		handleClearAll();
+		setSearchParams(section === Section.Disks ? 'typeproduct=3' : section === Section.Battery ? 'typeproduct=4' : '');
 	}
 
 	return <FilterActiveComponent
@@ -31,5 +42,6 @@ export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
 		searchParams={ searchParams }
 		clearParam={ clearParam }
 		clearAllParams={ clearAllParams }
+		manufModels={ manufModels }
 	/>
 };

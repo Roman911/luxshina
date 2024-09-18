@@ -5,7 +5,30 @@ interface FilterParams {
 	[key: string]: string;
 }
 
-const PARAM_KEYS = ['brand', 'width', 'height', 'radius', 'country', 'krepeg'] as const;
+const PARAM_KEYS = [
+	'width',
+	'height',
+	'radius',
+	'sezon',
+	'only_studded',
+	'brand',
+	'model_id',
+	'country',
+	'year',
+	'load',
+	'speed',
+	'omolog',
+	'krepeg',
+	'typedisk',
+	'colir',
+	'brand_disc',
+	'jemnist',
+	'puskovii_strum',
+	'tip_elektrolitu',
+	'tip_korpusu',
+	'napruga',
+	'poliarnist'
+] as const;
 
 export const useAppSearchParams = () => {
 	const [filter, setFilter] = useState<FilterParams>({});

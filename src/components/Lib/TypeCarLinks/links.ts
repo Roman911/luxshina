@@ -1,7 +1,7 @@
 export const typeCatLinks = [
 	{
 		label: 'light',
-		to: '/catalog/tires',
+		to: '/catalog/tires?vehicle_type=1',
 		icon: 'light',
 	},
 	{

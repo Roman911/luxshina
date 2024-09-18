@@ -22,7 +22,7 @@ export const CatalogContent: FC<CatalogContentProps> = ({ openFilter, onSubmit }
 	const [ paginateCount, setPaginateCount ] = useState(0);
 	const location = useLocation();
 	const dispatch = useAppDispatch();
-	const [ searchParam, setSearchParams ] = useSearchParams();
+	const [ , setSearchParams ] = useSearchParams();
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({ id: location?.search, length: config.catalog.itemsProduct, start: paginateCount * config.catalog.itemsProduct });
 	const searchParams = useAppSearchParams();
@@ -32,7 +32,6 @@ export const CatalogContent: FC<CatalogContentProps> = ({ openFilter, onSubmit }
 	}, [dispatch, searchParams]);
 
 	const handleClick = (param1: string, param2: string) => {
-		console.log(searchParam);
 		setSearchParams(params => {
 			params.set(param1, param2)
 			return params

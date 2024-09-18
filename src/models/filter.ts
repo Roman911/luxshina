@@ -14,27 +14,39 @@ export interface IFilter {
 	width?: null | string
 	height?: null | string
 	radius?: null | string
-	brand?: null | string
 	sezon?: null | string
-	krip?: null | string
-
-
+	brand?: null | string
+	model_id?: null | string
+	country?: null | string
+	year?: null | string
+	load?: null | string
+	speed?: null | string
+	omolog?: null | string
+	krepeg?: null | string
 	typedisk?: null | string
+	colir?: null | string
 	brand_disc?: null | string
+	jemnist?: null | string
+	puskovii_strum?: null | string
+	tip_elektrolitu?: null | string
+	tip_korpusu?: null | string
+	napruga?: null | string
+	poliarnist?: null | string
+
+
+
+
 
 
 	bolt_count?: null | string
 	pcd?: null | string
-	krepeg?: null | string
 	vehicle_type?: null | string
 	price_from?: null | string
 	price_to?: null | string
 	city?: null | string
 	model?: null | string
-	country?: null | string
 	speed_index?: null | string
 	load_index?: null | string
-	year?: null | string
 	ply_rating?: null | string
 	dia_from?: null | string
 	dia_to?: null | string

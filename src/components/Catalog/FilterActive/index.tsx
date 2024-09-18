@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { useAppTranslation } from '../../../hooks';
 import { CloseIcon } from '../../Lib/Icons';
-import type { BaseDataProps } from '../../../models/baseData';
+import type { BaseDataProps, ManufModels } from '../../../models/baseData';
 
 interface IFilter {
 	[key: string]: string
@@ -15,9 +15,18 @@ interface FilterActiveProps {
 	searchParams: IFilter
 	clearParam: (name: string) => void
 	clearAllParams: () => void
+	manufModels: ManufModels[] | undefined
 }
 
-export const FilterActiveComponent: FC<FilterActiveProps> = ({ data, className, searchParams, clearParam, clearAllParams }) => {
+export const FilterActiveComponent: FC<FilterActiveProps> = (
+	{
+		data,
+		className,
+		searchParams,
+		clearParam,
+		clearAllParams,
+		manufModels
+	}) => {
 	const t = useAppTranslation();
 
 	const renderItem = (name: string, label: string | null) => {
@@ -39,6 +48,35 @@ export const FilterActiveComponent: FC<FilterActiveProps> = ({ data, className, 
 				const brand = data?.brand?.find(i => i.value === +searchParams[item as keyof IFilter]);
 				label = brand ? brand.label : '';
 			}
+			if(item === 'model_id') {
+				const modelId = manufModels?.find(i => i.value === +searchParams[item as keyof ManufModels]);
+				label = modelId ? modelId.label : '';
+			}
+			if(item === 'sezon') {
+				if(searchParams[item] === '1') {
+					label = t('summer', true);
+				} else if(searchParams[item] === '2') {
+					label = t('winter', true);
+				} else if(searchParams[item] === '3') {
+					label = t('all season', true);
+				} else {
+					return;
+				}
+			}
+			if(item === 'only_studded') {
+				label = 'Шип';
+			}
+			if(item === 'typedisk') {
+				if(searchParams[item] === '1') {
+					label = t('steel', true);
+				} else if(searchParams[item] === '2') {
+					label = t('forged', true);
+				} else if(searchParams[item] === '3') {
+					label = t('cast', true);
+				} else {
+					return;
+				}
+			}
 			return renderItem(item, label)
 		})}
 		{Object.keys(searchParams).length !== 0 && <button onClick={() => clearAllParams()} className='flex items-center gap-2 text-sm font-medium group text-gray-500'>
@@ -46,4 +84,4 @@ export const FilterActiveComponent: FC<FilterActiveProps> = ({ data, className, 
 			<CloseIcon className='fill-[#B9B9BA] hidden lg:block'/>
 		</button>}
 	</div>
-}
+};

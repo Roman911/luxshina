@@ -37,9 +37,7 @@ export const SearchComponent: FC<SearchProps> = ({ data, placeholder, isOpen, va
 			</button>
 		</div>
 		<div className={classNames('absolute top-12 right-0 z-20 py-6 px-8 md:px-10 bg-zinc-700 text-white rounded-lg w-full lg:max-w-[460px]', {'hidden': !isOpen})}>
-			<button>
-				<CloseButton handleClick={ handleClick } />
-			</button>
+			<CloseButton handleClick={ handleClick } />
 			<ul className='mb-8'>
 				<Spinner height='h-20' show={!data}>
 					{ data?.products?.map(item => {

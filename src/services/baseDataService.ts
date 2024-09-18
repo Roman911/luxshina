@@ -4,6 +4,7 @@ import type { BaseDataProps, CarModelProps, KitTyreSize, KitDiskSize, ManufModel
 import type { SettingsProps } from '../models/settings';
 import type { ProductsProps } from '../models/products';
 import type { ProductProps } from '../models/product';
+import type { AkumProps } from '../models/akumData';
 
 export const baseDataAPI = createApi({
 	baseQuery: fetchBaseQuery({
@@ -76,9 +77,9 @@ export const baseDataAPI = createApi({
 				url: `/api/getProduct/${id}`,
 			}),
 		}),
-		fetchDataAkum: build.query<ProductProps, string>({
+		fetchDataAkum: build.query<AkumProps, string>({
 			query: () => ({
-				url: `/baseDataAkum/`,
+				url: `/api/baseDataAkum`,
 			}),
 		}),
 	})

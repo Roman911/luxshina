@@ -12,6 +12,7 @@ interface BestOffer {
 	year: number
 	country: string
 	country_ru: string
+	quantity: number
 }
 
 export interface Product {
@@ -27,6 +28,7 @@ export interface Product {
 	popularity: number
 	model_id: number
 	brand: number
+	offers: BestOffer[]
 	brand_name: string
 	diameter: string
 	page_url: string

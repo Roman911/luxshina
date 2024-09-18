@@ -7,3 +7,4 @@ export { Quantity } from './Quantity';
 export { Rating } from './Rating';
 export { Spinner } from './Spinner';
 export { Title } from './Title';
+export { TooltipWithIcon } from './Tooltip';

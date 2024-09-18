@@ -12,6 +12,7 @@ import { CartIcon } from "../Lib/Icons";
 import truckIcon from '../../assets/icons/truck-icon.svg';
 import { Language } from '../../models/language';
 import type { ProductProps } from '../../models/product';
+import noPhoto from '../../assets/no-photo.s400.jpg';
 
 interface ProductComponentProps {
 	data: ProductProps | undefined
@@ -68,6 +69,10 @@ export const ProductComponent: FC<ProductComponentProps> = (
 		return null;
 	}
 
+	const onSetQuantity = (_: number,quan: number) => {
+		setQuantity(quan);
+	}
+
 	return <section className='product-page flex flex-col lg:flex-row justify-between gap-1 xl:gap-x-6 mt-10'>
 		<div className='max-w-[900px] flex-1 pr-3 xl:pr-5'>
 			<Spinner height='h-96' show={ isLoading }>
@@ -87,7 +92,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 								</div>
 								{ model?.brand_image && <img className='max-w-28 object-contain' src={ model?.brand_image } alt=""/> }
 							</div>
-							<ImgGallery images={images } />
+							{ photo?.url_part === '' ? <img src={ noPhoto } alt="" /> : <ImgGallery images={images } /> }
 						</div>
 						<ActionsBlock className='flex md:hidden'/>
 						<div className='flex-1 md:ml-6 xl:ml-20'>
@@ -129,7 +134,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 					</div>}
 			</Spinner>
 			<div className='purchase-information grid justify-self-stretch mt-5 md:mt-10'>
-				<Quantity quantity={ quantity } offerQuantity={ (Number(offer?.price) || 0) } onChange={ onChange } setQuantity={ setQuantity } />
+				<Quantity id={ 0 } quantity={ quantity } offerQuantity={ (Number(offer?.quantity) || 0) } price={ offer?.price } onChange={ onChange } setQuantity={ onSetQuantity } />
 				<button
 					className='delivery-calculation btn secondary mt-6 text-sm font-medium border border-black w-full md:w-72'>
 					<img className='mr-2.5' src={truckIcon} alt=""/>

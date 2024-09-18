@@ -1,17 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { baseDataAPI } from '../../services/baseDataService';
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
-import { addStorageCart } from '../../store/reducers/cartSlice';
+import { addStorageCart, removeCart, setQuantity } from '../../store/reducers/cartSlice';
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
-import {NoResult, Spinner, Title} from '../../components/Lib';
+import { NoResult, Spinner, Title } from '../../components/Lib';
 import { CartComponent } from '../../components/Cart';
-import {Language} from "../../models/language.ts";
+import { Language } from '../../models/language';
 
-export const Cart: React.FC = () => {
-	const [quantity, setQuantity] = useState(1);
+export const Cart = () => {
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
 	const { lang } = useAppSelector(state => state.langReducer);
@@ -29,12 +28,16 @@ export const Cart: React.FC = () => {
 		}
 	}, [cartStorage, dispatch]);
 
-	const onChange = (e: { target: HTMLInputElement }) => {
-		const value = e.target.value;
-		const onlyNumbers = value.replace(/\D/g, '');
-		const numericValue = Number(onlyNumbers);
+	const removeProduct = (id: number) => {
+		const storage = localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) : [];
+		localStorage.setItem('reducerCart', JSON.stringify(storage.filter((i: { id: number }) => i.id !== id)));
+		dispatch(removeCart(id));
+	};
 
-		setQuantity(numericValue < 10 ? numericValue : 10);
+	const onSetQuantity = (id: number, quantity: number) => {
+		const storage = localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) : [];
+		localStorage.setItem('reducerCart', JSON.stringify([...storage.filter((i: { id: number }) => i.id !== id), {id, quantity}]));
+		dispatch(setQuantity({ id, quantity }));
 	}
 
 	return <LayoutWrapper>
@@ -44,11 +47,11 @@ export const Cart: React.FC = () => {
 		<Breadcrumbs path={ path } />
 		<Title title='cart' />
 		<Spinner height='h-40' show={ isLoading }>
-			{ data?.result ? <CartComponent
+			{ cartStorage.length > 0 && data?.result ? <CartComponent
 					data={ data }
-					quantity={ quantity }
-					onChange={ onChange }
-					setQuantity={ setQuantity }
+					cartItems={ cartItems }
+					removeProduct={ removeProduct }
+					setQuantity={ onSetQuantity }
 				/> :
 				<NoResult
 					noResultText={ lang === Language.UA ? 'Ви ще не додали до кошику жодного товару' : 'Вы еще не добавили в корзину ни одного товара' }

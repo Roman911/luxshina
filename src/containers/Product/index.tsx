@@ -1,20 +1,20 @@
-import {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import {baseDataAPI} from '../../services/baseDataService';
-import {useAppDispatch, useAppTranslation} from '../../hooks';
-import {addCart, addStorageCart} from '../../store/reducers/cartSlice';
-import {changeSection} from '../../store/reducers/filterSlice';
-import {ProductList} from '../ProductList';
+import { baseDataAPI } from '../../services/baseDataService';
+import { useAppDispatch, useAppTranslation } from '../../hooks';
+import { addCart, addStorageCart } from '../../store/reducers/cartSlice';
+import { changeSection } from '../../store/reducers/filterSlice';
+import { ProductList } from '../ProductList';
 import Modal from '../Modals';
-import {QuickOrder} from '../Modals/QuickOrder';
-import {OnlineInstallment} from '../../components/Modals';
-import {LayoutWrapper} from '../../components/Layout';
-import {ProductComponent} from '../../components/Product';
-import {TextSeo} from '../../components/Home';
-import {Spinner, Title} from '../../components/Lib';
-import {Breadcrumbs} from '../../components/Breadcrumbs';
-import {Section} from "../../models/filter.ts";
+import { QuickOrder } from '../Modals/QuickOrder';
+import { OnlineInstallment } from '../../components/Modals';
+import { LayoutWrapper } from '../../components/Layout';
+import { ProductComponent } from '../../components/Product';
+import { TextSeo } from '../../components/Home';
+import { Spinner, Title } from '../../components/Lib';
+import { Breadcrumbs } from '../../components/Breadcrumbs';
+import { Section } from '../../models/filter';
 
 export const Product = () => {
 	const [isModalActive, setModalActive] = useState(false);

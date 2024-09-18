@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { ChevronDownIcon, InfoIcon } from '../../Lib/Icons';
-import { NoResult, Rating } from '../../Lib';
+import { NoResult, Rating, TooltipWithIcon } from '../../Lib';
 import { Link } from '../../../lib';
 import type { ProductProps } from '../../../models/product';
 import { Language } from '../../../models/language';
@@ -24,8 +24,6 @@ export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) =>
 	const { section } = useAppSelector(state => state.filterReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
-
-	console.log(data, section)
 
 	const link = (to: string) => {
 		if(section === 'tires') {
@@ -91,44 +89,59 @@ export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) =>
 		</div>
 		{ tab === 'main characteristics' && <div className='flex flex-col md:flex-row my-6 md:my-4 md:gap-10'>
 			<div className='flex-1'>
-				<div className='flex md:my-4 text-sm font-medium'>
+				{data?.data.offer_group.width && <div className='flex md:my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						{ t('width', true) }
+						<TooltipWithIcon label={ lang === Language.UA ? 'Ширина шини в міліметрах' : 'Ширина шины в миллиметрах' } />
+						<span className='ml-2.5'>
+							{ t('width', true) }
+						</span>
 					</div>
-					<Link to={link(`width=${data?.data.offer_group.width}`)} className='text-blue-500 hover:underline'>
+					<Link to={link(`width=${data?.data.offer_group.width}`)} className='text-blue-500 max-w-max w-full hover:underline'>
 						{ data?.data.offer_group.width }
 					</Link>
-				</div>
-				<div className='flex my-4 text-sm font-medium'>
+				</div>}
+				{data?.data.offer_group.height && <div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						{ t('height', true) }
+						<TooltipWithIcon
+							label={lang === Language.UA ?
+								'Висота шини у відсотках від ширини, якщо висота зазначена, вважається рівною 82' :
+								'Высота шины в процентах от ширины, если высота указана, считается равной 82'}
+						/>
+						<span className='ml-2.5'>
+							{ t('height', true) }
+						</span>
 					</div>
-					<Link to={link(`height=${data?.data.offer_group.height}`)} className='text-blue-500 hover:underline'>
+					<Link to={link(`height=${data?.data.offer_group.height}`)} className='text-blue-500 max-w-max w-full hover:underline'>
 						{ data?.data.offer_group.height }
 					</Link>
-				</div>
-				<div className='flex my-4 text-sm font-medium'>
+				</div>}
+				{data?.data.offer_group.diameter && <div className='flex my-4 text-sm font-medium'>
 					<div
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						{ t('diameter', true) }
-					</div>
-					<Link to={link(`radius=${data?.data.offer_group.diameter}`)} className='text-blue-500 hover:underline'>
-						{ data?.data.offer_group.diameter }
-					</Link>
-				</div>
-				<div className='flex my-4 text-sm font-medium'>
-					<div
-						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
-						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
-						{ t('speed index', true) }
+						<TooltipWithIcon
+							label={lang === Language.UA ?
+								'Внутрішній діаметр шини в дюймах' :
+								'Внутренний диаметр шины в дюймах'}
+						/>
+						<span className='ml-2.5'>
+							{ t('diameter', true) }
+						</span>
 					</div>
 					<Link to={link(`radius=${data?.data.offer_group.diameter}`)} className='text-blue-500 max-w-max w-full hover:underline'>
-						{ lang === Language.UA ? data?.data.offer_group.speed_index : data?.data.offer_group.speed_index_ru }
+						{ data?.data.offer_group.diameter }
+					</Link>
+				</div>}
+				<div className='flex my-4 text-sm font-medium'>
+					<div
+						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
+						<InfoIcon className='fill-[#7D92B2] mr-2.5 mb-0.5'/>
+						{t('speed index', true)}
+					</div>
+					<Link to={link(`radius=${data?.data.offer_group.diameter}`)}
+								className='text-blue-500 max-w-max w-full hover:underline'>
+						{lang === Language.UA ? data?.data.offer_group.speed_index : data?.data.offer_group.speed_index_ru }
 					</Link>
 				</div>
 				<div className='flex my-4 text-sm font-medium'>
@@ -148,7 +161,7 @@ export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) =>
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						{ t('brand', true) }
 					</div>
-					<Link to={link(`brand=${data?.data.brand.id}`)} className='text-blue-500 hover:underline'>
+					<Link to={link(`brand=${data?.data.brand.id}`)} className='text-blue-500 max-w-max w-full hover:underline'>
 						{ data?.data.brand.name }
 					</Link>
 				</div>
@@ -157,7 +170,7 @@ export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) =>
 						className='w-full flex items-center text-[#575C66] after:flex-1 after:min-w-6 after:border-b after:border-dashed after:border-[#AEB6C2] after:h-px after:mt-3 after:mx-2'>
 						{ t('model', true) }
 					</div>
-					<Link to={link(`model=${data?.data.brand.id}`)} className='text-blue-500 hover:underline'>
+					<Link to={link(`model=${data?.data.brand.id}`)} className='text-blue-500 max-w-max w-full hover:underline'>
 						{ data?.data.brand.name }
 					</Link>
 				</div>
@@ -185,7 +198,6 @@ export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) =>
 					<Link to={link(`width=${data?.data.offer_group.width}&height=${data?.data.offer_group.height}&radius=${data?.data.offer_group.diameter}`)} className='text-blue-500 max-w-max w-full hover:underline'>
 						{ `${data?.data.offer_group.width}/${data?.data.offer_group.height} R${data?.data.offer_group.diameter}` }
 					</Link>
-					<div className='text-blue-500 max-w-max w-full'>195/65 R1</div>
 				</div>
 			</div>
 		</div> }

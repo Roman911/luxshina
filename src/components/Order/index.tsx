@@ -1,11 +1,9 @@
+import { FC } from 'react';
+
+//import { useAppSelector } from '../../hooks';
 import { MySelect } from './Select';
-
-interface Item {
-	group: number;
-	full_name: string;
-}
-
-const data: Item[] = []
+import { Summary } from './Summary';
+import type { ProductsProps } from '../../models/products';
 
 const deliveryMethod = [
 	{value: 1, label: 'Самовивіз зі складу'},
@@ -20,7 +18,15 @@ const payMethod = [
 	{value: 4, label: 'Безготівковим розрахунком'},
 ];
 
-export const OrderComponent = () => {
+interface OrderProps {
+	data: ProductsProps | undefined
+	isLoading: boolean
+	cartItems: { id: number; quantity: number }[]
+}
+
+export const OrderComponent: FC<OrderProps> = ({ data, isLoading, cartItems }) => {
+	//const { lang } = useAppSelector(state => state.langReducer);
+
 	const onChange = (name: string, value: number | string | undefined) => {
 		console.log(name, value);
 	}
@@ -92,33 +98,6 @@ export const OrderComponent = () => {
 				<MySelect name='city' label='Способ оплаты' options={payMethod} onChange={onChange}/>
 			</div>
 		</div>
-		<div className='w-full lg:w-96'>
-			<div className='bg-white'>
-				<div className='pt-5 pb-2 px-6'>
-					<h3 className='font-bold'>Ваше замовлення</h3>
-					<div className='divide-y'>
-						{data.map(item => {
-							return <div key={item.group} className='flex items-center py-4'>
-								<img className='w-20 h-20' src="https://opt.tyreclub.com.ua/api/public/img/user/s217/tyre/5558.400x400.jpg" alt=""/>
-								<div className='ml-2 px-3 w-full'>
-									<div className='font-bold text-sm'>{item.full_name}</div>
-									<div className='flex justify-between text-sm mt-3'>
-										<div>4 шт</div>
-										<div>2200 грн</div>
-									</div>
-								</div>
-							</div>
-						})}
-					</div>
-				</div>
-				<div className='bg-blue-50 py-5 px-6'>
-					<div className='flex justify-between font-bold'>
-						<div>Всього до сплати</div>
-						<div>2200 грн</div>
-					</div>
-					<button className='btn primary w-full mt-5'>Оформити замовлення</button>
-				</div>
-			</div>
-		</div>
+		<Summary data={ data } isLoading={ isLoading } cartItems={ cartItems } />
 	</div>
-}
+};

@@ -7,6 +7,7 @@ import type { ProductProps } from '../models/product';
 import type { AkumProps } from '../models/akumData';
 
 export const baseDataAPI = createApi({
+	reducerPath: 'dataAPI',
 	baseQuery: fetchBaseQuery({
 		baseUrl: import.meta.env.VITE_APP_BASE_URL,
 		headers: {
@@ -14,8 +15,7 @@ export const baseDataAPI = createApi({
 			'Access-Control-Allow-Origin': import.meta.env.VITE_APP_ACCESS_ORIGIN,
 		},
 	}),
-	tagTypes: ['baseDataAPI'],
-
+	tagTypes: ['baseDataAPI', 'Product'],
 	endpoints: (build) => ({
 		fetchSettings: build.query<SettingsProps, string>({
 			query: () => ({
@@ -76,11 +76,20 @@ export const baseDataAPI = createApi({
 			query: (id) => ({
 				url: `/api/getProduct/${id}`,
 			}),
+			providesTags: () => ['Product']
 		}),
 		fetchDataAkum: build.query<AkumProps, string>({
 			query: () => ({
 				url: `/api/baseDataAkum`,
 			}),
+		}),
+		createComment: build.mutation({
+			query: (comment) => ({
+				url: '/api/addReview',
+				method: 'POST',
+				body: comment,
+			}),
+			invalidatesTags: ['Product'],
 		}),
 	})
 });

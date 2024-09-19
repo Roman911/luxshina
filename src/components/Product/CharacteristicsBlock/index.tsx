@@ -3,8 +3,9 @@ import classNames from 'classnames';
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { ChevronDownIcon, InfoIcon } from '../../Lib/Icons';
-import { NoResult, Rating, TooltipWithIcon } from '../../Lib';
+import { TooltipWithIcon } from '../../Lib';
 import { Link } from '../../../lib';
+import { Comments } from '../Comments';
 import type { ProductProps } from '../../../models/product';
 import { Language } from '../../../models/language';
 
@@ -31,19 +32,6 @@ export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) =>
 		} else {
 			return `/catalog/disks?typeproduct=3&${to}`
 		}
-	};
-
-	const formatDate = (dateString: string) => {
-		const date = new Date(dateString);
-
-		const day = String(date.getDate()).padStart(2, '0');
-		const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-		const year = date.getFullYear();
-
-		const hours = String(date.getHours()).padStart(2, '0');
-		const minutes = String(date.getMinutes()).padStart(2, '0');
-
-		return `${day}.${month}.${year} ${hours}:${minutes}`;
 	};
 
 	return <section className='mt-8 md:mt-16'>
@@ -214,29 +202,12 @@ export const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ data }) =>
 				rhoncus nisi sed.
 			</p>
 		</div> }
-		{ tab === 'reviews' && <div className='my-5 md:my-6 max-w-xl w-full'>
-			{data?.data.review && data?.data.review.length > 0 ? data?.data.review.map(item => {
-				return <div key={ item.review_id } className='bg-white py-4 px-6 shadow-md'>
-					<div className='flex justify-between'>
-						<div className='flex items-center gap-4'>
-							<div className='font-bold text-lg'>{ item.name }</div>
-							<div className='text-xs'>
-								{ formatDate(item.created_at) }
-							</div>
-						</div>
-						<Rating commentsAvgRate={item.score}/>
-					</div>
-					<div className='w-10 h-0.5 bg-black'></div>
-					<div className='mt-3 text-sm'>
-						{ item.text }
-					</div>
-				</div>
-			}) : <NoResult
-				noResultText={lang === Language.UA ?
-					'До цього товару немає відгуків. Стати першим!' :
-					'К этому товару нет отзывов. Станьте первым!'
-				}
-			/>}
-		</div>}
+		{ tab === 'reviews' && <Comments
+			review={ data?.data.review }
+			lang={ lang }
+			model_id={ data?.data.model.id }
+			product_id={ data?.data.id }
+			trc_id={ data?.data.trc_id }
+		/>}
 	</section>
-}
+};

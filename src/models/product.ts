@@ -82,7 +82,7 @@ interface Labels {
 	}
 }
 
-interface Review {
+export interface Review {
 	review_id: number
 	score: number
 	status: number

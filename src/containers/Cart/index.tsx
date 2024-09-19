@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {useEffect, useMemo} from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { baseDataAPI } from '../../services/baseDataService';
@@ -10,21 +10,28 @@ import { NoResult, Spinner, Title } from '../../components/Lib';
 import { CartComponent } from '../../components/Cart';
 import { Language } from '../../models/language';
 
+type CartItem = {
+	id: number;
+	quantity: number;
+};
+
 export const Cart = () => {
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { cartItems } = useAppSelector(state => state.cartReducer);
-	const cartStorage = localStorage.reducerCart ? JSON.parse( localStorage.reducerCart ) : [];
+	const cartStorage: CartItem[] = useMemo(() => {
+		return localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) as CartItem[] : [];
+	}, []);
 	const id = cartItems.map(item => item.id).join(',');
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({id: `?Offer_id=${id}`});
 	const path = [{ id: 1, title: t('cart', true), url: '/' }];
 
 	useEffect(() => {
-		if(cartStorage !== 0) {
-			for(let i = 0; i < cartStorage.length; i++) {
-				dispatch(addStorageCart(cartStorage[i]));
-			}
+		if (cartStorage.length !== 0) {
+			cartStorage.forEach((item: CartItem) => {
+				dispatch(addStorageCart(item));
+			});
 		}
 	}, [cartStorage, dispatch]);
 

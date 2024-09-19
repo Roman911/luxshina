@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { useAppTranslation } from '../../../hooks';
 import { CloseIcon } from '../../Lib/Icons';
 import type { BaseDataProps, ManufModels } from '../../../models/baseData';
+import type { AkumProps } from '../../../models/akumData';
+import { Section } from '../../../models/filter';
 
 interface IFilter {
 	[key: string]: string
@@ -11,21 +13,25 @@ interface IFilter {
 
 interface FilterActiveProps {
 	data: BaseDataProps | undefined
+	dataAkum: AkumProps | undefined
 	className: string
 	searchParams: IFilter
 	clearParam: (name: string) => void
 	clearAllParams: () => void
 	manufModels: ManufModels[] | undefined
+	section: Section
 }
 
 export const FilterActiveComponent: FC<FilterActiveProps> = (
 	{
 		data,
+		dataAkum,
 		className,
 		searchParams,
 		clearParam,
 		clearAllParams,
-		manufModels
+		manufModels,
+		section
 	}) => {
 	const t = useAppTranslation();
 
@@ -45,8 +51,13 @@ export const FilterActiveComponent: FC<FilterActiveProps> = (
 		{Object.keys(searchParams).filter(item => searchParams[item]).map(item => {
 			let label = searchParams[item as keyof IFilter];
 			if(item === 'brand') {
-				const brand = data?.brand?.find(i => i.value === +searchParams[item as keyof IFilter]);
-				label = brand ? brand.label : '';
+				if(section === Section.Battery) {
+					const brand = dataAkum?.brand_akum?.find(i => i.value === +searchParams[item as keyof IFilter]);
+					label = brand ? brand.label : '';
+				} else {
+					const brand = data?.brand?.find(i => i.value === +searchParams[item as keyof IFilter]);
+					label = brand ? brand.label : '';
+				}
 			}
 			if(item === 'model_id') {
 				const modelId = manufModels?.find(i => i.value === +searchParams[item as keyof ManufModels]);

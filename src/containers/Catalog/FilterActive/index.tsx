@@ -17,6 +17,7 @@ export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
 	const dispatch = useAppDispatch();
 	const searchParams = useAppSearchParams();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
+	const { data: dataAkum } = baseDataAPI.useFetchDataAkumQuery('');
 	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${filter.brand}`);
 
 	useEffect(() => {
@@ -43,5 +44,7 @@ export const FilterActive: FC<FilterActiveProps> = ({ className }) => {
 		clearParam={ clearParam }
 		clearAllParams={ clearAllParams }
 		manufModels={ manufModels }
+		dataAkum={ dataAkum }
+		section={ section }
 	/>
 };

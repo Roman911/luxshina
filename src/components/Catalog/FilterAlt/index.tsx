@@ -252,6 +252,13 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						dataAkum?.['tip-korpusu'].map(item => ({value: item.value, label: item.value, p: item.p})),
 						filter?.tip_korpusu,
 					)}
+					{renderSelect(
+						'brand',
+						t('brand', true),
+						'white',
+						dataAkum?.brand_akum?.map(item => ({value: item.value, label: item.label})),
+						filter?.brand,
+					)}
 				</>}
 				{section === Section.Tires && <>
 					{renderSelect(

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { baseDataAPI } from '../../services/baseDataService';
@@ -16,6 +16,11 @@ import { Spinner, Title } from '../../components/Lib';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Section } from '../../models/filter';
 
+type CartItem = {
+	id: number;
+	quantity: number;
+};
+
 export const Product = () => {
 	const [isModalActive, setModalActive] = useState(false);
 	const [offerId, setOfferId] = useState(0);
@@ -23,7 +28,9 @@ export const Product = () => {
 	const dispatch = useAppDispatch();
 	const [modalType, setModalType] = useState('QuickOrder');
 	const location = useLocation();
-	const cartStorage = localStorage.reducerCart ? JSON.parse( localStorage.reducerCart ) : [];
+	const cartStorage: CartItem[] = useMemo(() => {
+		return localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) as CartItem[] : [];
+	}, []);
 	const match = location.pathname.match(/(\d+)$/);
 	const { data, isLoading } = baseDataAPI.useFetchProductQuery(match![1]);
 	const { data: dataProduct, isLoading: productIsLoading } = baseDataAPI.useFetchProductsQuery({ id: '', length: 4 });
@@ -38,10 +45,10 @@ export const Product = () => {
 	}, [data]);
 
 	useEffect(() => {
-		if(cartStorage !== 0) {
-			for(let i = 0; i < cartStorage.length; i++) {
-				dispatch(addStorageCart(cartStorage[i]));
-			}
+		if (cartStorage.length !== 0) {
+			cartStorage.forEach((item: CartItem) => {
+				dispatch(addStorageCart(item));
+			});
 		}
 	}, [cartStorage, dispatch]);
 

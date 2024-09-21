@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { ProductCard } from './ProductCard';
 import type { Data } from '../../models/products';
@@ -8,7 +8,7 @@ interface ProductListProps {
 	data: Data | undefined
 }
 
-export const ProductList: React.FC<ProductListProps> = ({ classnames = 'grid-cols-3', data }) => {
+export const ProductList: FC<ProductListProps> = ({ classnames = 'grid-cols-3', data }) => {
 	const products = data?.products.map(item => {
 		return <ProductCard key={ item.group } item={ item } />
 	})

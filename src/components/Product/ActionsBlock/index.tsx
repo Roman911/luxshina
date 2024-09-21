@@ -25,4 +25,4 @@ export const ActionsBlock: FC<ActionsBlockProps> = ({ className }) => {
 			<LibraIcon className='fill-gray-500 group-hover:fill-blue-500 w-4 h-4'/>
 		</div>
 	</div>
-}
+};

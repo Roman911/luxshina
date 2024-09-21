@@ -6,6 +6,21 @@ import { CartItem } from './CartItem';
 import type { ProductsProps } from '../../models/products';
 import { Language } from '../../models/language';
 
+const totalQuantityLabel = {
+	1: {
+		ua: 'товар на суму:',
+		ru: 'товар на сумму',
+	},
+	2: {
+		ua: 'товара на суму:',
+		ru: 'товара на сумму',
+	},
+	3: {
+		ua: 'товарів на суму:',
+		ru: 'товаров на сумму:',
+	},
+};
+
 interface CarProps {
 	data: ProductsProps | undefined
 	removeProduct: (id: number) => void
@@ -24,7 +39,7 @@ export const CartComponent: FC<CarProps> = ({ data, cartItems, removeProduct, se
 		return { id, price, quantity }
 	});
 
-	const totalQuantity = items?.reduce((sum, item) => sum + (item.quantity ?? 0), 0);
+	const totalQuantity = items?.length;
 	const totalQuantityPrice = items?.reduce((sum, item) => sum + (item.quantity ?? 0) * parseFloat(item.price), 0);
 
 	return <div className='flex flex-col lg:flex-row bg-white p-5 rounded-sm shadow-sm gap-10'>
@@ -51,14 +66,26 @@ export const CartComponent: FC<CarProps> = ({ data, cartItems, removeProduct, se
 		</div>
 		<div className='w-full lg:w-72 bg-blue-50 py-6 px-5 h-max'>
 			<div className='flex justify-between'>
-				<div>{ totalQuantity } { lang === Language.UA ? 'товарів на суму:' : 'товаров на сумму:' }</div>
+				<div>
+					{ totalQuantity }
+					{ ' ' }
+					{
+						totalQuantity === 1
+							? totalQuantityLabel[1][lang]
+							: (totalQuantity && totalQuantity > 1 && totalQuantity < 5)
+								? totalQuantityLabel[2][lang]
+								: totalQuantityLabel[3][lang]
+					}
+				</div>
 				<div>{ totalQuantityPrice } ₴</div>
 			</div>
 			<div className='font-bold mt-4 flex justify-between'>
-				<div>Разом до сплати:</div>
+				<div>{ lang === Language.UA ? 'Разом до сплати:' : 'Итого к оплате:' }</div>
 				<div>{ totalQuantityPrice } ₴</div>
 			</div>
-			<Link className='btn primary w-full mt-6' to='/order'>{ lang === Language.UA ? 'Оформити замовлення' : 'Оформить заказ' }</Link>
+			<Link className='btn primary w-full mt-6' to='/order'>
+				{ lang === Language.UA ? 'Оформити замовлення' : 'Оформить заказ' }
+			</Link>
 		</div>
 	</div>
 }

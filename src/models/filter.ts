@@ -32,15 +32,14 @@ export interface IFilter {
 	tip_korpusu?: null | string
 	napruga?: null | string
 	poliarnist?: null | string
-
-
+	vehicle_type?: null | string
 
 
 
 
 	bolt_count?: null | string
 	pcd?: null | string
-	vehicle_type?: null | string
+
 	price_from?: null | string
 	price_to?: null | string
 	city?: null | string

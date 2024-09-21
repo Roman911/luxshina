@@ -23,7 +23,7 @@ interface ProductComponentProps {
 	handleClick: (id: number) => void
 	onSubmit: () => void
 	setQuantity: Dispatch<SetStateAction<number>>
-	handleModalOpen: (type: 'QuickOrder' | 'OnlineInstallment') => void
+	handleModalOpen: (type: 'QuickOrder' | 'OnlineInstallment' | 'DeliveryCalculation') => void
 }
 
 export const ProductComponent: FC<ProductComponentProps> = (
@@ -136,6 +136,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 			<div className='purchase-information grid justify-self-stretch mt-5 md:mt-10'>
 				<Quantity id={ 0 } quantity={ quantity } offerQuantity={ (Number(offer?.quantity) || 0) } price={ offer?.price } onChange={ onChange } setQuantity={ onSetQuantity } />
 				<button
+					onClick={() => handleModalOpen('DeliveryCalculation')}
 					className='delivery-calculation btn secondary mt-6 text-sm font-medium border border-black w-full md:w-72'>
 					<img className='mr-2.5' src={truckIcon} alt=""/>
 					{t('delivery calculation', true)}

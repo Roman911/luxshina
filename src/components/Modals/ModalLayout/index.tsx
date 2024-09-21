@@ -21,7 +21,7 @@ export const ModalLayout: FC<ModalLayoutProps> = ({ children, handleClose, rootR
 				>
 					<div
 						ref={ rootRef }
-						className={classNames('relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full', size)}>
+						className={classNames('relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 w-full', size)}>
 						<CloseButton handleClick={ handleClose }/>
 						{children}
 					</div>

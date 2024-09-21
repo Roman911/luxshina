@@ -13,8 +13,6 @@ export const ComparisonComponent: FC<ComparisonProps> = ({ data }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
 
-	console.log(data)
-
 	return <div className='flex relative'>
 		<div className='w-28 md:w-60 px-2'>
 			<div>Скинути все</div>

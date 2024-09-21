@@ -11,7 +11,7 @@ const schema = yup.object().shape({
 	text: yup.string().required('Поле не може бути пустим'),
 	name: yup.string().required('Поле не може бути пустим'),
 	score: yup.number(),
-})
+});
 
 interface FormProps {
 	text: string

@@ -5,6 +5,7 @@ import type { SettingsProps } from '../models/settings';
 import type { ProductsProps } from '../models/products';
 import type { ProductProps } from '../models/product';
 import type { AkumProps } from '../models/akumData';
+import type { OrdersParamProps } from '../models/ordersParam';
 
 export const baseDataAPI = createApi({
 	reducerPath: 'dataAPI',
@@ -91,5 +92,33 @@ export const baseDataAPI = createApi({
 			}),
 			invalidatesTags: ['Product'],
 		}),
-	})
+		fetchOrdersParam: build.query<OrdersParamProps, string>({
+			query: () => ({
+				url: `/api/getOrdersParam`,
+			}),
+		}),
+		fetchNpSearch: build.query({
+			query: (name) => ({
+				url: `/api/np/search`,
+				method: 'POST',
+				body: {
+					name: name
+				}
+			}),
+		}),
+		fetchNpDocumentPrice: build.query({
+			query: (params) => ({
+				url: `/api/np/getDocumentPrice`,
+				method: 'POST',
+				body: params,
+			}),
+		}),
+		createOrder: build.mutation({
+			query: (order) => ({
+				url: '/api/addOrder',
+				method: 'POST',
+				body: order,
+			}),
+		}),
+	}),
 });

@@ -1,13 +1,14 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { baseDataAPI } from '../../services/baseDataService';
 import { useAppDispatch, useAppTranslation } from '../../hooks';
-import { addCart, addStorageCart } from '../../store/reducers/cartSlice';
+import { addCart } from '../../store/reducers/cartSlice';
 import { changeSection } from '../../store/reducers/filterSlice';
 import { ProductList } from '../ProductList';
 import Modal from '../Modals';
 import { QuickOrder } from '../Modals/QuickOrder';
+import { DeliveryCalculation } from '../Modals/DeliveryCalculation';
 import { OnlineInstallment } from '../../components/Modals';
 import { LayoutWrapper } from '../../components/Layout';
 import { ProductComponent } from '../../components/Product';
@@ -28,9 +29,6 @@ export const Product = () => {
 	const dispatch = useAppDispatch();
 	const [modalType, setModalType] = useState('QuickOrder');
 	const location = useLocation();
-	const cartStorage: CartItem[] = useMemo(() => {
-		return localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) as CartItem[] : [];
-	}, []);
 	const match = location.pathname.match(/(\d+)$/);
 	const { data, isLoading } = baseDataAPI.useFetchProductQuery(match![1]);
 	const { data: dataProduct, isLoading: productIsLoading } = baseDataAPI.useFetchProductsQuery({ id: '', length: 4 });
@@ -45,20 +43,12 @@ export const Product = () => {
 	}, [data]);
 
 	useEffect(() => {
-		if (cartStorage.length !== 0) {
-			cartStorage.forEach((item: CartItem) => {
-				dispatch(addStorageCart(item));
-			});
-		}
-	}, [cartStorage, dispatch]);
-
-	useEffect(() => {
 		if(data && section === 'disks') {
 			dispatch(changeSection(Section.Disks));
 		}
 	}, [data, dispatch, section]);
 
-	const handleModalOpen = (type: 'QuickOrder' | 'OnlineInstallment') => {
+	const handleModalOpen = (type: 'QuickOrder' | 'OnlineInstallment' | 'DeliveryCalculation') => {
 		setModalActive(true);
 		setModalType(type)
 	};
@@ -94,6 +84,7 @@ export const Product = () => {
 	}
 
 	const onSubmit = () => {
+		const cartStorage = localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) as CartItem[] : [];
 		const cart = [ ...cartStorage, { id: offerId, quantity }];
 		dispatch(addCart({ id: offerId, quantity }));
 		localStorage.setItem('reducerCart', JSON.stringify(cart));
@@ -132,8 +123,10 @@ export const Product = () => {
 		</div>
 		<TextSeo />
 		{isModalActive && (
-			<Modal onClose={handleModalClose} size={modalType === 'QuickOrder' ? 'sm:max-w-lg' : 'max-w-6xl'}>
-				{modalType === 'QuickOrder' ? <QuickOrder /> : <OnlineInstallment />}
+			<Modal onClose={ handleModalClose } size={modalType === 'OnlineInstallment' ? 'max-w-6xl' : 'sm:max-w-lg'}>
+				{ modalType === 'QuickOrder' && <QuickOrder /> }
+				{ modalType === 'OnlineInstallment' && <OnlineInstallment /> }
+				{ modalType === 'DeliveryCalculation' && <DeliveryCalculation offer_id={ data?.data.id } /> }
 			</Modal>
 		)}
 	</div>

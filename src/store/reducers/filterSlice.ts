@@ -34,12 +34,11 @@ const initialState: FilterState = {
 		tip_korpusu: null,
 		napruga: null,
 		poliarnist: null,
-
-
+		vehicle_type: null,
 
 
 		pcd: null,
-		vehicle_type: null,
+
 		price_from: null,
 		price_to: null,
 		city: null,

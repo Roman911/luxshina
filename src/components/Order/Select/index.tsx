@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import Select, { SingleValue, StylesConfig } from 'react-select';
 
 import type { Options } from '../../../models/baseData';
@@ -7,6 +7,7 @@ interface SelectProps {
 	name: string
 	label: string
 	isDisabled?: boolean
+	setCity?: Dispatch<SetStateAction<string | number | undefined>>
 	options: Options[] | undefined
 	onChange: (name: string, value: number | string | undefined) => void
 }
@@ -78,9 +79,14 @@ const colourStyles: StylesConfig<Options | undefined, IsMulti> = {
 	},
 };
 
-export const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = false, onChange }) => {
+export const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = false, onChange, setCity }) => {
 	const handleChange = (value: SingleValue<Options | undefined>) => {
 		onChange(name, value?.value);
+	}
+
+	const handleInputChange = (newValue: string) => {
+		const cleanedText = newValue.replace(/[^а-яА-ЯіїєґІЇЄҐ' ]/g, '');
+		setCity && setCity(cleanedText);
 	}
 
 	return <Select
@@ -90,5 +96,6 @@ export const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisable
 		isClearable={true}
 		isDisabled={isDisabled}
 		onChange={handleChange}
+		onInputChange={handleInputChange}
 	/>
 }

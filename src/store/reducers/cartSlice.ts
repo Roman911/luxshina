@@ -21,9 +21,8 @@ export const cartSlice = createSlice({
 		addCart: (state, actions: PayloadAction<CreateItem>) => {
 			state.cartItems.push(actions.payload);
 		},
-		addStorageCart: (state, actions: PayloadAction<CreateItem>) => {
-			const index = state.cartItems.findIndex(item => item.id === actions.payload.id);
-			if(index === -1) state.cartItems.push(actions.payload);
+		addCartFromStorage: (state, actions: PayloadAction<CreateItem[]>) => {
+			state.cartItems = actions.payload;
 		},
 		removeCart: (state, actions: PayloadAction<number>) => {
 			state.cartItems = state.cartItems.filter(item => item.id !== actions.payload);
@@ -37,6 +36,6 @@ export const cartSlice = createSlice({
 	},
 });
 
-export const { addCart, addStorageCart, removeCart, setQuantity } = cartSlice.actions
+export const { addCart, addCartFromStorage, removeCart, setQuantity } = cartSlice.actions
 
 export default cartSlice.reducer

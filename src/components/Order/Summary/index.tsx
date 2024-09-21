@@ -52,7 +52,7 @@ export const Summary: FC<SummaryProps> = ({ data, isLoading, cartItems }) => {
 					<div>{ lang === Language.UA ? 'Всього до сплати' : 'Всего к оплате' }</div>
 					<div>{ totalQuantityPrice } грн</div>
 				</div>
-				<button className='btn primary w-full mt-5'>{ lang === Language.UA ? 'Оформити замовлення' : 'Оформить заказ' }</button>
+				<button type='submit' className='btn primary w-full mt-5'>{ lang === Language.UA ? 'Оформити замовлення' : 'Оформить заказ' }</button>
 			</div>
 		</div>
 	</div>

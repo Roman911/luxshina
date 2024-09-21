@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { useAppSelector, useAppTranslation } from '../../../hooks';
@@ -16,18 +17,7 @@ import type { CarModelProps, BaseDataProps, Options, ManufModels } from '../../.
 import type { AkumProps } from '../../../models/akumData';
 import { SubmitFloat } from './SubmitFloat';
 import { Language } from "../../../models/language";
-
-const customTireSeason = [
-	{ value: '1', name: 'Летние', name_ua: 'Літні'},
-	{ value: '3', name: 'Всесезонные', name_ua: 'Всесезонні'},
-	{ value: '2', name: 'Зимние', name_ua: 'Зимові'},
-];
-
-const typeDisc = [
-	{ value: '1', name: 'Стальной', name_ua: 'Сталевий'},
-	{ value: '2', name: 'Кованый', name_ua: 'Кований'},
-	{ value: '3', name: 'Литой', name_ua: 'Литий'},
-];
+import { appointmentCargo, appointmentIndustrial, customTireSeason, typeDisc } from './customParamForSelector';
 
 interface FilterAltProps {
 	element: HTMLElement | null
@@ -63,11 +53,18 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 		modelYear,
 		modelKit
 	}) => {
+	const [searchParams] = useSearchParams();
 	const { section, subsection, filter } = useAppSelector(state => state.filterReducer);
 	const { filter: filterCar } = useAppSelector(state => state.filterCarReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
 	const country = lang === Language.UA ? data?.country : data?.country_ru;
+	const vehicleType = searchParams.get('vehicle_type');
+	const cargoTypes = ['3', '4', '5', '6'];
+	const industrialTypes = ['9', '10', '11'];
+
+	const appointmentCargoShow = vehicleType && cargoTypes.includes(vehicleType);
+	const appointmentIndustrialShow = vehicleType && industrialTypes.includes(vehicleType);
 
 	const renderSelect = (
 		name: string,
@@ -268,6 +265,20 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						customTireSeason.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
 						filter?.sezon,
 						filter?.only_studded
+					)}
+					{appointmentCargoShow && renderSelect(
+						'vehicle_type',
+						t('appointment', true),
+						'white',
+						appointmentCargo.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						filter?.vehicle_type,
+					)}
+					{appointmentIndustrialShow && renderSelect(
+						'vehicle_type',
+						t('appointment', true),
+						'white',
+						appointmentIndustrial.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						filter?.vehicle_type,
 					)}
 					{renderSelect(
 						'brand',

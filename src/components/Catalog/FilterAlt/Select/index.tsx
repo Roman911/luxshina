@@ -44,7 +44,7 @@ export const Select: FC<SelectProps> = ({ name, label, variant, options, onChang
 			className={ classNames('item-list max-h-[480px] w-full overflow-auto py-1 text-base ring-black ring-opacity-5 focus:outline-none sm:text-sm', { 'hidden': !open }) }
 			tabIndex={-1} role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
 			{options?.map(item => {
-				return <li key={ item.value } onClick={(event) => handleClick(event, item.value)} className="relative cursor-default select-none py-1 pl-2.5 pr-9 text-gray-900" id="listbox-option-0" role="option">
+				return <li key={ item.value } className="relative cursor-default select-none py-1 pl-2.5 pr-9 text-gray-900" id="listbox-option-0" role="option">
 					<div className="inline-flex items-center">
 						<label
 							className="relative flex cursor-pointer items-center rounded-full"

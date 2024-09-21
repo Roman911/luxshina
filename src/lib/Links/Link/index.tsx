@@ -19,4 +19,4 @@ export const Link: FC<LinkProps> = ({ children, to, className, onClick  }) => {
 	return <_Link to={ newPath } className={ className } onClick={ onClick } >
 		{ children }
 	</_Link>
-}
+};

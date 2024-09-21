@@ -1,39 +1,22 @@
-import {useEffect, useMemo} from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { baseDataAPI } from '../../services/baseDataService';
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
-import { addStorageCart, removeCart, setQuantity } from '../../store/reducers/cartSlice';
+import { removeCart, setQuantity } from '../../store/reducers/cartSlice';
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { NoResult, Spinner, Title } from '../../components/Lib';
 import { CartComponent } from '../../components/Cart';
 import { Language } from '../../models/language';
 
-type CartItem = {
-	id: number;
-	quantity: number;
-};
-
 export const Cart = () => {
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { cartItems } = useAppSelector(state => state.cartReducer);
-	const cartStorage: CartItem[] = useMemo(() => {
-		return localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) as CartItem[] : [];
-	}, []);
 	const id = cartItems.map(item => item.id).join(',');
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({id: `?Offer_id=${id}`});
 	const path = [{ id: 1, title: t('cart', true), url: '/' }];
-
-	useEffect(() => {
-		if (cartStorage.length !== 0) {
-			cartStorage.forEach((item: CartItem) => {
-				dispatch(addStorageCart(item));
-			});
-		}
-	}, [cartStorage, dispatch]);
 
 	const removeProduct = (id: number) => {
 		const storage = localStorage.reducerCart ? JSON.parse(localStorage.reducerCart) : [];
@@ -54,7 +37,7 @@ export const Cart = () => {
 		<Breadcrumbs path={ path } />
 		<Title title='cart' />
 		<Spinner height='h-40' show={ isLoading }>
-			{ cartStorage.length > 0 && data?.result ? <CartComponent
+			{ cartItems.length > 0 && data?.result ? <CartComponent
 					data={ data }
 					cartItems={ cartItems }
 					removeProduct={ removeProduct }

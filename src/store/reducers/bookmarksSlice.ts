@@ -16,12 +16,15 @@ export const bookmarksSlice = createSlice({
 		addBookmarks: (state, actions: PayloadAction<number>) => {
 			state.bookmarksItems.push(actions.payload);
 		},
+		addBookmarksFromStorage: (state, actions: PayloadAction<number[]>) => {
+			state.bookmarksItems = actions.payload;
+		},
 		removeBookmarks: (state, actions: PayloadAction<number>) => {
 			state.bookmarksItems = state.bookmarksItems.filter(item => item !== actions.payload);
 		},
 	},
 });
 
-export const { addBookmarks, removeBookmarks } = bookmarksSlice.actions
+export const { addBookmarks, removeBookmarks, addBookmarksFromStorage } = bookmarksSlice.actions
 
 export default bookmarksSlice.reducer

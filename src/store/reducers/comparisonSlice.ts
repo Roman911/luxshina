@@ -16,12 +16,15 @@ export const comparisonSlice = createSlice({
 		addComparison: (state, actions: PayloadAction<number>) => {
 			state.comparisonItems.push(actions.payload);
 		},
+		addComparisonFromStorage: (state, actions: PayloadAction<number[]>) => {
+			state.comparisonItems = actions.payload;
+		},
 		removeComparison: (state, actions: PayloadAction<number>) => {
 			state.comparisonItems = state.comparisonItems.filter(item => item !== actions.payload);
 		},
 	},
 })
 
-export const { addComparison, removeComparison } = comparisonSlice.actions
+export const { addComparison, addComparisonFromStorage, removeComparison } = comparisonSlice.actions
 
 export default comparisonSlice.reducer

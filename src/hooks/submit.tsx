@@ -41,6 +41,7 @@ export const useAppSubmit = () => {
 		updateParamsList('tip_korpusu', filter.tip_korpusu ?? '');
 		updateParamsList('napruga', filter.napruga ?? '');
 		updateParamsList('poliarnist', filter.poliarnist ?? '');
+		updateParamsList('vehicle_type', filter.vehicle_type ?? '');
 	}, [
 		filter.width,
 		filter.height,
@@ -64,7 +65,8 @@ export const useAppSubmit = () => {
 		filter.tip_elektrolitu,
 		filter.tip_korpusu,
 		filter.napruga,
-		filter.poliarnist
+		filter.poliarnist,
+		filter.vehicle_type
 	]);
 
 	// Function to handle form submit (update URL)
@@ -72,14 +74,14 @@ export const useAppSubmit = () => {
 		const sectionTypeMap: Record<Section, string> = {
 			[Section.Disks]: 'typeproduct=3&',
 			[Section.Battery]: 'typeproduct=4&',
-			[Section.Tires]: '',
+			[Section.Tires]: filter.vehicle_type ? 'typeproduct=2&' : '',
 			[Section.Car]: '',
 		};
 		const joinedParams = `${sectionTypeMap[section] || ''}${params.join('&')}`;
 		if (searchParams.toString() !== joinedParams) {
 			setSearchParams(joinedParams);
 		}
-	}, [params, searchParams, section, setSearchParams]);
+	}, [filter.vehicle_type, params, searchParams, section, setSearchParams]);
 
 	return { params, handleSubmit };
 };

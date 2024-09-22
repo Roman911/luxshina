@@ -4,19 +4,25 @@ import { useAppSelector, useAppTranslation } from '../../hooks';
 import type { Data } from '../../models/products';
 import {Language} from "../../models/language.ts";
 import {CartIcon} from "../Lib/Icons";
+import {CloseButton} from "../Lib";
 
 interface ComparisonProps {
 	data: Data | undefined
+	resetEverything: () => void
+	handleClick: (id: number) => void
 }
 
-export const ComparisonComponent: FC<ComparisonProps> = ({ data }) => {
+export const ComparisonComponent: FC<ComparisonProps> = ({ data, resetEverything, handleClick }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
 
 	return <div className='flex relative'>
 		<div className='w-28 md:w-60 px-2'>
-			<div>Скинути все</div>
-			<div className='mt-56 text-center md:text-end font-bold'>
+			<div className='relative pt-9 md:pt-2 pb-2'>
+				{ lang === Language.UA ? 'Скинути все' : 'Сбросить все' }
+				<CloseButton handleClick={ resetEverything } />
+			</div>
+			<div className='mt-48 md:mt-52 text-center md:text-end font-bold'>
 				<div className='pr-2.5 h-11 md:leading-[44px] border-b border-transparent'>Сезон:</div>
 				<div className='pr-2.5 h-11 md:leading-[44px] border-b border-transparent'>{t('car type', true)}:</div>
 				<div className='pr-2.5 h-11 md:leading-[44px] border-b border-transparent'>Ширина:</div>
@@ -31,6 +37,7 @@ export const ComparisonComponent: FC<ComparisonProps> = ({ data }) => {
 				{data?.products.map(item => {
 					return <div key={item.group}>
 						<div className='w-60 relative m-1'>
+							<CloseButton handleClick={ () => handleClick(item.product_id) } />
 							<img src={ item.default_photo } alt=""/>
 							<div className='absolute bottom-0 px-2 text-center bg-gray-500 rounded-sm h-20 flex items-center justify-center w-full whitespace-normal'>
 								<p className='text-white text-center font-bold'>{item.full_name}</p>

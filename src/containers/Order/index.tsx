@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
 
 import { baseDataAPI } from '../../services/baseDataService';
-import { useAppSelector, useAppTranslation } from '../../hooks';
+import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
+import { reset } from '../../store/reducers/cartSlice';
 import { OrderComponent } from '../../components/Order';
 import { Title } from '../../components/Lib';
 import { LayoutWrapper } from '../../components/Layout';
@@ -15,7 +19,7 @@ const schema = yup.object().shape({
 	firstname: yup.string().required('Це поле обовʼязкове.'),
 	lastname: yup.string().required('Це поле обовʼязкове.'),
 	surname: yup.string(),
-	telephone: yup.string().required('Це поле обовʼязкове.'),
+	telephone: yup.string().min(13).max(13).required('Це поле обовʼязкове.'),
 	email: yup.string().email(),
 	address: yup.string(),
 	comment: yup.string(),
@@ -42,18 +46,26 @@ const defaultValues = {
 }
 
 export const Order = () => {
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const [shippingMethod, setShippingMethod] = useState<number | string | undefined>(1);
 	const [paymentMethod, setPaymentMethod] = useState<number | string | undefined>(1);
 	const [city, setCity] = useState<number | string | undefined>('');
+	const [ref, setRef] = useState<number | string | undefined>('');
+	const [department, setDepartment] = useState<number | string | undefined>('');
 	const { cartItems } = useAppSelector(state => state.cartReducer);
 	const t = useAppTranslation();
 	const id = cartItems.map(item => item.id).join(',');
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({id: `?Offer_id=${id}`});
 	const { data: dataOrdersParam } = baseDataAPI.useFetchOrdersParamQuery('');
 	const { data: dataNpCity } = baseDataAPI.useFetchNpSearchQuery(city);
+	const { data: dataNpWarehouses } = baseDataAPI.useFetchNpWarehousesQuery(ref);
 	const [createOrder] = baseDataAPI.useCreateOrderMutation();
 	const cityOptions = dataNpCity?.[0].Addresses?.map((item: { MainDescription: string }) => {
 		return { value: item.MainDescription, label: item.MainDescription }
+	});
+	const warehousesOptions = dataNpWarehouses?.map((item: { Description: string, DescriptionRu: string }) => {
+		return { value: item.Description, label: item.Description }
 	});
 
 	const products = data?.data.products?.map((item) => {
@@ -108,27 +120,33 @@ export const Order = () => {
 			comment,
 			payment_method: paymentMethod,
 			shipping_method: shippingMethod,
-			payment_address_1: '',
+			payment_address_1: department,
 			payment_address_2: address,
 			payment_city: city,
 			ref_wirehouse: '',
 			ref_city: '',
 			products,
-		}).then(data => {
-			console.log(data)
-			// if(data) {
-			// 	methods.reset();
-			// }
-		})
+		}).then((response: { data?: { result: boolean }; error?: FetchBaseQueryError | SerializedError }) => {
+			if (response?.data?.result) {
+				methods.reset();
+				dispatch(reset());
+				navigate('/order/successful');
+			} else if (response.error) {
+				console.error('An error occurred:', response.error);
+			}
+		});
 	}
 
 	const onChange = (name: string, value: number | string | undefined) => {
 		if(name === 'city') {
 			setCity(value);
+			setRef(dataNpCity?.[0].Addresses?.find((item: { MainDescription: string, Ref: string }) => item.MainDescription).Ref);
 		} else if(name === 'shipping_method'){
 			setShippingMethod(value);
 		} else if(name === 'payment_method'){
 			setPaymentMethod(value);
+		} else if(name === 'department') {
+			setDepartment(value);
 		}
 	}
 
@@ -147,6 +165,7 @@ export const Order = () => {
 						cartItems={ cartItems }
 						setCity={ setCity }
 						cityOptions={ cityOptions }
+						warehousesOptions={ warehousesOptions }
 						onChange={ onChange }
 						shippingMethod={ shippingMethod }
 						dataOrdersParam={ dataOrdersParam }

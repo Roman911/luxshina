@@ -5,24 +5,28 @@ import { HeartIcon, LibraIcon, MailIcon, PhoneCircuitIcon, ShareIcon } from '../
 
 interface ActionsBlockProps {
 	className: string
+	isBookmarks: boolean
+	isComparison: boolean
+	handleClickBookmarks: () => void
+	handleClickComparison: () => void
 }
 
-export const ActionsBlock: FC<ActionsBlockProps> = ({ className }) => {
+export const ActionsBlockComponent: FC<ActionsBlockProps> = ({ className, isBookmarks, isComparison, handleClickBookmarks, handleClickComparison }) => {
 	return <div className={ classNames('gap-1.5 xl:gap-2.5 h-full', className) }>
-		<div className='p-3 bg-blue-50 rounded-full group hover:cursor-pointer'>
+		<div className='p-3 bg-blue-50 rounded-full group'>
 			<PhoneCircuitIcon className='stroke-gray-500 group-hover:stroke-blue-500'/>
 		</div>
-		<div className='p-3 bg-blue-50 rounded-full group hover:cursor-pointer'>
+		<div className='p-3 bg-blue-50 rounded-full group'>
 			<MailIcon className='stroke-gray-500 group-hover:stroke-blue-500'/>
 		</div>
-		<div className='p-3 bg-blue-50 rounded-full group hover:cursor-pointer'>
+		<div className='p-3 bg-blue-50 rounded-full group'>
 			<ShareIcon className='fill-gray-500 group-hover:fill-blue-500'/>
 		</div>
-		<div className='p-3 bg-blue-50 rounded-full group hover:cursor-pointer'>
-			<HeartIcon className='stroke-gray-500 group-hover:stroke-blue-500 w-4 h-4'/>
-		</div>
-		<div className='p-3 bg-blue-50 rounded-full group hover:cursor-pointer'>
-			<LibraIcon className='fill-gray-500 group-hover:fill-blue-500 w-4 h-4'/>
-		</div>
+		<button onClick={ () => handleClickBookmarks() } className='p-3 bg-blue-50 rounded-full group'>
+			<HeartIcon className={classNames('group-hover:stroke-blue-500 w-4 h-4', { 'stroke-blue-500 fill-blue-500': isBookmarks, 'stroke-gray-500': !isBookmarks })} />
+		</button>
+		<button onClick={ () => handleClickComparison() } className='p-3 bg-blue-50 rounded-full group'>
+			<LibraIcon className={classNames('group-hover:fill-blue-500 w-4 h-4', { 'fill-blue-500': isComparison, 'fill-gray-500': !isComparison })} />
+		</button>
 	</div>
 };

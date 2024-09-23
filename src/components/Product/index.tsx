@@ -3,7 +3,7 @@ import './index.scss';
 
 import { useAppSelector, useAppTranslation } from '../../hooks';
 import { InfoBlock } from './InfoBlock';
-import { ActionsBlock } from './ActionsBlock';
+import { ActionsBlock } from '../../containers/Product/ActionsBlock';
 import { ImgGallery } from './ImageGallery';
 import { CharacteristicsBlock } from './CharacteristicsBlock';
 import { countryCodeTransform, Link } from '../../lib';
@@ -92,13 +92,13 @@ export const ProductComponent: FC<ProductComponentProps> = (
 								</div>
 								{ model?.brand_image && <img className='max-w-28 object-contain' src={ model?.brand_image } alt=""/> }
 							</div>
-							{ photo?.url_part === '' ? <img src={ noPhoto } alt="" /> : <ImgGallery images={images } /> }
+							{ photo?.url_part === '' ? <img src={ noPhoto } alt="" /> : <ImgGallery images={ images } /> }
 						</div>
-						<ActionsBlock className='flex md:hidden'/>
+						<ActionsBlock className='flex md:hidden' />
 						<div className='flex-1 md:ml-6 xl:ml-20'>
 							<h1 className='text-2xl font-bold mt-8 md:mt-0'>{ full_name }</h1>
 							<div className='flex mt-5 items-center'>
-								<div className='text-[15px] text-gray-500 bg-blue-50 rounded-full py-1 md:py-2 px-3 mr-5'>Артикул: {id}</div>
+								<div className='text-[15px] text-gray-500 bg-blue-50 rounded-full py-1 md:py-2 px-3 mr-5'>Артикул: { id }</div>
 								<Rating commentsCount={ undefined } commentsAvgRate={ 0 }/>
 							</div>
 							<div className='flex justify-between mt-7 md:mt-11'>
@@ -112,7 +112,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 										шт.
 									</div>
 								</div>
-								<ActionsBlock className='hidden md:flex' />
+								<ActionsBlock className='hidden md:flex' id={ id } />
 							</div>
 							<div className='offers mt-7'>
 								{offers.map(item => {

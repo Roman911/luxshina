@@ -94,7 +94,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 							</div>
 							{ photo?.url_part === '' ? <img src={ noPhoto } alt="" /> : <ImgGallery images={ images } /> }
 						</div>
-						<ActionsBlock className='flex md:hidden' />
+						<ActionsBlock className='flex md:hidden' id={ id } />
 						<div className='flex-1 md:ml-6 xl:ml-20'>
 							<h1 className='text-2xl font-bold mt-8 md:mt-0'>{ full_name }</h1>
 							<div className='flex mt-5 items-center'>

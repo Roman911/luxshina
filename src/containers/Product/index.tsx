@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
+import { useLocation } from 'react-router-dom';
 
 import { baseDataAPI } from '../../services/baseDataService';
 import { useAppDispatch, useAppTranslation } from '../../hooks';
@@ -13,6 +8,7 @@ import { changeSection } from '../../store/reducers/filterSlice';
 import { ProductList } from '../ProductList';
 import Modal from '../Modals';
 import { QuickOrder } from '../Modals/QuickOrder';
+import { Callback } from '../Modals/Callback';
 import { DeliveryCalculation } from '../Modals/DeliveryCalculation';
 import { OnlineInstallment } from '../../components/Modals';
 import { LayoutWrapper } from '../../components/Layout';
@@ -22,25 +18,12 @@ import { Spinner, Title } from '../../components/Lib';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Section } from '../../models/filter';
 
-const schema = yup.object().shape({
-	telephone: yup.string().min(13).max(13).required('Це поле обовʼязкове.'),
-});
-
-interface FormProps {
-	telephone: string
-}
-
-const defaultValues = {
-	telephone: '',
-}
-
 type CartItem = {
 	id: number;
 	quantity: number;
 };
 
 export const Product = () => {
-	const navigate = useNavigate();
 	const [isModalActive, setModalActive] = useState(false);
 	const [offerId, setOfferId] = useState(0);
 	const [quantity, setQuantity] = useState(1);
@@ -50,7 +33,6 @@ export const Product = () => {
 	const match = location.pathname.match(/(\d+)$/);
 	const { data, isLoading } = baseDataAPI.useFetchProductQuery(match![1]);
 	const { data: dataProduct, isLoading: productIsLoading } = baseDataAPI.useFetchProductsQuery({ id: '', length: 4 });
-	const [createOrder] = baseDataAPI.useCreateOrderMutation();
 	const t = useAppTranslation();
 	const section = /dia/.test(location.pathname) ? 'disks' : 'tires';
 	const offer = data?.data.offers.find(item => item.offer_id === offerId);
@@ -67,13 +49,7 @@ export const Product = () => {
 		}
 	}, [data, dispatch, section]);
 
-	const methods = useForm<FormProps>({
-		mode: 'all',
-		defaultValues,
-		resolver: yupResolver(schema),
-	})
-
-	const handleModalOpen = (type: 'QuickOrder' | 'OnlineInstallment' | 'DeliveryCalculation') => {
+	const handleModalOpen = (type: 'QuickOrder' | 'OnlineInstallment' | 'DeliveryCalculation' | 'Callback' | 'AddAsk') => {
 		setModalActive(true);
 		setModalType(type)
 	};
@@ -115,43 +91,6 @@ export const Product = () => {
 		localStorage.setItem('reducerCart', JSON.stringify(cart));
 	}
 
-	const onSubmitQuickOrder: SubmitHandler<FormProps> = async ({ telephone }) => {
-		const offerItem = data?.data?.offers?.find(item => item.offer_id === offerId);
-		const product = {
-			product_id: offerItem?.product_id,
-			offer_id: offerId,
-			price: Number(offerItem?.price),
-			quantity,
-		};
-
-		await createOrder({
-			fast: 1,
-			firstname: '',
-			lastname: '',
-			surname: '',
-			email: '',
-			telephone,
-			total: Number(offerItem?.price) * quantity,
-			comment: '',
-			payment_method: 1,
-			shipping_method: 1,
-			payment_address_1: '',
-			payment_address_2: '',
-			payment_city: '',
-			ref_wirehouse: '',
-			ref_city: '',
-			products: [product],
-		}).then((response: { data?: { result: boolean }; error?: FetchBaseQueryError | SerializedError }) => {
-			if(response?.data?.result) {
-				methods.reset();
-				setModalActive(false);
-				navigate('/order/successful');
-			} else if(response.error) {
-				console.error('An error occurred:', response.error);
-			}
-		});
-	}
-
 	return <div>
 		<LayoutWrapper>
 			<Breadcrumbs path={ path } />
@@ -186,13 +125,12 @@ export const Product = () => {
 		<TextSeo />
 		{isModalActive && (
 			<Modal onClose={ handleModalClose } size={modalType === 'OnlineInstallment' ? 'max-w-6xl' : 'sm:max-w-lg'}>
-				{ modalType === 'QuickOrder' && <FormProvider {...methods}>
-					<form onSubmit={methods.handleSubmit(onSubmitQuickOrder)}>
-						<QuickOrder/>
-					</form>
-				</FormProvider>}
-				{modalType === 'OnlineInstallment' && <OnlineInstallment /> }
+				{ modalType === 'QuickOrder' &&
+					<QuickOrder offerId={ offerId } quantity={ quantity } offerItem={ data?.data?.offers?.find(item => item.offer_id === offerId) } setModalActive={ setModalActive } />}
+				{ modalType === 'OnlineInstallment' && <OnlineInstallment /> }
 				{ modalType === 'DeliveryCalculation' && <DeliveryCalculation offer_id={ data?.data.id } /> }
+				{ modalType === 'OnlineInstallment' && <OnlineInstallment /> }
+				{ modalType === 'Callback' && <Callback productId={ data?.data?.offers?.find(item => item.offer_id === offerId)?.product_id } quantity={ quantity } /> }
 			</Modal>
 		)}
 	</div>

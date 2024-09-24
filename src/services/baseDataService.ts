@@ -129,5 +129,15 @@ export const baseDataAPI = createApi({
 				}
 			}),
 		}),
+		createCallback: build.mutation({
+			query: (data) => ({
+				url: '/api/addCallback',
+				method: 'POST',
+				body: data,
+				header: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				}
+			}),
+		}),
 	}),
 });

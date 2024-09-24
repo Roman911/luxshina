@@ -8,9 +8,10 @@ import { ActionsBlockComponent } from '../../../components/Product/ActionsBlock'
 interface ActionsBlockProps {
 	id: number
 	className: string
+	handleModalOpen: (type: 'QuickOrder' | 'OnlineInstallment' | 'DeliveryCalculation' | 'Callback' | 'AddAsk') => void
 }
 
-export const ActionsBlock: FC<ActionsBlockProps> = ({ id, className }) => {
+export const ActionsBlock: FC<ActionsBlockProps> = ({ id, className, handleModalOpen }) => {
 	const dispatch = useAppDispatch();
 	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
 	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
@@ -29,11 +30,16 @@ export const ActionsBlock: FC<ActionsBlockProps> = ({ id, className }) => {
 		localStorage.setItem('reducerComparison', JSON.stringify(storage.includes(id) ? [...storage.filter((item: number) => item !== id)] : [...storage, id]));
 	}
 
+	const openModal = (type: 'QuickOrder' | 'OnlineInstallment' | 'DeliveryCalculation' | 'Callback' | 'AddAsk') => {
+		handleModalOpen(type);
+	}
+
 	return <ActionsBlockComponent
 		className={ className }
 		isBookmarks={ isBookmarks }
 		isComparison={ isComparison }
 		handleClickBookmarks={ handleClickBookmarks }
 		handleClickComparison={ handleClickComparison }
+		openModal={ openModal }
 	/>;
 };

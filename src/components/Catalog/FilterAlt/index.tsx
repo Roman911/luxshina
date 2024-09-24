@@ -13,11 +13,11 @@ import { CloseIcon } from '../../Lib/Icons';
 import { Badge } from '../../Lib/';
 
 import { Section, Subsection } from '../../../models/filter';
-import type { CarModelProps, BaseDataProps, Options, ManufModels } from '../../../models/baseData';
-import type { AkumProps } from '../../../models/akumData';
 import { SubmitFloat } from './SubmitFloat';
 import { Language } from "../../../models/language";
 import { appointmentCargo, appointmentIndustrial, customTireSeason, typeDisc } from './customParamForSelector';
+import type { CarModelProps, BaseDataProps, Options, ManufModels } from '../../../models/baseData';
+import type { AkumProps } from '../../../models/akumData';
 
 interface FilterAltProps {
 	element: HTMLElement | null
@@ -72,17 +72,19 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 		variant: 'white' | 'gray',
 		options: Array<Options> = [],
 		value?: null | number | string,
+		search?: boolean,
 		valueStudded?: null | number | string,
 	) => (
 		<div className='relative'>
 			<Select
-				name={name}
-				label={label}
-				options={options}
-				variant={variant}
-				onChange={onChange}
-				filterValue={value}
-				valueStudded={valueStudded}
+				name={ name }
+				label={ label }
+				options={ options }
+				variant={ variant }
+				onChange={ onChange }
+				filterValue={ value }
+				search={ search }
+				valueStudded={ valueStudded }
 			/>
 			{ value && <Badge value={ 1 } className='-left-2' />}
 		</div>
@@ -146,6 +148,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'gray',
 							data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
 							filter?.width,
+							true,
 						)}
 						{section === Section.Tires && renderSelect(
 							'height',
@@ -153,6 +156,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'gray',
 							data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
 							filter?.height,
+							true,
 						)}
 						{renderSelect(
 							'radius',
@@ -160,6 +164,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'gray',
 							data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
 							filter?.radius,
+							true,
 						)}
 					</>}
 					{section === Section.Disks && <>
@@ -169,6 +174,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'gray',
 							data?.disc_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
 							filter?.width,
+							true,
 						)}
 						{renderSelect(
 							'radius',
@@ -176,6 +182,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'gray',
 							data?.disc_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
 							filter?.radius,
+							true,
 						)}
 					</>}
 				</>}
@@ -227,6 +234,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'gray',
 						dataAkum?.jemnist.map(item => ({value: item.value, label: item.value, p: item.p})),
 						filter?.jemnist,
+						true,
 					)}
 					{renderSelect(
 						'puskovii_strum',
@@ -234,6 +242,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'gray',
 						dataAkum?.['puskovii-strum'].map(item => ({value: item.value, label: item.value, p: item.p})),
 						filter?.puskovii_strum,
+						true,
 					)}
 					{renderSelect(
 						'tip_elektrolitu',
@@ -255,6 +264,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						dataAkum?.brand_akum?.map(item => ({value: item.value, label: item.label})),
 						filter?.brand,
+						true,
 					)}
 				</>}
 				{section === Section.Tires && <>
@@ -264,6 +274,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						customTireSeason.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
 						filter?.sezon,
+						false,
 						filter?.only_studded
 					)}
 					{appointmentCargoShow && renderSelect(
@@ -286,6 +297,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						data?.brand?.map(item => ({value: item.value, label: item.label})),
 						filter?.brand,
+						true,
 					)}
 				</>}
 				{section === Section.Disks && <>
@@ -295,6 +307,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						data?.krip?.map(item => ({value: item.value, label: item.value, p: item.p})),
 						filter?.krepeg,
+						true,
 					)}
 					<SelectFromTo name='et' nameMin='etMin' nameMax='etMax' minus={ true } from={ -140 } to={ 500 } title={`ET(${t('departure', true)})`} btnTitle={t('to apply')}/>
 					<SelectFromTo name='dia' nameMin='diaMin' nameMax='diaMax' from={ 46 } to={ 500 } title='DIA' btnTitle={t('to apply')}/>
@@ -311,6 +324,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						data?.colir_abbr?.map(item => ({value: item.value, label: item.value, p: item.p})),
 						filter?.colir,
+						true,
 					)}
 					{renderSelect(
 						'brand_disc',
@@ -318,6 +332,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						data?.brand_disc?.map(item => ({value: item.value, label: item.label})),
 						filter?.brand_disc,
+						true,
 					)}
 				</>}
 				{manufModels && manufModels.length > 0 && renderSelect(
@@ -326,6 +341,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					'gray',
 					manufModels?.map(item => ({value: item.value, label: item.label})),
 					filter?.model_id,
+					true,
 				)}
 				{section === Section.Tires && renderSelect(
 					'country',
@@ -333,6 +349,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					'white',
 					country?.map(item => ({ value: item.value, label: item.label })),
 					filter?.country,
+					true,
 				)}
 				{section === Section.Tires && renderSelect(
 					'year',
@@ -368,6 +385,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						data?.load.map(item => ({ value: item.value, label: item.value })),
 						filter?.load,
+						true,
 					)}
 					{renderSelect(
 						'speed',
@@ -375,6 +393,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						data?.speed.map(item => ({ value: item.value, label: item.value })),
 						filter?.speed,
+						true,
 					)}
 					{renderSelect(
 						'omolog',
@@ -382,6 +401,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'white',
 						data?.omolog.map(item => ({ value: item.value, label: item.value })),
 						filter?.omolog,
+						true,
 					)}
 					{/*{renderSelect(*/}
 					{/*	'other',*/}

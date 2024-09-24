@@ -136,6 +136,18 @@ export const baseDataAPI = createApi({
 				body: data,
 				header: {
 					'Content-Type': 'application/x-www-form-urlencoded',
+					'Accept': 'application/json',
+				}
+			}),
+		}),
+		createAddAsk: build.mutation({
+			query: (data) => ({
+				url: '/api/addAsk',
+				method: 'POST',
+				body: data,
+				header: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+					'Accept': 'application/json',
 				}
 			}),
 		}),

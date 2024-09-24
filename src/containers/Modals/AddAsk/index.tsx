@@ -6,40 +6,43 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 
 import { baseDataAPI } from '../../../services/baseDataService';
-import { CallbackComponent } from '../../../components/Modals';
+import { AddAsk } from "../../../components/Modals";
 
 const schema = yup.object().shape({
-	telephone: yup.string().min(13).max(13).required('Це поле обовʼязкове.'),
+	ask: yup.string().min(10).required('Це поле обовʼязкове.'),
+	email: yup.string().email().required('Це поле обовʼязкове.'),
 });
 
 interface FormProps {
-	telephone: string
+	ask: string
+	email: string
 }
 
 const defaultValues = {
-	telephone: '',
+	ask: '',
+	email: '',
 }
 
-interface CallbackProps {
+interface AddAskModalProps {
+	name: string | undefined
 	productId: number | undefined
-	quantity: number
 }
 
-export const Callback: FC<CallbackProps> = ({ productId, quantity }) => {
+export const AddAskModal: FC<AddAskModalProps> = ({ name, productId }) => {
 	const [isSending, setSending] = useState(false);
-	const [createCallback] = baseDataAPI.useCreateCallbackMutation();
+	const [createAddAsk] = baseDataAPI.useCreateAddAskMutation();
 
 	const methods = useForm<FormProps>({
 		mode: 'all',
 		defaultValues,
 		resolver: yupResolver(schema),
-	})
+	});
 
-	const onSubmit: SubmitHandler<FormProps> = async ({ telephone }) => {
-		await createCallback({
-			telephone: telephone,
+	const onSubmit: SubmitHandler<FormProps> = async ({ ask, email }) => {
+		await createAddAsk({
+			ask,
+			email,
 			product_id: productId,
-			quantity,
 		}).then((response: { data?: { result: boolean }; error?: FetchBaseQueryError | SerializedError }) => {
 			if(response?.data?.result) {
 				methods.reset();
@@ -52,7 +55,7 @@ export const Callback: FC<CallbackProps> = ({ productId, quantity }) => {
 
 	return <FormProvider {...methods}>
 		<form onSubmit={methods.handleSubmit(onSubmit)}>
-			<CallbackComponent isSending={ isSending } />
+			<AddAsk isSending={ isSending } name={ name } />
 		</form>
 	</FormProvider>
 };

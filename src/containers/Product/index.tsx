@@ -7,6 +7,7 @@ import { addCart } from '../../store/reducers/cartSlice';
 import { changeSection } from '../../store/reducers/filterSlice';
 import { ProductList } from '../ProductList';
 import Modal from '../Modals';
+import { AddAskModal } from '../Modals/AddAsk';
 import { QuickOrder } from '../Modals/QuickOrder';
 import { Callback } from '../Modals/Callback';
 import { DeliveryCalculation } from '../Modals/DeliveryCalculation';
@@ -131,6 +132,7 @@ export const Product = () => {
 				{ modalType === 'DeliveryCalculation' && <DeliveryCalculation offer_id={ data?.data.id } /> }
 				{ modalType === 'OnlineInstallment' && <OnlineInstallment /> }
 				{ modalType === 'Callback' && <Callback productId={ data?.data?.offers?.find(item => item.offer_id === offerId)?.product_id } quantity={ quantity } /> }
+				{ modalType === 'AddAsk' && <AddAskModal productId={ data?.data?.offers?.find(item => item.offer_id === offerId)?.product_id } name={ data?.data.full_name } /> }
 			</Modal>
 		)}
 	</div>

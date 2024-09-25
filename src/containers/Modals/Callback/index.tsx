@@ -37,9 +37,9 @@ export const Callback: FC<CallbackProps> = ({ productId, quantity }) => {
 
 	const onSubmit: SubmitHandler<FormProps> = async ({ telephone }) => {
 		await createCallback({
-			telephone: telephone,
-			product_id: productId,
-			quantity,
+			phone: telephone,
+			product_id: productId?.toString(),
+			quantity: quantity,
 		}).then((response: { data?: { result: boolean }; error?: FetchBaseQueryError | SerializedError }) => {
 			if(response?.data?.result) {
 				methods.reset();

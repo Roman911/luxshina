@@ -29,7 +29,6 @@
     "react-router-dom": "^6.23.1",
     "react-select": "^5.8.0",
     "react-share": "^5.1.0",
-    "react-share-social": "^0.1.60",
     "yup": "^1.4.0"
   },
   "devDependencies": {

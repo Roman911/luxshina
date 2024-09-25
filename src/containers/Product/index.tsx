@@ -18,6 +18,7 @@ import { TextSeo } from '../../components/Home';
 import { Spinner, Title } from '../../components/Lib';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Section } from '../../models/filter';
+import { SimilarProducts } from './SimilarProducts';
 
 type CartItem = {
 	id: number;
@@ -35,8 +36,26 @@ export const Product = () => {
 	const { data, isLoading } = baseDataAPI.useFetchProductQuery(match![1]);
 	const { data: dataProduct, isLoading: productIsLoading } = baseDataAPI.useFetchProductsQuery({ id: '', length: 4 });
 	const t = useAppTranslation();
-	const section = /dia/.test(location.pathname) ? 'disks' : 'tires';
+	const section = /dia/.test(location.pathname) ? 'disks' : /ah/.test(location.pathname) ? 'battery' : 'tires';
 	const offer = data?.data.offers.find(item => item.offer_id === offerId);
+
+	const id: string[] = [];
+
+	const pushIfExists = (key: string, value: string | number | undefined) => {
+		if (value) {
+			id.push(`${key}=${value}`);
+		}
+	};
+
+	if (section === 'disks') {
+		pushIfExists('width', data?.data.offer_group.width);
+		pushIfExists('radius', data?.data.offer_group.diameter);
+		pushIfExists('typedisk', data?.data.offer_group.id_typedisc);
+	} else if (section === 'tires') {
+		pushIfExists('width', data?.data.offer_group.width);
+		pushIfExists('height', data?.data.offer_group.height);
+		pushIfExists('radius', data?.data.offer_group.diameter);
+	}
 
 	useEffect(() => {
 		if(data) {
@@ -63,7 +82,7 @@ export const Product = () => {
 		{
 			id: 1,
 			title: t(section, true),
-			url: `/catalog/${section === 'disks' ? section + '?typeproduct=3' : section}`
+			url: `/catalog/${section === 'disks' ? section + '?typeproduct=3' : section === 'battery' ? '?typeproduct=4' : section}`
 		},
 		{
 			id: 2,
@@ -108,13 +127,7 @@ export const Product = () => {
 			/>
 		</LayoutWrapper>
 		<div className='container mx-auto'>
-			<Title title={ t('similar products', true) } />
-			<Spinner height='h-40' show={ productIsLoading } >
-				<ProductList
-					classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-3 md:px-0'
-					data={ dataProduct?.data }
-				/>
-			</Spinner>
+			<SimilarProducts id={ id.join('&') } />
 			<Title title='recently viewed' />
 			<Spinner height='h-40' show={ productIsLoading } >
 				<ProductList

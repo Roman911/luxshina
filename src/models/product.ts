@@ -43,6 +43,8 @@ interface OfferGroup {
 	homologation: boolean
 	studded: boolean
 	vehicle_type: string
+	krep_pcd1: string
+	id_typedisc: string
 	off_road: boolean
 	active: boolean
 	ply_rating: boolean

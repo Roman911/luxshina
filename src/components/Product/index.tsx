@@ -1,18 +1,28 @@
 import { FC, Dispatch, SetStateAction } from 'react';
-import './index.scss';
+import classNames from 'classnames';
 
+import './index.scss';
 import { useAppSelector, useAppTranslation } from '../../hooks';
 import { InfoBlock } from './InfoBlock';
 import { ActionsBlock } from '../../containers/Product/ActionsBlock';
 import { ImgGallery } from './ImageGallery';
 import { CharacteristicsBlock } from './CharacteristicsBlock';
-import { countryCodeTransform, Link } from '../../lib';
+import { countryCodeTransform, Link, SeasonTransform, VehicleTypeTransform } from '../../lib';
 import { CountryInfo, Quantity, Rating, Spinner } from '../Lib';
-import { CartIcon, MarkerIcon } from "../Lib/Icons";
+import { CartIcon, MarkerIcon, BusIcon, CargoIcon, CarIcon, MotorcyclesIcon, SpecialEquipmentIcon, SuvIcon } from "../Lib/Icons";
 import truckIcon from '../../assets/icons/truck-icon.svg';
 import { Language } from '../../models/language';
 import type { ProductProps } from '../../models/product';
 import noPhoto from '../../assets/no-photo.s400.jpg';
+
+const Icons = {
+	light: CarIcon,
+	bus: BusIcon,
+	cargo: CargoIcon,
+	motorcycle: MotorcyclesIcon,
+	special: SpecialEquipmentIcon,
+	suv: SuvIcon,
+};
 
 interface ProductComponentProps {
 	data: ProductProps | undefined
@@ -41,6 +51,9 @@ export const ProductComponent: FC<ProductComponentProps> = (
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { cartItems } = useAppSelector(state => state.cartReducer);
 	const t = useAppTranslation();
+	const vehicleType = data?.data.offer_group.vehicle_type;
+	const vehicleTransform = vehicleType ? VehicleTypeTransform(vehicleType) : undefined;
+	const IconComponent = vehicleTransform ? Icons[vehicleTransform.icon] : undefined;
 
 	const { id = 0, full_name = '', offers = [], min_price = 0, photo, model, labels } = data?.data || {};
 	const offer = offers.find(item => item.offer_id === offerId);
@@ -57,21 +70,16 @@ export const ProductComponent: FC<ProductComponentProps> = (
 		thumbnail: photo?.url_part || '',
 	}, ...imgArr];
 
-	const icon = (season: string) => {
-		if(season === '1') {
-			return <img src="/images/sun-icon.svg" alt=""/>
-		} else if(season === '2') {
-			return <img src="/images/snow-icon.svg" alt=""/>
-		} else if(season === '3') {
-			return <img src="/images/cloud-icon.svg" alt=""/>
-		}
-
-		return null;
-	}
-
 	const onSetQuantity = (_: number,quan: number) => {
 		setQuantity(quan);
 	}
+
+	const review = data?.data.review;
+	const commentsAvgRateSum = review && review.length > 0
+		? review.reduce((sum, current) => sum + (current.score || 0), 0)
+		: 0;
+
+	const averageScore = review && review.length > 0 ? commentsAvgRateSum / review.length : undefined;
 
 	return <section className='product-page flex flex-col lg:flex-row justify-between gap-1 xl:gap-x-6 mt-10'>
 		<div className='max-w-[900px] flex-1 pr-3 xl:pr-5'>
@@ -88,7 +96,10 @@ export const ProductComponent: FC<ProductComponentProps> = (
 											{lang === Language.UA ? item.label.name : item.label.name_ru}
 										</div>
 									})}
-									{ model?.season && icon(model?.season) }
+									<div className='flex gap-x-2'>
+										{IconComponent && (<IconComponent className={classNames('fill-gray-500', { 'stroke-gray-500': vehicleType === '2' })} />)}
+										{model?.season && <img src={ SeasonTransform(model.season)?.icon } alt=""/> }
+									</div>
 								</div>
 								{ model?.brand_image && <img className='max-w-28 object-contain' src={ model?.brand_image } alt=""/> }
 							</div>
@@ -99,7 +110,10 @@ export const ProductComponent: FC<ProductComponentProps> = (
 							<h1 className='text-2xl font-bold mt-8 md:mt-0'>{ full_name }</h1>
 							<div className='flex mt-5 items-center'>
 								<div className='text-[15px] text-gray-500 bg-blue-50 rounded-full py-1 md:py-2 px-3 mr-5'>Артикул: { id }</div>
-								<Rating commentsCount={ undefined } commentsAvgRate={ 0 }/>
+								<Rating
+									commentsCount={ review ? (review.length > 0 ? review.length : undefined) : undefined }
+									commentsAvgRate={ averageScore || 0 }
+								/>
 							</div>
 							<div className='flex justify-between mt-7 md:mt-11'>
 								<div>

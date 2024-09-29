@@ -9,7 +9,7 @@ import { baseDataAPI } from '../../../services/baseDataService';
 import { CallbackComponent } from '../../../components/Modals';
 
 const schema = yup.object().shape({
-	telephone: yup.string().min(13).max(13).required('Це поле обовʼязкове.'),
+	telephone: yup.string().min(13, 'Це поле обовʼязкове.').max(13).required('Це поле обовʼязкове.'),
 });
 
 interface FormProps {

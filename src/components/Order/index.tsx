@@ -1,26 +1,21 @@
-import { FC, Dispatch, SetStateAction } from 'react';
+import { FC } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { useAppSelector, useAppTranslation } from '../../hooks';
 import { MySelect } from './Select';
 import { Summary } from './Summary';
 import { PhoneMaskInput, TextFile } from '../Lib';
+import { NpCitySearch, NpWarehousesSearch } from '../../containers/Lib';
 import { Language } from '../../models/language';
 import type { ProductsProps } from '../../models/products';
 import type { OrdersParamProps } from '../../models/ordersParam';
 
-interface Options {
-	value: string
-	label: string
-}
-
 interface OrderProps {
 	data: ProductsProps | undefined
 	isLoading: boolean
-	cityOptions: Options[]
-	warehousesOptions: Options[] | undefined
+	loadingBtn: boolean
+	showNpWarehouses: boolean | undefined
 	shippingMethod: string | number | undefined
-	setCity: Dispatch<SetStateAction<string | number | undefined>>
 	cartItems: { id: number; quantity: number }[]
 	onChange: (name: string, value: number | string | undefined) => void
 	dataOrdersParam: OrdersParamProps | undefined
@@ -32,11 +27,10 @@ export const OrderComponent: FC<OrderProps> = (
 		isLoading,
 		cartItems,
 		onChange,
-		setCity,
-		cityOptions,
-		warehousesOptions,
+		loadingBtn,
 		shippingMethod,
-		dataOrdersParam
+		dataOrdersParam,
+		showNpWarehouses,
 	}) => {
 	const { control, formState: { errors } } = useFormContext();
 	const { lang } = useAppSelector(state => state.langReducer);
@@ -101,10 +95,10 @@ export const OrderComponent: FC<OrderProps> = (
 											options={deliverysOptions} onChange={onChange}/>
 					</div>
 					{(shippingMethod === 2 || shippingMethod === 3) && <div className='mt-3'>
-						<MySelect name='city' label={ t('city', true) } options={cityOptions} onChange={onChange} setCity={setCity} />
+						<NpCitySearch title={ t('city', true) } />
 					</div>}
-					{shippingMethod === 2 && warehousesOptions && warehousesOptions.length > 0 && <div className='mt-3'>
-						<MySelect name='department' label={ t('department', true) } options={warehousesOptions} onChange={onChange} setCity={setCity} />
+					{shippingMethod === 2 && showNpWarehouses && <div className='mt-3'>
+						<NpWarehousesSearch title={ t('department', true) } />
 					</div>}
 					{shippingMethod === 3 && <Controller
 						name="address"
@@ -119,7 +113,7 @@ export const OrderComponent: FC<OrderProps> = (
 					<MySelect name='payment_method' label='Способ оплаты' options={ paymentsOptions } onChange={ onChange }/>
 				</div>
 			</div>
-			<div className='bg-white pt-5 pb-8 px-6 mt-4 mb-20'>
+			<div className='bg-white pt-5 pb-8 px-6 mt-4 md:mb-20'>
 				<h4 className='font-semibold'>
 					{lang === Language.UA ? 'Додати коментар' : 'Додати коментар'}
 				</h4>
@@ -130,6 +124,6 @@ export const OrderComponent: FC<OrderProps> = (
 				/>
 			</div>
 		</div>
-		<Summary data={data} isLoading={isLoading} cartItems={cartItems}/>
+		<Summary data={ data } isLoading={ isLoading } cartItems={ cartItems } loadingBtn={ loadingBtn } />
 	</div>
 };

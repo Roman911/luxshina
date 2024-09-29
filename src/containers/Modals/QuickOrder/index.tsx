@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction } from 'react';
+import { FC, Dispatch, SetStateAction, useState } from 'react';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
@@ -31,6 +31,7 @@ interface QuickOrderProps {
 
 export const QuickOrder: FC<QuickOrderProps> = ({ offerId, quantity, offerItem, setModalActive }) => {
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 	const [createOrder] = baseDataAPI.useCreateOrderMutation();
 
 	const methods = useForm<FormProps>({
@@ -40,6 +41,7 @@ export const QuickOrder: FC<QuickOrderProps> = ({ offerId, quantity, offerItem, 
 	})
 	
 	const onSubmitQuickOrder: SubmitHandler<FormProps> = async ({ telephone }) => {
+		setLoading(true);
 		const product = {
 			product_id: offerItem?.product_id,
 			offer_id: offerId,
@@ -55,11 +57,11 @@ export const QuickOrder: FC<QuickOrderProps> = ({ offerId, quantity, offerItem, 
 			email: '',
 			telephone,
 			total: Number(offerItem?.price) * quantity,
-			comment: '',
+			comment: 'null',
 			payment_method: 1,
 			shipping_method: 1,
-			payment_address_1: '',
-			payment_address_2: '',
+			payment_address_1: 'null',
+			payment_address_2: 'null',
 			payment_city: '',
 			ref_wirehouse: '',
 			ref_city: '',
@@ -72,12 +74,14 @@ export const QuickOrder: FC<QuickOrderProps> = ({ offerId, quantity, offerItem, 
 			} else if(response.error) {
 				console.error('An error occurred:', response.error);
 			}
+		}).finally(() => {
+			setLoading(false);
 		});
 	}
 	
 	return <FormProvider {...methods}>
 		<form onSubmit={methods.handleSubmit(onSubmitQuickOrder)}>
-			<QuickOrderComponent />
+			<QuickOrderComponent loading={ loading } />
 		</form>
 	</FormProvider>
 };

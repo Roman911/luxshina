@@ -16,4 +16,10 @@ export interface Config {
 	filterAlt: {
 		submitFloatShowTime: number
 	}
+	deliveryCalculation: {
+		postpaid: {
+			const: number
+			cof: number
+		}
+	}
 }

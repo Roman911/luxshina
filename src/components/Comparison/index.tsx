@@ -1,10 +1,11 @@
 import { FC } from 'react';
 
 import { useAppSelector, useAppTranslation } from '../../hooks';
+import { Language } from '../../models/language';
+import { CartIcon } from '../Lib/Icons';
+import { CloseButton } from '../Lib';
+import { SeasonTransform, VehicleTypeTransform } from '../../lib';
 import type { Data } from '../../models/products';
-import {Language} from "../../models/language.ts";
-import {CartIcon} from "../Lib/Icons";
-import {CloseButton} from "../Lib";
 
 interface ComparisonProps {
 	data: Data | undefined
@@ -35,6 +36,7 @@ export const ComparisonComponent: FC<ComparisonProps> = ({ data, resetEverything
 		<div className='flex-1 w-[calc(100%-15rem)]'>
 			<div className='flex overflow-x-auto overflow-y-hidden whitespace-nowrap max-w-full'>
 				{data?.products.map(item => {
+					console.log(item)
 					return <div key={item.group}>
 						<div className='w-60 relative m-1'>
 							<CloseButton handleClick={ () => handleClick(item.product_id) } />
@@ -44,8 +46,12 @@ export const ComparisonComponent: FC<ComparisonProps> = ({ data, resetEverything
 							</div>
 						</div>
 						<div className='divide-y divide-[#D0D4D9] text-center'>
-							<div className='h-11 leading-[44px]'>{item.season}</div>
-							<div className='h-11 leading-[44px]'>{item.vehicle_type}</div>
+							<div className='h-11 leading-[44px]'>
+								{ t(SeasonTransform(item.season)?.name || '', true) }
+							</div>
+							<div className='h-11 leading-[44px]'>
+								{ t(VehicleTypeTransform(item.vehicle_type)?.name || '', true) }
+							</div>
 							<div className='h-11 leading-[44px]'>175</div>
 							<div className='h-11 leading-[44px]'>65</div>
 							<div className='h-11 leading-[44px]'>{item.diameter}</div>

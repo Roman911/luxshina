@@ -1,6 +1,6 @@
 import { baseDataAPI } from '../../../services/baseDataService';
 import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
-import {setCarFilter, setSend} from '../../../store/reducers/filterCarSlice';
+import { setCarFilter, setSend } from '../../../store/reducers/filterCarSlice';
 import { FilterByCarComponents } from '../../../components/Home/Filter/FilterByCar';
 
 export const FilterByCar = () => {

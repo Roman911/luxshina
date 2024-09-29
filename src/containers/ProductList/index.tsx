@@ -15,7 +15,7 @@ export const ProductList: FC<ProductListProps> = ({ classnames = 'grid-cols-3', 
 
 	return (
 		<div className={`grid gap-1.5 ${classnames}`}>
-			{products}
+			{ products }
 		</div>
 	)
 };

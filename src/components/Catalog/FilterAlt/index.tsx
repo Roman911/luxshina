@@ -108,7 +108,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 		);
 	};
 
-	return <div className={classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block', {'hidden': !isOpenFilter }) }>
+	return <div className={classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block', {'hidden': !isOpenFilter, 'pt-12': section === Section.Battery }) }>
 		<button onClick={ () => closeFilter() } className='absolute top-5 right-5 lg:hidden'>
 			<CloseIcon className='fill-[#B9B9BA] w-7 h-7' />
 		</button>
@@ -327,11 +327,11 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						true,
 					)}
 					{renderSelect(
-						'brand_disc',
+						'brand',
 						t('brand', true),
 						'white',
 						data?.brand_disc?.map(item => ({value: item.value, label: item.label})),
-						filter?.brand_disc,
+						filter?.brand,
 						true,
 					)}
 				</>}
@@ -380,19 +380,19 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 				</>}
 				{section === Section.Tires && <>
 					{renderSelect(
-						'load',
+						'li',
 						t('load index', true),
 						'white',
 						data?.load.map(item => ({ value: item.value, label: item.value })),
-						filter?.load,
+						filter?.li,
 						true,
 					)}
 					{renderSelect(
-						'speed',
+						'si',
 						t('speed index', true),
 						'white',
 						data?.speed.map(item => ({ value: item.value, label: item.value })),
-						filter?.speed,
+						filter?.si,
 						true,
 					)}
 					{renderSelect(
@@ -403,12 +403,6 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						filter?.omolog,
 						true,
 					)}
-					{/*{renderSelect(*/}
-					{/*	'other',*/}
-					{/*	t('other', true),*/}
-					{/*	'white',*/}
-					{/*	[],*/}
-					{/*)}*/}
 				</>}
 			</div>
 		</div>

@@ -1,8 +1,14 @@
+import { FC } from 'react';
+
 import { useAppSelector } from '../../../hooks';
 import { Language } from '../../../models/language';
-import { PhoneMaskInput } from '../../Lib';
+import { PhoneMaskInput, Spinner } from '../../Lib';
 
-export const QuickOrderComponent = () => {
+interface QuickOrderProps {
+	loading: boolean
+}
+
+export const QuickOrderComponent: FC<QuickOrderProps> = ({ loading }) => {
 	const { lang } = useAppSelector(state => state.langReducer);
 
 	return <>
@@ -22,8 +28,10 @@ export const QuickOrderComponent = () => {
 			</div>
 		</div>
 		<div className="bg-gray-50 mt-3 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-			<button type="submit" className='btn primary w-max px-5'>
-				{ lang === Language.UA ? 'Надіслати' : 'Отправить' }
+			<button type="submit" className='btn primary w-max px-5 min-w-32' disabled={ loading }>
+				<Spinner size='small' height='h-10' show={ loading } >
+					{ lang === Language.UA ? 'Надіслати' : 'Отправить' }
+				</Spinner>
 			</button>
 		</div>
 	</>

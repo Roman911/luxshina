@@ -12,7 +12,9 @@ import { CountryInfo, Quantity, Rating, Spinner } from '../Lib';
 import { CartIcon, MarkerIcon, BusIcon, CargoIcon, CarIcon, MotorcyclesIcon, SpecialEquipmentIcon, SuvIcon } from "../Lib/Icons";
 import truckIcon from '../../assets/icons/truck-icon.svg';
 import { Language } from '../../models/language';
+import { Section } from '../../models/filter';
 import type { ProductProps } from '../../models/product';
+
 import noPhoto from '../../assets/no-photo.s400.jpg';
 
 const Icons = {
@@ -29,6 +31,7 @@ interface ProductComponentProps {
 	isLoading: boolean
 	offerId: number
 	quantity: number
+	section: Section
 	onChange: (e: { target: HTMLInputElement }) => void
 	handleClick: (id: number) => void
 	onSubmit: () => void
@@ -44,6 +47,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 		quantity,
 		onChange,
 		onSubmit,
+		section,
 		handleClick,
 		handleModalOpen,
 		setQuantity
@@ -105,7 +109,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 							</div>
 							{ photo?.url_part === '' ? <img src={ noPhoto } alt="" /> : <ImgGallery images={ images } /> }
 						</div>
-						<ActionsBlock className='flex md:hidden' id={ id } handleModalOpen={ handleModalOpen } />
+						<ActionsBlock className='flex md:hidden' id={ id } handleModalOpen={ handleModalOpen } section={ section } />
 						<div className='flex-1 md:ml-6 xl:ml-20'>
 							<h1 className='text-2xl font-bold mt-8 md:mt-0'>{ full_name }</h1>
 							<div className='flex mt-5 items-center'>
@@ -126,7 +130,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 										шт.
 									</div>
 								</div>
-								<ActionsBlock className='hidden md:flex' id={ id } handleModalOpen={ handleModalOpen } />
+								<ActionsBlock className='hidden md:flex' id={ id } handleModalOpen={ handleModalOpen } section={ section } />
 							</div>
 							<div className='offers mt-7'>
 								{offers.map(item => {

@@ -45,8 +45,6 @@ export const CatalogContent: FC<CatalogContentProps> = ({ openFilter }) => {
 		setItemsProduct(prevState => prevState + config.catalog.itemsProduct);
 	}
 
-	console.log(data)
-
 	return (
 		<div className='flex-1'>
 			<FilterByCar openFilter={ openFilter } handleClick={ handleClick } />

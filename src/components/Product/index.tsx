@@ -15,7 +15,8 @@ import { Language } from '../../models/language';
 import { Section } from '../../models/filter';
 import type { ProductProps } from '../../models/product';
 
-import noPhoto from '../../assets/no-photo.s400.jpg';
+import noPhoto from '../../assets/no-photo.jpg';
+import noPhotoRu from '../../assets/no-photo-ru.jpg';
 
 const Icons = {
 	light: CarIcon,
@@ -107,7 +108,9 @@ export const ProductComponent: FC<ProductComponentProps> = (
 								</div>
 								{ model?.brand_image && <img className='max-w-28 object-contain' src={ model?.brand_image } alt=""/> }
 							</div>
-							{ photo?.url_part === '' ? <img src={ noPhoto } alt="" /> : <ImgGallery images={ images } /> }
+							{ photo?.url_part === '' ?
+								<img src={ lang === Language.UA ? noPhoto : noPhotoRu } alt="" /> :
+								<ImgGallery images={ images } /> }
 						</div>
 						<ActionsBlock className='flex md:hidden' id={ id } handleModalOpen={ handleModalOpen } section={ section } />
 						<div className='flex-1 md:ml-6 xl:ml-20'>

@@ -12,7 +12,8 @@ import { CountryInfo, Rating } from '../Lib';
 import type { Product } from '../../models/products';
 import { Section } from '../../models/filter';
 
-import noPhoto from '../../assets/no-photo.s400.jpg';
+import noPhoto from '../../assets/no-photo.jpg';
+import noPhotoRu from '../../assets/no-photo-ru.jpg';
 
 const icons = {
 	1: CarIcon,
@@ -58,8 +59,8 @@ export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, 
 		<Link to={`/${page_url}`} className={classNames(style['product-card'], 'group')}>
 			<div className='relative min-h-72 sm:min-h-52'>
 				<div className='absolute'>
-					{ seasonIcon && <img src={`/images/${seasonIcon}-icon.svg`} alt=""/> }
-					{ Icon && <Icon className={classNames('fill-[#575C66]', {'stroke-[#575C66]': vehicle_type === '2'}) }/> }
+					{seasonIcon && <img src={`/images/${seasonIcon}-icon.svg`} alt=""/>}
+					{Icon && <Icon className={classNames('fill-[#575C66]', {'stroke-[#575C66]': vehicle_type === '2'})}/>}
 				</div>
 				<div className='absolute right-0 invisible group-hover:visible flex flex-col'>
 					<button onClick={event => addToDefense(event, group)}>
@@ -71,9 +72,9 @@ export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, 
 							className={classNames('mt-5 fill-[#8D8E90] hover:fill-blue-500', {'fill-blue-500': isComparison})}/>
 					</button>
 				</div>
-				<img src={ default_photo || noPhoto } alt={full_name}/>
+				<img src={ default_photo || (lang === Language.UA ? noPhoto : noPhotoRu) } alt={ full_name }/>
 			</div>
-			<p className='font-bold my-2.5 min-h-12'>{full_name}</p>
+			<p className='font-bold my-2.5 min-h-12'>{ full_name }</p>
 			<div className='text-sm text-gray-500 my-2.5'>
 				<span>Артикул: </span><span>{ group }</span>
 			</div>

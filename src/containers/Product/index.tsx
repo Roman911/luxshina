@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 import { baseDataAPI } from '../../services/baseDataService';
 import { addToStorage, getFromStorage } from '../../lib';
@@ -117,6 +118,10 @@ export const Product = () => {
 	}
 
 	return <div>
+		<Helmet>
+			<title>{ data?.data.full_name }</title>
+			<meta name='description' content={ data?.data.full_name } />
+		</Helmet>
 		<LayoutWrapper>
 			<Breadcrumbs path={ path } />
 			<ProductComponent

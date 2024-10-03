@@ -21,6 +21,13 @@ import { Section } from '../../models/filter';
 import { SimilarProducts } from './SimilarProducts';
 import { RecentlyViewed } from './RecentlyViewed';
 
+const scrollToTop = () => {
+	window.scrollTo({
+		top: 0,
+		behavior: "smooth"
+	});
+};
+
 export const Product = () => {
 	const [isModalActive, setModalActive] = useState(false);
 	const [offerId, setOfferId] = useState(0);
@@ -74,6 +81,10 @@ export const Product = () => {
 			}
 		}
 	}, [data, dispatch, section]);
+
+	useEffect(() => {
+		scrollToTop();
+	}, [location.pathname]);
 
 	const handleModalOpen = (type: 'QuickOrder' | 'OnlineInstallment' | 'DeliveryCalculation' | 'Callback' | 'AddAsk') => {
 		setModalActive(true);

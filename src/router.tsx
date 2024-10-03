@@ -12,7 +12,7 @@ import { Order } from './containers/Order';
 import { SuccessfulOrder } from './containers/SuccessfulOrder';
 import { Search } from './containers/Search';
 import { CalculatorForTires } from './containers/CalculatorForTiresPage';
-import { AboutUs, Contacts, Credit, Payment, PublicOffer, Shipment } from './containers/StaticPage/';
+import { Alias } from './containers/Alias';
 import { ErrorPage } from './containers/Error/404';
 
 const router = createBrowserRouter([
@@ -64,28 +64,8 @@ const router = createBrowserRouter([
 				element: <CalculatorForTires />
 			},
 			{
-				path: ROUTES.aboutUs,
-				element: <AboutUs />,
-			},
-			{
-				path: ROUTES.shipment,
-				element: <Shipment />
-			},
-			{
-				path: ROUTES.payment,
-				element: <Payment />
-			},
-			{
-				path: ROUTES.contacts,
-				element: <Contacts />
-			},
-			{
-				path: ROUTES.guaranteeAndRefund,
-				element: <Credit />
-			},
-			{
-				path: ROUTES.publicOffer,
-				element: <PublicOffer />
+				path: ROUTES.page,
+				element: <Alias />
 			},
 		]
 	},

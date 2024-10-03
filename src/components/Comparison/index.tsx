@@ -36,7 +36,6 @@ export const ComparisonComponent: FC<ComparisonProps> = ({ data, resetEverything
 		<div className='flex-1 w-[calc(100%-15rem)]'>
 			<div className='flex overflow-x-auto overflow-y-hidden whitespace-nowrap max-w-full'>
 				{data?.products.map(item => {
-					console.log(item)
 					return <div key={item.group}>
 						<div className='w-60 relative m-1'>
 							<CloseButton handleClick={ () => handleClick(item.product_id) } />

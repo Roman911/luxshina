@@ -1,16 +1,16 @@
 import { memo } from 'react';
 import DOMPurify from 'dompurify';
 
+import { baseDataAPI } from '../../../../services/baseDataService';
 import { Language } from '../../../../containers/Layout/Header/Language';
-import { useAppSelector, useAppTranslation } from '../../../../hooks';
+import { useAppSelector } from '../../../../hooks';
 import { Link } from '../../../../lib';
 import { Contacts } from '../../../../containers/Contacts';
-import { links } from './links';
 
 export const TopLine = () => {
 	const { settings } = useAppSelector(state => state.settingsReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
-	const t = useAppTranslation();
+	const { data } = baseDataAPI.useFetchStatiAliasAllQuery('');
 
 	const HtmlContent = memo(({ htmlString }: { htmlString: string }) => {
 		const sanitizedHtml = DOMPurify.sanitize(htmlString);
@@ -32,12 +32,12 @@ export const TopLine = () => {
 				</div>
 			</div>
 			<nav className='gap-2 2xl:gap-5 items-center hidden lg:flex'>
-				{ links.map((item, index) => {
+				{ data?.header.map((item, index) => {
 					return <Link
 						key={ index }
-						to={ item.link }
+						to={ `/page/${item.slug}` }
 						className='text-xs 2xl:text-sm font-medium uppercase'>
-						{ t(item.title) }
+						{ item.descriptions[lang].title }
 					</Link>
 				}) }
 			</nav>

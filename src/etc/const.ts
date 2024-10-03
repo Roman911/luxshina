@@ -1,11 +1,5 @@
 export const ROUTES = {
 	home: 'ru?/',
-	aboutUs: 'ru?/about-us',
-	shipment: 'ru?/shipment',
-	payment: 'ru?/payment',
-	contacts: 'ru?/contacts',
-	guaranteeAndRefund: 'ru?/guarantee-and-refund',
-	publicOffer: 'ru?/public-offer',
 	catalog: 'ru?/catalog/:section/*',
 	product: 'ru?/*',
 	bookmarks: 'ru?/bookmarks/',
@@ -15,4 +9,5 @@ export const ROUTES = {
 	successful: 'ru?/order/successful/',
 	tyreDiskSizeCalc: 'ru?/tyre-disk-size-calc/',
 	search: 'ru?/search/',
+	page: 'ru?/page/*',
 };

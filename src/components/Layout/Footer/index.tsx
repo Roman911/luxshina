@@ -1,19 +1,18 @@
 import { config } from '../../../config';
 
 import { Link } from '../../../lib';
+import { baseDataAPI } from '../../../services/baseDataService';
 import { useAppSelector, useAppTranslation } from '../../../hooks';
+import { linksCatalog } from './linksCatalog';
+import { PhoneLogo } from '../../../models/config';
+import { EmailIcon, FacebookIcon, PhoneIcon, TelegramIcon, ViberIcon } from '../../Lib/Icons';
+import { AliasItem } from '../../../models/alias';
 
 import logoFooter from '../../../assets/logo-footer.svg';
-import { EmailIcon, FacebookIcon, PhoneIcon, TelegramIcon, ViberIcon } from '../../Lib/Icons';
-
 import kievstarLogo from '../../../assets/kievstar-logo.png';
 import lifecellLogo from '../../../assets/life-logo.png';
 import vodafoneLogo from '../../../assets/vodafone-logo.png';
 
-import { linksCatalog } from './linksCatalog';
-import { linksInfo } from './linksInfo';
-
-import { PhoneLogo } from '../../../models/config';
 type IconType = 'telegram' | 'facebook' | 'viber';
 
 const phoneLogos: Record<PhoneLogo, string> = {
@@ -25,6 +24,7 @@ const phoneLogos: Record<PhoneLogo, string> = {
 export const Footer = () => {
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { settings } = useAppSelector(state => state.settingsReducer);
+	const { data } = baseDataAPI.useFetchStatiAliasAllQuery('');
 	const t = useAppTranslation();
 
 	const icons: Record<IconType, JSX.Element> = {
@@ -108,8 +108,8 @@ export const Footer = () => {
 			</div>
 			<div>
 				<h6 className='text-gray-500 text-sm font-bold mb-7'>{t('information', true)}</h6>
-				{linksInfo.map((item, index) => {
-					return link(item.link, item.title, index)
+				{data?.footer.map((item: AliasItem, index: number) => {
+					return link(`/page/${item.slug}`, item.descriptions[lang].title, index)
 				})}
 			</div>
 		</div>

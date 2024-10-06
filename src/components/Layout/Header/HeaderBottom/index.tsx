@@ -3,7 +3,8 @@ import classNames from 'classnames';
 
 import styles from './index.module.scss';
 
-import { useAppTranslation, useClickOutside } from '../../../../hooks';
+import { useAppDispatch, useAppTranslation, useClickOutside } from '../../../../hooks';
+import { resetFilter } from '../../../../store/reducers/filterSlice';
 import { Link } from '../../../../lib';
 import { CarDiskFilter } from './CarDiskFilter';
 import { CarTireFilter } from './CarTireFilter';
@@ -14,6 +15,7 @@ export const HeaderBottom = () => {
 	const [ open, setOpen ] = useState( false );
 	const filterRef = useRef<HTMLDivElement>(null);
 	const [ section, setSection ] = useState( 'tires' );
+	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
 
 	const closeFilter = () => {
@@ -49,7 +51,7 @@ export const HeaderBottom = () => {
 				</span>
 			</button>
 			{links.map((item, index) => {
-				return <Link key={ index } className={styles.link} to={ item.url }>
+				return <Link key={ index } onClick={ () => dispatch(resetFilter()) } className={ styles.link } to={ item.url }>
 					{ t(item.title) }
 				</Link>
 			})}

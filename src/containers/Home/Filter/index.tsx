@@ -103,20 +103,9 @@ export const Filter = () => {
 		}
 	}
 
-	const pathBySection = (section: Section) => {
-		switch (section) {
-			case Section.Tires:
-				return 'tires?';
-			case Section.Disks:
-				return 'disks?typeproduct=3&';
-			default:
-				return section;
-		}
-	}
-
 	const submit = () => {
 		const searchUrl = generateUrl(filter);
-		const rout = `/catalog/${pathBySection(section)}`;
+		const rout = `/catalog/${section}/`;
 		const newRout = lang === Language.UA ? rout : `/ru${rout}`;
 		navigate(newRout + searchUrl);
 	}
@@ -127,4 +116,4 @@ export const Filter = () => {
 		onChange={ onChange }
 		onSubmit={ submit }
 	/>
-}
+};

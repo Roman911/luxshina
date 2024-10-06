@@ -7,7 +7,7 @@ import { setParams, changeSection, resetFilter } from '../../store/reducers/filt
 
 import { parseUrl } from './seo';
 import { FilterAlt } from './FilterAlt';
-import { CatalogContent } from './CatalogContent/CatalogContent';
+import { CatalogContent } from './CatalogContent';
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { TextSeo } from '../../components/Home';
@@ -18,7 +18,6 @@ export const Catalog = () => {
 	const { section } = useAppSelector(state => state.filterReducer);
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
-
 	const params = useParams();
 
 	useEffect(() => {

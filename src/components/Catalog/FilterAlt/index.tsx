@@ -22,6 +22,7 @@ import type { AkumProps } from '../../../models/akumData';
 interface FilterAltProps {
 	element: HTMLElement | null
 	data: BaseDataProps | undefined
+	fildterData: BaseDataProps | undefined
 	dataAkum: AkumProps | undefined
 	isOpenFilter: boolean
 	closeFilter: () => void
@@ -40,6 +41,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 	{
 		element,
 		data,
+		fildterData,
 		dataAkum,
 		isOpenFilter,
 		closeFilter,
@@ -157,7 +159,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'width',
 							t('width', true),
 							'gray',
-							data?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							fildterData?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
 							filter?.width,
 							true,
 						)}
@@ -165,7 +167,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'height',
 							t('height', true),
 							'gray',
-							data?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							fildterData?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
 							filter?.height,
 							true,
 						)}
@@ -173,7 +175,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'radius',
 							t('diameter', true),
 							'gray',
-							data?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
+							fildterData?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
 							filter?.radius,
 							true,
 						)}
@@ -183,7 +185,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'width',
 							t('width', true),
 							'gray',
-							data?.disc_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							fildterData?.disc_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
 							filter?.width,
 							true,
 						)}
@@ -191,7 +193,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							'radius',
 							t('diameter', true),
 							'gray',
-							data?.disc_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
+							fildterData?.disc_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
 							filter?.radius,
 							true,
 						)}

@@ -9,5 +9,7 @@ export const ROUTES = {
 	successful: 'ru?/order/successful/',
 	tyreDiskSizeCalc: 'ru?/tyre-disk-size-calc/',
 	search: 'ru?/search/',
+	autoGoods: 'ru?/auto-goods/',
+	services: 'ru?/services/',
 	page: 'ru?/page/*',
 };

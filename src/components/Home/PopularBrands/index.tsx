@@ -1,50 +1,44 @@
-import { Carousel } from 'react-responsive-carousel';
+import { FC } from 'react';
 
-import { useAppSelector, useAppTranslation } from '../../../hooks';
-
+import { useAppDispatch, useAppSelector, useAppTranslation } from '../../../hooks';
 import { Link } from '../../../lib';
-import { PopularItem, Title } from '../../Lib';
+import { PopularItem } from '../../Lib';
 
-import { popularBrands } from './popularBrands';
+import { Car2BrandProps } from '../../../models/featureParams';
+import { setCarFilter } from '../../../store/reducers/filterCarSlice';
+import { changeSubsection } from '../../../store/reducers/filterSlice';
+import { Subsection } from '../../../models/filter';
 
-export const PopularBrands = () => {
-	const { lang } = useAppSelector(state => state.langReducer);
+interface PopularBrandsProps {
+	data: Car2BrandProps[] | undefined
+}
+
+export const PopularBrands: FC<PopularBrandsProps> = ({ data }) => {
+	const dispatch = useAppDispatch();
+	const { filter } = useAppSelector(state => state.filterCarReducer);
 	const t = useAppTranslation();
 
-	const splitArrayIntoChunks = (arr: { label: string, link: string }[], chunkSize: number) => {
-		const result = [];
-		for (let i = 0; i < arr.length; i += chunkSize) {
-			result.push(arr.slice(i, i + chunkSize));
-		}
-		return result;
+	const handleClick = (brand: number) => {
+		dispatch(setCarFilter({ ...filter, brand }));
+		dispatch(changeSubsection(Subsection.ByCars));
 	}
 
-	return <div className='mt-24'>
-		<Title title={lang === 'ua' ? 'Популярні марки авто' : 'Популярные марки авто'}/>
-		<div className='lg:grid grid-cols-6 mt-12 gap-x-5 mb-8 hidden'>
-			{popularBrands.map((i, index) => {
-				return <PopularItem key={index} label={i.label} link={i.link}/>
+	return <>
+		<div className='grid grid-cols-2 lg:grid-cols-6 mt-12 gap-x-5 mb-8'>
+			{data?.map((item, index) => {
+				return <PopularItem
+					key={ index }
+					label={item.name}
+					link=''
+					onClick={ () => handleClick(item.id) }
+				/>
 			})}
 		</div>
-		<div className='lg:hidden'>
-			<Carousel
-				showArrows={true}
-				autoPlay={true}
-				infiniteLoop={true}
-				interval={5000}
-				showThumbs={false}
-				showStatus={false}
-				showIndicators={false}
-			>
-				{splitArrayIntoChunks(popularBrands, 10).map((item, index) => {
-					return <div key={index} className='grid grid-cols-2 gap-x-2.5 mx-1'>
-						{item.map((i, index) => {
-							return <PopularItem key={index} label={i.label} link={i.link}/>
-						})}
-					</div>
-				})}
-			</Carousel>
-		</div>
-		<Link className='uppercase font-bold text-blue-500' to='/'>{t('show all')}</Link>
-	</div>
-}
+		<Link
+			onClick={() => dispatch(changeSubsection(Subsection.ByCars))}
+			className='uppercase font-bold text-blue-500' to='/catalog/tires'
+		>
+			{t('show all')}
+		</Link>
+	</>
+};

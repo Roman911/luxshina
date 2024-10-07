@@ -3,7 +3,7 @@ import DOMPurify from 'dompurify';
 
 import { baseDataAPI } from '../../../../services/baseDataService';
 import { Language } from '../../../../containers/Layout/Header/Language';
-import { useAppSelector } from '../../../../hooks';
+import { useAppSelector, useAppTranslation } from '../../../../hooks';
 import { Link } from '../../../../lib';
 import { Contacts } from '../../../../containers/Contacts';
 
@@ -11,6 +11,7 @@ export const TopLine = () => {
 	const { settings } = useAppSelector(state => state.settingsReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { data } = baseDataAPI.useFetchStatiAliasAllQuery('');
+	const t = useAppTranslation();
 
 	const HtmlContent = memo(({ htmlString }: { htmlString: string }) => {
 		const sanitizedHtml = DOMPurify.sanitize(htmlString);
@@ -40,6 +41,11 @@ export const TopLine = () => {
 						{ item.descriptions[lang].title }
 					</Link>
 				}) }
+				<Link
+					to={ `/tyre-disk-size-calc` }
+					className='text-xs 2xl:text-sm font-medium uppercase'>
+					{ t('tire calculator') }
+				</Link>
 			</nav>
 		</div>
 	</div>

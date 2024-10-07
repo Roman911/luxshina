@@ -8,14 +8,16 @@ import { reset as resetFilterCar } from '../../store/reducers/filterCarSlice';
 import { LayoutWrapper } from '../../components/Layout';
 import { Filter } from './Filter';
 import { ProductList } from '../ProductList';
-import { CarouselSlider, OurAdvantages, PopularBrands, PopularSizes, ShowAll, TextSeo } from '../../components/Home';
+import { Carousel } from './Carousel';
+import { PopularBlock } from './PopularBlock';
+import { OurAdvantages, ShowAll, TextSeo } from '../../components/Home';
 import { NoResult, Spinner, Title } from '../../components/Lib';
 import { Language } from '../../models/language';
 
 export const Home = () => {
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { settings } = useAppSelector(state => state.settingsReducer);
-	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({ id: '?vehicle_type=1' });
+	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({ id: '?vehicle_type=1&order[value]=popular&order[asc]=0' });
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -39,11 +41,10 @@ export const Home = () => {
 				/>}
 			</Spinner>
 			<ShowAll />
-			<CarouselSlider />
+			<Carousel />
 			<OurAdvantages />
-			<PopularSizes />
-			<PopularBrands />
+			<PopularBlock />
 			<TextSeo />
 		</LayoutWrapper>
 	</main>
-}
+};

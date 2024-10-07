@@ -12,6 +12,8 @@ import { Order } from './containers/Order';
 import { SuccessfulOrder } from './containers/SuccessfulOrder';
 import { Search } from './containers/Search';
 import { CalculatorForTires } from './containers/CalculatorForTiresPage';
+import { AutoGoods } from './containers/AutoGoods';
+import { Services } from './containers/Services';
 import { Alias } from './containers/Alias';
 import { ErrorPage } from './containers/Error/404';
 
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
 			{
 				path: ROUTES.tyreDiskSizeCalc,
 				element: <CalculatorForTires />
+			},
+			{
+				path: ROUTES.autoGoods,
+				element: <AutoGoods />
+			},
+			{
+				path: ROUTES.services,
+				element: <Services />
 			},
 			{
 				path: ROUTES.page,

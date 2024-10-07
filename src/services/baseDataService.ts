@@ -6,6 +6,8 @@ import type { ProductsProps } from '../models/products';
 import type { ProductProps } from '../models/product';
 import type { AkumProps } from '../models/akumData';
 import type { OrdersParamProps } from '../models/ordersParam';
+import type { Banner } from '../models/banners';
+import { FeatureParamsProps } from '../models/featureParams';
 import type { AliasAll } from '../models/alias';
 
 export const baseDataAPI = createApi({
@@ -120,6 +122,16 @@ export const baseDataAPI = createApi({
 		fetchNpWarehouses: build.query({
 			query: (ref) => ({
 				url: `/api/np/warehouses/${ref}`,
+			}),
+		}),
+		fetchBanners: build.query<Banner[], string>({
+			query: () => ({
+				url: `https://admin.luxshina.ua/api/banner`,
+			}),
+		}),
+		fetchFeatureParams: build.query<FeatureParamsProps, string>({
+			query: () => ({
+				url: `/api/getFeatureParams`,
 			}),
 		}),
 		fetchNpDocumentPrice: build.query({

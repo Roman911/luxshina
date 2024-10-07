@@ -13,10 +13,10 @@ export const links = [
 	},
 	{
 		title: 'auto goods',
-		url: '/',
+		url: '/auto-goods',
 	},
 	{
-		title: 'tire calculator',
-		url: '/tyre-disk-size-calc',
+		title: 'services',
+		url: '/services',
 	},
 ];

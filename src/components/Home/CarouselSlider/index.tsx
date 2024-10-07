@@ -1,31 +1,26 @@
-import { useEffect, useState } from 'react';
-import { Link } from '../../../lib/Links';
+import { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 import './index.scss';
+import { Link } from '../../../lib';
+import { useAppSelector } from '../../../hooks';
+import type { Banner } from '../../../models/banners';
 
-import { useAppTranslation } from '../../../hooks';
+interface CarouselProps {
+	data: Banner[] | undefined
+}
 
-const slides = [
-	{ id: 0, img: '1.jpg', link: '/catalog/tyre', position: 'left-2/4 -translate-x-1/2 md:translate-x-0 md:left-auto md:right-24' },
-	{ id: 1, img: '2.jpg', link: '/catalog/tyre', position: 'left-2/4 -translate-x-1/2 md:translate-x-0 md:left-24' },
-	{ id: 2, img: '3.jpg' },
-]
-
-export const CarouselSlider = () => {
-	const [width, setWidth] = useState('desktop');
-	const [ isMobile, setMobile ] = useState(false);
-	const t = useAppTranslation();
+export const CarouselSlider: FC<CarouselProps> = ({ data }) => {
+	const [ width, setWidth ] = useState('desktop');
+	const { lang } = useAppSelector(state => state.langReducer);
 
 	useEffect(() => {
 		if(window.innerWidth < 768) {
 			setWidth('gadget');
 		}
-		if(window.innerWidth < 460) {
-			setMobile(true);
-		}
-	}, [])
+	}, []);
 
 	return <div className="mt-16">
 		<Carousel
@@ -37,14 +32,20 @@ export const CarouselSlider = () => {
 			showStatus={ false }
 			showIndicators={ width === 'desktop' }
 		>
-			{slides.map(item => {
-				return <div key={ item.id } className='relative h-[440px] md:h-auto'>
-					<img src={ `/images/slide-${isMobile ? 'mob-' : ''}${item.img}` } alt='' className='object-cover h-full'/>
-					{ item.link && <Link to={ item.link } className={ classNames('btn secondary absolute bottom-6 md:m-0 md:bottom-16 w-10/12 md:w-72', { [`${item.position}`]: item.position }) }>
-						{ t('buy here') }
+			{data?.map(item => {
+				return <div key={ item.banner_id } className='relative h-[440px] md:h-auto'>
+					<img src={ import.meta.env.VITE_APP_BASE_URL + item.image } alt='' className='object-cover h-full'/>
+					{ item.descriptions[lang].button_title &&
+						<Link
+							to={ item.descriptions[lang].button_link }
+							className={classNames('btn secondary absolute bottom-6 md:m-0 md:bottom-16 w-10/12 md:w-72 left-2/4 -translate-x-1/2 md:translate-x-0',
+								{ 'md:left-auto md:right-24': item.banner_id === 2, 'md:left-24': item.banner_id !== 2 }
+							)}
+						>
+						{ item.descriptions[lang].button_title }
 					</Link> }
 				</div>
 			})}
 		</Carousel>
 	</div>
-}
+};

@@ -309,7 +309,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('brand', true),
 						'white',
 						data?.brand?.map(item => ({value: item.value, label: item.label})),
-						filter?.brand,
+						filter?.brand && Number(filter.brand),
 						true,
 					)}
 				</>}
@@ -344,7 +344,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('brand', true),
 						'white',
 						data?.brand_disc?.map(item => ({value: item.value, label: item.label})),
-						filter?.brand,
+						filter?.brand && Number(filter.brand),
 						true,
 					)}
 				</>}
@@ -353,7 +353,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					t('model', true),
 					'gray',
 					manufModels?.map(item => ({value: item.value, label: item.label})),
-					filter?.model_id,
+					filter?.model_id && Number(filter.model_id),
 					true,
 				)}
 				{section === Section.Tires && renderSelect(
@@ -369,7 +369,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					t('year', true),
 					'gray',
 					data?.tyre_year?.map(item => ({ value: item.value, label: item.label })),
-					filter?.year,
+					filter?.year && (filter.year),
 				)}
 				<SelectFromTo name='price' nameMin='minPrice' nameMax='maxPrice' from={ 200 } to={ 10000 } title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
 				{section === Section.Battery && <>

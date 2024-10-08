@@ -54,7 +54,6 @@ export const FilterAlt: FC<FilterAltProps> = ({ isOpenFilter, closeFilter }) => 
 	}
 
 	const onChange = (name: string, value: number | string | undefined | null, element: HTMLElement) => {
-		console.log(name,value)
 		if(name === 'brand') {
 			dispatch(setParams({ model_id: null }));
 		}

@@ -1,4 +1,4 @@
-import {Product} from './models/product';
+import { Product } from './models/product';
 import type { Product as Products } from './models/products';
 
 interface DataLayer {

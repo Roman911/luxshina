@@ -1,8 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
-import { baseDataAPI } from '../../services/baseDataService';
 import { addToStorage, getFromStorage, removeFromStorage } from '../../lib';
-import { useAppDispatch, useAppSelector, useAppTranslation } from '../../hooks';
+import { useAppDispatch, useAppGetProductsByOffer, useAppSelector, useAppTranslation } from '../../hooks';
 import { removeCart, setQuantity } from '../../store/reducers/cartSlice';
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
@@ -13,11 +12,18 @@ import { Language } from '../../models/language';
 export const Cart = () => {
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
+	const { settings } = useAppSelector(state => state.settingsReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { cartItems } = useAppSelector(state => state.cartReducer);
-	const id = cartItems.map(item => item.id).join(',');
-	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({id: `?Offer_id=${id}`});
 	const path = [{ id: 1, title: t('cart', true), url: '/' }];
+	const { tires, disks, battery, isLoading} = useAppGetProductsByOffer(cartItems);
+	const data = {
+		result: true,
+		data: {
+			total_count: 5,
+			products: [...tires,...disks,...battery]
+		}
+	};
 
 	const removeProduct = (id: number) => {
 		removeFromStorage('reducerCart', id);
@@ -33,10 +39,10 @@ export const Cart = () => {
 
 	return <LayoutWrapper>
 		<Helmet>
-			<title>{ t('cart', true) } | luxshina.ua</title>
+			<title>{t('cart', true)} | {settings?.['ua'].config_name}</title>
 		</Helmet>
-		<Breadcrumbs path={ path } />
-		<Title title='cart' />
+		<Breadcrumbs path={path}/>
+		<Title title='cart'/>
 		<Spinner height='h-40' show={ isLoading }>
 			{ cartItems.length > 0 && data?.result ? <CartComponent
 					data={ data }

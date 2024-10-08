@@ -20,6 +20,7 @@ import { Breadcrumbs } from '../../components/Breadcrumbs';
 import { Section } from '../../models/filter';
 import { SimilarProducts } from './SimilarProducts';
 import { RecentlyViewed } from './RecentlyViewed';
+import { onAddToCart, onItemView } from '../../event';
 
 const scrollToTop = () => {
 	window.scrollTo({
@@ -54,6 +55,10 @@ export const Product = () => {
 		pushIfExists('height', data?.data.offer_group.height);
 		pushIfExists('radius', data?.data.offer_group.diameter);
 	}
+
+	useEffect(() => {
+		onItemView(data?.data, t(section, true));
+	}, [data?.data, section, t]);
 
 	useEffect(() => {
 		const storage = getFromStorage('reducerRecentlyViewed');
@@ -122,6 +127,7 @@ export const Product = () => {
 	}
 
 	const onSubmit = () => {
+		onAddToCart(data?.data, t(section, true), quantity);
 		const cartStorage = getFromStorage('reducerCart');
 		const cart = [ ...cartStorage, { id: offerId, section, quantity }];
 		dispatch(addCart({ id: offerId, section, quantity }));

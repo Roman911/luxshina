@@ -20,6 +20,8 @@ const icons = {
 	disks: DiskIcon,
 	car: CarFilterIcon,
 	battery: CarFilterIcon,
+	autoGoods: CarFilterIcon,
+	services: CarFilterIcon,
 };
 
 export const Tab: FC<TabProps> = ({ children, name, section, isOpen, handleClick, label }) => {

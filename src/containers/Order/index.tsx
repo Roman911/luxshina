@@ -54,7 +54,7 @@ export const Order = () => {
 	const { cartItems } = useAppSelector(state => state.cartReducer);
 	const { city, wirehouse } = useAppSelector(state => state.orderReducer);
 	const t = useAppTranslation();
-	const { tires, disks, battery, isLoading} = useAppGetProductsByOffer(cartItems);
+	const { tires, disks, battery, autoGoods, services, isLoading} = useAppGetProductsByOffer(cartItems);
 	const { data: dataOrdersParam } = baseDataAPI.useFetchOrdersParamQuery('');
 	const [ createOrder ] = baseDataAPI.useCreateOrderMutation();
 
@@ -62,7 +62,7 @@ export const Order = () => {
 		result: true,
 		data: {
 			total_count: 5,
-			products: [...tires,...disks,...battery]
+			products: [...tires,...disks,...battery,...autoGoods,...services]
 		}
 	}
 

@@ -16,12 +16,12 @@ export const Cart = () => {
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { cartItems } = useAppSelector(state => state.cartReducer);
 	const path = [{ id: 1, title: t('cart', true), url: '/' }];
-	const { tires, disks, battery, isLoading} = useAppGetProductsByOffer(cartItems);
+	const { tires, disks, battery, autoGoods, services, isLoading} = useAppGetProductsByOffer(cartItems);
 	const data = {
 		result: true,
 		data: {
 			total_count: 5,
-			products: [...tires,...disks,...battery]
+			products: [...tires,...disks,...battery,...autoGoods,...services]
 		}
 	};
 

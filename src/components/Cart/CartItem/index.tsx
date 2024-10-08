@@ -53,11 +53,11 @@ export const CartItem: FC<CartItemProps> = (
 				<div className='font-bold text-xl mt-2'>{ price } ₴/шт.</div>
 				<div className='text-sm text-gray-500 mt-1'>Арт: { group }</div>
 				<div className='country mt-2 md:col-span-4'>
-					<CountryInfo
+					{ (country || year) && <CountryInfo
 						country={ country }
 						countryCode={ countryCodeTransform( lang === Language.UA ? country : country_ru) }
 						year={ year }
-					/>
+					/> }
 				</div>
 			</div>
 			<div className='flex flex-col items-end mt-6 md:mt-3 mr-4 gap-4'>

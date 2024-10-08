@@ -12,7 +12,7 @@ export const Services = () => {
 	return <LayoutWrapper>
 		<Spinner height='h-60' show={isLoading} size='large'>
 			{data?.result ? <ProductList
-				classnames='grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+				classnames='grid-cols-1 sm:grid-cols-2 md:grid-cols-4'
 				data={data?.data}
 			/> : <NoResult
 				noResultText={ lang === Language.UA ?

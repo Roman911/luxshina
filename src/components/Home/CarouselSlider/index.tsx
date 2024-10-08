@@ -34,7 +34,7 @@ export const CarouselSlider: FC<CarouselProps> = ({ data }) => {
 		>
 			{data?.map(item => {
 				return <div key={ item.banner_id } className='relative h-[440px] md:h-auto'>
-					<img src={ import.meta.env.VITE_APP_BASE_URL + item.image } alt='' className='object-cover h-full'/>
+					<img src={ item.image } alt='' className='object-cover h-full'/>
 					{ item.descriptions[lang].button_title &&
 						<Link
 							to={ item.descriptions[lang].button_link }

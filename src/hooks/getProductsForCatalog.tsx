@@ -96,6 +96,8 @@ export const useAppGetProductsForCatalog = () => {
 			[Section.Battery]: 'typeproduct=4&',
 			[Section.Tires]: (filter.vehicle_type && special.includes(filter.vehicle_type)) ? 'typeproduct=2&' : '',
 			[Section.Car]: '',
+			[Section.AutoGoods]: '',
+			[Section.Services]: '',
 		};
 
 		const section = urlParams['section'] as Section;

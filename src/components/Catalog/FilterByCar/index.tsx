@@ -55,11 +55,11 @@ export const FilterByCar: FC<FilterByCarProps> = ({ openFilter, handleClick }) =
 						{t('expensive at first', true)}
 					</button>
 					<button className='flex items-center mt-3'
-									onClick={() => onClick('expensive at first', 'order[value]=popular&order[asc]', '0')}>
+									onClick={() => onClick('by popularity', 'order[value]=popular&order[asc]', '0')}>
 						{t('by popularity', true)}
 					</button>
 					<button className='flex items-center mt-3'
-									onClick={() => onClick('expensive at first', 'order[value]', 'offers')}>
+									onClick={() => onClick('by number of offers', 'order[value]', 'offers')}>
 						{t('by number of offers', true)}
 					</button>
 				</div>

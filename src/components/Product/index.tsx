@@ -129,11 +129,11 @@ export const ProductComponent: FC<ProductComponentProps> = (
 										<div className='text-4xl font-bold mr-2.5'>{min_price} ₴</div>
 										<div className='text-xl font-medium'>/шт.</div>
 									</div>
-									<div className='mt-3 text-gray-500'>{t('from')} <span className='font-bold'>{min_price * 4}</span> за 4
-										шт.
-									</div>
+									{section !== Section.Battery && <div className='mt-3 text-gray-500'>
+										{t('from')} <span className='font-bold'>{min_price * 4} ₴ </span> за 4 шт.
+									</div>}
 								</div>
-								<ActionsBlock className='hidden md:flex' id={ id } handleModalOpen={ handleModalOpen } section={ section } />
+								<ActionsBlock className='hidden md:flex' id={id} handleModalOpen={handleModalOpen} section={section } />
 							</div>
 							<div className='offers mt-7'>
 								{offers.map(item => {

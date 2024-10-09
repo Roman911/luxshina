@@ -98,7 +98,7 @@ export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, 
 						<div className='text-sm font-medium mb-0.5 mr-1'>{t('from')}</div>
 						<div className='text-2xl font-bold'>{ min_price } ₴</div>
 					</div>
-					{!dopServices && <div className='flex text-sm text-gray-500'>
+					{!dopServices && section !== Section.Battery && <div className='flex text-sm text-gray-500'>
 						<div>{t('from')}</div>
 						<div className='font-bold mx-1'>{min_price * 4} ₴</div>
 						<div>за 4 шт.</div>

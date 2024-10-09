@@ -27,15 +27,15 @@ export const InfoBlock = () => {
 			<div className='mt-5 text-sm pb-4 border-b border-[#D8D8D9] leading-9 whitespace-pre-wrap'>
 				{ settings[lang].config_address }
 			</div>
-			<Link to='/shipment' className='mt-6 flex items-center gap-x-2.5 font-medium text-blue-500 group'>
+			<Link to='/page/shipment' className='mt-6 flex items-center gap-x-2.5 font-medium text-blue-500 group'>
 				<img src={ deliveryIcon } alt=""/>
 				<span className='group-hover:underline'>Доставка</span>
 			</Link>
-			<Link to='/payment' className='mt-6 flex items-center gap-x-2.5 font-medium text-blue-500 group'>
+			<Link to='/page/payment' className='mt-6 flex items-center gap-x-2.5 font-medium text-blue-500 group'>
 				<img src={ paymentIcon } alt=""/>
 				<span className='group-hover:underline'>Оплата</span>
 			</Link>
-			<Link to='/guarantee-and-refund' className='mt-6 flex items-center gap-x-2.5 font-medium text-blue-500 group'>
+			<Link to='/page/garantiya-ta-povernennya' className='mt-6 flex items-center gap-x-2.5 font-medium text-blue-500 group'>
 				<img src={ guaranteeIcon } alt=""/>
 				<span className='group-hover:underline'>{t('warranty and returns', true)}</span>
 			</Link>

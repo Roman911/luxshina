@@ -14,8 +14,6 @@ export const AutoGoods = () => {
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({ id: '?typeproduct=5&categories=7' });
 	const t = useAppTranslation();
 
-	console.log(data)
-
 	const path = [
 		{
 			id: 1,

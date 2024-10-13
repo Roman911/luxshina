@@ -10,6 +10,7 @@ import { Language } from '../../models/language';
 export const CalculatorForTires = () => {
 	const [height, setHeight] = useState('0px');
 	const { lang } = useAppSelector(state => state.langReducer);
+	const { settings } = useAppSelector(state => state.settingsReducer);
 	const t = useAppTranslation();
 
 	const changeHeight = useCallback(() => {
@@ -40,7 +41,8 @@ export const CalculatorForTires = () => {
 
 	return <LayoutWrapper>
 		<Helmet>
-			<title>{ t('tire calculator', true) } | luxshina.ua</title>
+			<title>{t('tire calculator', true)} | {settings.ua.config_name}</title>
+			<meta name='description' content={`${t('tire calculator', true)}} | ${settings.ua.config_name}`}/>
 		</Helmet>
 		<Title title='tire calculator'/>
 		<Iframe url={`/calc/kalkulator${lang === Language.UA ? '_ua' : ''}.htm?background=2772E2`}

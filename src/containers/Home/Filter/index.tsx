@@ -39,14 +39,14 @@ export const Filter = () => {
 			filterConfigs.push({
 				label: t('width', true),
 				name: 'width',
-				focusValue: 175,
+				focusValue: '175',
 				options: fildterData?.tyre_width?.map(item => ({ value: item.value, label: item.value, p: item.p }))
 			});
 
 			filterConfigs.push({
 				label: t('height', true),
 				name: 'height',
-				focusValue: 45,
+				focusValue: '45',
 				options: fildterData?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p }))
 			});
 

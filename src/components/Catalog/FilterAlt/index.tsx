@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import classNames from 'classnames';
 
-import { useAppSelector, useAppTranslation } from '../../../hooks';
+import { useAppSelector, useAppSubmit, useAppTranslation } from '../../../hooks';
 import { Link } from '../../../lib';
 
 import { FilterActive } from '../../../containers/Catalog/FilterActive';
@@ -57,6 +57,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 	const { section, subsection, filter } = useAppSelector(state => state.filterReducer);
 	const { filter: filterCar } = useAppSelector(state => state.filterCarReducer);
 	const { lang } = useAppSelector(state => state.langReducer);
+	const { handleSubmit } = useAppSubmit();
 	const t = useAppTranslation();
 	const country = lang === Language.UA ? data?.country : data?.country_ru;
 	const cargoTypes = ['3', '4', '5', '6'];
@@ -70,6 +71,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 		label: string,
 		variant: 'white' | 'gray',
 		options: Array<Options> = [],
+		focusValue: string | false,
 		value?: null | number | string,
 		search?: boolean,
 		valueStudded?: null | number | string,
@@ -85,6 +87,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 			<Select
 				name={ name }
 				label={ label }
+				focusValue={ focusValue }
 				options={ options }
 				variant={ variant }
 				onChange={ onChange }
@@ -115,7 +118,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 	};
 
 	return <div className={
-		classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-10 lg:block',
+		classNames('fixed lg:static top-0 left-0 right-0 bottom-0 bg-[#070B14]/60 lg:bg-transparent z-20 lg:block',
 			{'hidden': !isOpenFilter, 'pt-12': section === Section.Battery })
 	}>
 		<button onClick={ () => closeFilter() } className='absolute top-5 right-5 lg:hidden'>
@@ -126,9 +129,10 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 				{renderTab(Section.Tires)}
 				{renderTab(Section.Disks)}
 			</div>}
-			<div className='relative h-full px-4 py-4 lg:py-7 bg-white border border-gray-200 z-10 overflow-y-auto md:overflow-y-visible'>
-				<SubmitFloat element={element} btnTitle={t('to apply', true) } setElement={ setElement } />
-				<FilterActive className='flex lg:hidden' />
+			<div
+				className='relative h-[calc(100%-50px)] pb-32 lg:pb-4 px-4 pt-4 lg:pt-7 bg-white border border-gray-200 z-10 overflow-y-auto md:overflow-y-visible'>
+				<SubmitFloat element={element} btnTitle={t('to apply', true)} setElement={setElement}/>
+				<FilterActive className='flex lg:hidden'/>
 				{section !== Section.Battery && <div className='flex lg:justify-between gap-x-5'>
 					<button
 						onClick={() => handleClick(Subsection.ByParams)}
@@ -156,6 +160,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							t('width', true),
 							'gray',
 							fildterData?.tyre_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							'175',
 							filter?.width,
 							true,
 						)}
@@ -164,6 +169,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							t('height', true),
 							'gray',
 							fildterData?.tyre_height?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							'45',
 							filter?.height,
 							true,
 						)}
@@ -172,6 +178,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							t('diameter', true),
 							'gray',
 							fildterData?.tyre_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
+							'R14',
 							filter?.radius,
 							true,
 						)}
@@ -182,6 +189,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							t('width', true),
 							'gray',
 							fildterData?.disc_width?.map(item => ({value: item.value, label: item.value, p: item.p})),
+							false,
 							filter?.width,
 							true,
 						)}
@@ -190,6 +198,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 							t('diameter', true),
 							'gray',
 							fildterData?.disc_diameter?.map(item => ({value: item.value, label: `R${item.value}`, p: item.p})),
+							false,
 							filter?.radius,
 							true,
 						)}
@@ -229,7 +238,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						<MySelect
 							name='modification'
 							label={t('modification', true)}
-							options={modelKit?.map(item => ({ value: item.value, label: item.label }))}
+							options={modelKit?.map(item => ({value: item.value, label: item.label}))}
 							isDisabled={modelKit?.length === 0}
 							onChange={onChangeByCar}
 							defaultValue={filterCar?.modification ? modelKit?.find(i => i.value === filterCar.modification) : undefined}
@@ -242,6 +251,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('capacity', true),
 						'gray',
 						dataAkum?.jemnist.map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.jemnist,
 						true,
 					)}
@@ -250,6 +260,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('starting current', true),
 						'gray',
 						dataAkum?.['puskovii-strum'].map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.puskovii_strum,
 						true,
 					)}
@@ -258,6 +269,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('type of electrolyte', true),
 						'gray',
 						dataAkum?.['tip-elektrolitu'].map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.tip_elektrolitu,
 					)}
 					{renderSelect(
@@ -265,6 +277,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('body type', true),
 						'white',
 						dataAkum?.['tip-korpusu'].map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.tip_korpusu,
 					)}
 					{renderSelect(
@@ -272,6 +285,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('brand', true),
 						'white',
 						dataAkum?.brand_akum?.map(item => ({value: item.value, label: item.label})),
+						false,
 						filter?.brand,
 						true,
 					)}
@@ -282,6 +296,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'Сезон',
 						'white',
 						customTireSeason.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						false,
 						filter?.sezon,
 						false,
 						filter?.only_studded
@@ -291,13 +306,18 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('appointment', true),
 						'white',
 						appointmentCargo.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						false,
 						filter?.vehicle_type,
 					)}
 					{appointmentIndustrialShow && renderSelect(
 						'vehicle_type',
 						t('appointment', true),
 						'white',
-						appointmentIndustrial.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						appointmentIndustrial.map(item => ({
+							value: item.value,
+							label: lang === Language.UA ? item.name_ua : item.name
+						})),
+						false,
 						filter?.vehicle_type,
 					)}
 					{renderSelect(
@@ -305,6 +325,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('brand', true),
 						'white',
 						data?.brand?.map(item => ({value: item.value, label: item.label})),
+						false,
 						filter?.brand && Number(filter.brand),
 						true,
 					)}
@@ -315,16 +336,20 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('fasteners', true),
 						'white',
 						data?.krip?.map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.krepeg,
 						true,
 					)}
-					<SelectFromTo name='et' nameMin='etMin' nameMax='etMax' minus={ true } from={ -140 } to={ 500 } title={`ET(${t('departure', true)})`} btnTitle={t('to apply')}/>
-					<SelectFromTo name='dia' nameMin='diaMin' nameMax='diaMax' from={ 46 } to={ 500 } title='DIA' btnTitle={t('to apply')}/>
+					<SelectFromTo name='et' nameMin='etMin' nameMax='etMax' minus={true} from={-140} to={500}
+												title={`ET(${t('departure', true)})`} btnTitle={t('to apply')}/>
+					<SelectFromTo name='dia' nameMin='diaMin' nameMax='diaMax' from={46} to={500} title='DIA'
+												btnTitle={t('to apply')}/>
 					{renderSelect(
 						'typedisk',
 						t('type', true),
 						'gray',
 						typeDisc.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						false,
 						filter?.typedisk,
 					)}
 					{renderSelect(
@@ -332,6 +357,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('color', true),
 						'white',
 						data?.colir_abbr?.map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.colir,
 						true,
 					)}
@@ -340,6 +366,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('brand', true),
 						'white',
 						data?.brand_disc?.map(item => ({value: item.value, label: item.label})),
+						false,
 						filter?.brand && Number(filter.brand),
 						true,
 					)}
@@ -349,6 +376,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					t('model', true),
 					'gray',
 					manufModels?.map(item => ({value: item.value, label: item.label})),
+					false,
 					filter?.model_id && Number(filter.model_id),
 					true,
 				)}
@@ -356,7 +384,8 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					'country',
 					t('country', true),
 					'white',
-					country?.map(item => ({ value: item.value, label: item.label })),
+					country?.map(item => ({value: item.value, label: item.label})),
+					false,
 					filter?.country,
 					true,
 				)}
@@ -364,19 +393,25 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 					'year',
 					t('year', true),
 					'gray',
-					data?.tyre_year?.map(item => ({ value: item.value, label: item.label })),
+					data?.tyre_year?.map(item => ({value: item.value, label: item.label})),
+					false,
 					filter?.year && (filter.year),
 				)}
-				<SelectFromTo name='price' nameMin='minPrice' nameMax='maxPrice' from={ 200 } to={ 10000 } title={ `${t('price range', true)} (грн)` } btnTitle={ t('to apply') }/>
+				<SelectFromTo name='price' nameMin='minPrice' nameMax='maxPrice' from={200} to={10000}
+											title={`${t('price range', true)} (грн)`} btnTitle={t('to apply')}/>
 				{section === Section.Battery && <>
-					<SelectFromTo name='sirina' nameMin='minShirina' nameMax='maxShirina' from={ 0 } to={ 600 } title={ `Ширина (см)` } btnTitle={ t('to apply') }/>
-					<SelectFromTo name='visota' nameMin='minVisota' nameMax='maxVisota' from={ 0 } to={ 190 } title={ `Висота (см)` } btnTitle={ t('to apply') }/>
-					<SelectFromTo name='dovzina' nameMin='minDovzina' nameMax='maxDovzina' from={ 0 } to={ 600 } title={ `Довжина (см)` } btnTitle={ t('to apply') }/>
+					<SelectFromTo name='sirina' nameMin='minShirina' nameMax='maxShirina' from={0} to={600} title={`Ширина (см)`}
+												btnTitle={t('to apply')}/>
+					<SelectFromTo name='visota' nameMin='minVisota' nameMax='maxVisota' from={0} to={190} title={`Висота (см)`}
+												btnTitle={t('to apply')}/>
+					<SelectFromTo name='dovzina' nameMin='minDovzina' nameMax='maxDovzina' from={0} to={600}
+												title={`Довжина (см)`} btnTitle={t('to apply')}/>
 					{renderSelect(
-					'napruga',
-					t('high-voltage', true),
-					'gray',
+						'napruga',
+						t('high-voltage', true),
+						'gray',
 						dataAkum?.napruga.map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.napruga,
 					)}
 					{renderSelect(
@@ -384,6 +419,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('polarity', true),
 						'white',
 						dataAkum?.poliarnist.map(item => ({value: item.value, label: item.value, p: item.p})),
+						false,
 						filter?.poliarnist,
 					)}
 				</>}
@@ -392,7 +428,8 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'li',
 						t('load index', true),
 						'white',
-						data?.load.map(item => ({ value: item.value, label: item.value })),
+						data?.load.map(item => ({value: item.value, label: item.value})),
+						false,
 						filter?.li,
 						true,
 					)}
@@ -400,7 +437,8 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'si',
 						t('speed index', true),
 						'white',
-						data?.speed.map(item => ({ value: item.value, label: item.value })),
+						data?.speed.map(item => ({value: item.value, label: item.value})),
+						false,
 						filter?.si,
 						true,
 					)}
@@ -408,7 +446,8 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						'omolog',
 						t('homologation', true),
 						'white',
-						data?.omolog.map(item => ({ value: item.value, label: item.value })),
+						data?.omolog.map(item => ({value: item.value, label: item.value})),
+						false,
 						filter?.omolog,
 						true,
 					)}
@@ -417,6 +456,7 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						t('other', true),
 						'white',
 						others.map(item => ({value: item.value, label: lang === Language.UA ? item.name_ua : item.name})),
+						false,
 						null,
 						false,
 						null,
@@ -429,6 +469,11 @@ export const FilterAltComponent: FC<FilterAltProps> = (
 						}
 					)}
 				</>}
+			</div>
+			<div className='fixed bottom-10 z-10 w-[calc(100%-70px)] px-4 lg:hidden'>
+				<button onClick={() => handleSubmit()} className='btn primary w-full'>
+					{t('to apply')}
+				</button>
 			</div>
 		</div>
 	</div>

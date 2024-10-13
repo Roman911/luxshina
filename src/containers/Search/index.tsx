@@ -16,6 +16,7 @@ export const Search = () => {
 	const [ itemsProduct, setItemsProduct ] = useState(config.catalog.itemsProduct);
 	const { lang } = useAppSelector(state => state.langReducer);
 	const { search } = useAppSelector(state => state.searchReducer);
+	const { settings } = useAppSelector(state => state.settingsReducer);
 	const { data, isLoading } = baseDataAPI.useFetchProductsQuery({ id: `?name=${search}`, length: itemsProduct, start: paginateCount * config.catalog.itemsProduct });
 	const t = useAppTranslation();
 	const noDataText = lang === Language.UA ? 'На жаль, нічого не знайдено' : 'На жаль, нічого не знайдено';
@@ -38,11 +39,12 @@ export const Search = () => {
 
 	return <LayoutWrapper>
 		<Helmet>
-			<title>{ t('search', true) } | luxshina.ua</title>
+			<title>{t('search', true)} | {settings.ua.config_name}</title>
+			<meta name='description' content={`${t('search', true)}} | ${settings.ua.config_name}`}/>
 		</Helmet>
-		<Breadcrumbs path={ path }/>
-		<Title title='search' />
-		{search.length > 2 ? <Spinner height='h-40' show={ isLoading } >
+		<Breadcrumbs path={path}/>
+		<Title title='search'/>
+		{search.length > 2 ? <Spinner height='h-40' show={isLoading}>
 			<ProductList classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4' data={ data?.data } />
 		</Spinner> : <NoResult noResultText={ noDataText } />}
 		{ data?.result && paginateCount * config.catalog.itemsProduct + itemsProduct < data.data.total_count &&

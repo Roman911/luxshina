@@ -15,6 +15,7 @@ export const Comparison = () => {
 	const dispatch = useAppDispatch();
 	const t = useAppTranslation();
 	const { lang } = useAppSelector(state => state.langReducer);
+	const { settings } = useAppSelector(state => state.settingsReducer);
 	const noDataText = lang === Language.UA ? 'Ви ще не додали в обране жодного товару' : 'Вы еще не добавили в избранное ни одного товара';
 	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
 	const { tires, disks, battery, isLoading} = useAppGetProducts(comparisonItems);
@@ -46,10 +47,11 @@ export const Comparison = () => {
 
 	return <LayoutWrapper >
 		<Helmet>
-			<title>{ t('comparison', true) } | luxshina.ua</title>
+			<title>{t('comparison', true)} | {settings.ua.config_name}</title>
+			<meta name='description' content={`${t('comparison', true)}} | ${settings.ua.config_name}`}/>
 		</Helmet>
-		<Breadcrumbs path={ path } />
-		<Title title='comparison' />
+		<Breadcrumbs path={path}/>
+		<Title title='comparison'/>
 		{comparisonItems.length > 0 ? <Spinner height='h-40' show={ isLoading } >
 			<ComparisonComponent
 				defaultTab={ tires.length > 0 ? Section.Tires : disks.length > 0 ? Section.Disks : Section.Battery }

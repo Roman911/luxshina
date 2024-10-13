@@ -53,6 +53,7 @@ export const Order = () => {
 	const [paymentMethod, setPaymentMethod] = useState<number | string | undefined>(1);
 	const { cartItems } = useAppSelector(state => state.cartReducer);
 	const { city, wirehouse } = useAppSelector(state => state.orderReducer);
+	const { settings } = useAppSelector(state => state.settingsReducer);
 	const t = useAppTranslation();
 	const { tires, disks, battery, autoGoods, services, isLoading} = useAppGetProductsByOffer(cartItems);
 	const { data: dataOrdersParam } = baseDataAPI.useFetchOrdersParamQuery('');
@@ -153,13 +154,14 @@ export const Order = () => {
 
 	return <LayoutWrapper>
 		<Helmet>
-			<title>{ t('placing an order', true) } | luxshina.ua</title>
+			<title>{t('placing an order', true)} | {settings.ua.config_name}</title>
+			<meta name='description' content={`${t('placing an order', true)}} | ${settings.ua.config_name}`}/>
 		</Helmet>
 		<div className='max-w-5xl mx-auto'>
-			<Breadcrumbs path={ path }/>
+			<Breadcrumbs path={path}/>
 			<Title title='placing an order'/>
-			<FormProvider { ...methods }>
-				<form onSubmit={ methods.handleSubmit(onSubmit) }>
+			<FormProvider {...methods}>
+				<form onSubmit={methods.handleSubmit(onSubmit) }>
 					<OrderComponent
 						data={ data }
 						isLoading={ isLoading }

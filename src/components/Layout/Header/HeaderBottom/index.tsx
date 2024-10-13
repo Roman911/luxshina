@@ -57,7 +57,7 @@ export const HeaderBottom = () => {
 			})}
 			<div
 				ref={ filterRef }
-				className={classNames('absolute left-1/2 top-16 z-20 flex w-full -translate-x-1/2 px-4', {'hidden': !open})}>
+				className={classNames('absolute left-1/2 top-16 z-30 flex w-full -translate-x-1/2 px-4', {'hidden': !open})}>
 				<div
 					className="w-full flex-auto overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5 py-8 px-12 grid grid-cols-4">
 					{section === 'tires' ? <CarTireFilter closeFilter={ closeFilter } /> : <CarDiskFilter closeFilter={ closeFilter } />}

@@ -12,19 +12,19 @@ export const linksCatalog = [
 		title: 'disks',
 	},
 	{
-		link: '/catalog/tires',
+		link: '/catalog/tires/vt-3',
 		title: 'cargo tires',
 	},
 	{
-		link: '/catalog/tires',
+		link: '/catalog/tires/vt-7',
 		title: 'motorcycle tires',
 	},
 	{
-		link: '/',
+		link: '/catalog/battery',
 		title: 'accumulators',
 	},
 	{
-		link: '/',
+		link: '/auto-goods',
 		title: 'auto goods',
 	},
 ]

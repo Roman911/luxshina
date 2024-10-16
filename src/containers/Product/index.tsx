@@ -162,7 +162,16 @@ export const Product = () => {
 		{isModalActive && (
 			<Modal onClose={ handleModalClose } size={modalType === 'OnlineInstallment' ? 'max-w-6xl' : 'sm:max-w-lg'}>
 				{ modalType === 'QuickOrder' &&
-					<QuickOrder offerId={ offerId } quantity={ quantity } offerItem={ data?.data?.offers?.find(item => item.offer_id === offerId) } setModalActive={ setModalActive } />}
+					<QuickOrder
+						offerId={ offerId }
+						quantity={ quantity }
+						brand={ data?.data?.brand.name }
+						fullName={ data?.data?.full_name }
+						section={ section }
+						model={ data?.data?.model.name }
+						offerItem={ data?.data?.offers?.find(item => item.offer_id === offerId) }
+						setModalActive={ setModalActive }
+					/>}
 				{ modalType === 'OnlineInstallment' && <OnlineInstallment /> }
 				{ modalType === 'DeliveryCalculation' && <DeliveryCalculation offer_id={ data?.data.id } handleModalClose={ handleModalClose } /> }
 				{ modalType === 'OnlineInstallment' && <OnlineInstallment /> }

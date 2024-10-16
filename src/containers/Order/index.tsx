@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
@@ -14,6 +14,7 @@ import { OrderComponent } from '../../components/Order';
 import { Title } from '../../components/Lib';
 import { LayoutWrapper } from '../../components/Layout';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
+import { onOrderMakeStart, onOrderMakeEnd } from '../../event';
 
 const schema = yup.object().shape({
 	firstname: yup.string().required('Це поле обовʼязкове.'),
@@ -59,15 +60,19 @@ export const Order = () => {
 	const { data: dataOrdersParam } = baseDataAPI.useFetchOrdersParamQuery('');
 	const [ createOrder ] = baseDataAPI.useCreateOrderMutation();
 
-	const data = {
+	const newData = useMemo(() => ({
 		result: true,
 		data: {
 			total_count: 5,
-			products: [...tires,...disks,...battery,...autoGoods,...services]
-		}
-	}
+			products: [...tires, ...disks, ...battery, ...autoGoods, ...services],
+		},
+	}), [tires, disks, battery, autoGoods, services]);
 
-	const products = data?.data.products?.map((item) => {
+	useEffect(() => {
+		onOrderMakeStart(newData, cartItems);
+	}, [cartItems, newData]);
+
+	const products = newData?.data.products?.map((item) => {
 		return {
 			product_id: item.product_id,
 			offer_id: item.best_offer.id,
@@ -76,7 +81,7 @@ export const Order = () => {
 		}
 	});
 
-	const items = data?.data.products.map(item => {
+	const items = newData?.data.products.map(item => {
 		const id = item.best_offer.id;
 		const price = item.best_offer.price;
 		const quantity = cartItems.find(i => i.id === id)?.quantity;
@@ -125,13 +130,14 @@ export const Order = () => {
 			ref_wirehouse: wirehouse.value,
 			ref_city: city.value,
 			products,
-		}).then((response: { data?: { result: boolean, linkpay: string }; error?: FetchBaseQueryError | SerializedError }) => {
+		}).then((response: { data?: { result: boolean, linkpay: string, order_id: number }; error?: FetchBaseQueryError | SerializedError }) => {
 			const data = response?.data;
 			if (data) {
 				if(data?.linkpay?.length > 0) {
 					window.open(data?.linkpay, "_blank")
 				}
 				if(data?.result) {
+					onOrderMakeEnd(newData, cartItems, data?.order_id);
 					methods.reset();
 					dispatch(reset());
 					navigate('/order/successful');
@@ -163,7 +169,7 @@ export const Order = () => {
 			<FormProvider {...methods}>
 				<form onSubmit={methods.handleSubmit(onSubmit) }>
 					<OrderComponent
-						data={ data }
+						data={ newData }
 						isLoading={ isLoading }
 						cartItems={ cartItems }
 						onChange={ onChange }

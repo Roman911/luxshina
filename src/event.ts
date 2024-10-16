@@ -1,5 +1,6 @@
-import { Product } from './models/product';
-import type { Product as Products } from './models/products';
+import {type Offers, Product} from './models/product';
+import { Product as Products, ProductsProps } from './models/products';
+import { Section } from './models/filter';
 
 interface DataLayer {
 	push: (data: Record<string, unknown>) => void;
@@ -71,49 +72,108 @@ export const onAddToCart = (data: Product | Products | undefined, section: strin
 	(window as DataLayerWindow).dataLayer?.push(outData);
 };
 
-// export const onOrderMakeStart = (data: Products[] | undefined) => {
-// 	if(!data) return;
-//
-// 	console.log(data)
-//
-// 	let totalPrice = 0;
-// 	let items = [];
-// 	let items2 = [];
-//
-// 	data.forEach((item, index) => {
-// 		totalPrice += (item.min_price * item.quantity)
-//
-// 		items.push({
-// 			item_name: item.full_name,
-// 			item_id: item.group,
-// 			price: item.price,
-// 			item_brand: item.full_name.split(' ')[0],
-// 			index: index,
-// 			item_category: Localizer.str2Ua(SECTION_NAMES[item.section]),
-// 			item_variant: item.year,
-// 			quantity: item.quantity,
-// 		});
-//
-// 		items2.push({
-// 			'id': item.group,
-// 			'google_business_vertical': 'retail'
-// 		});
-//
-// 		dataLayer.push({ecommerce: null});
-//
-// 		let outData = {
-// 			event: "begin_checkout",
-// 			ecommerce: {
-// 				currency: "UAH",
-// 				value: totalPrice,                              // Повна ціна разом з податком та доставкою (shipping)
-// 				items: items
-// 			},
-// 			value: totalPrice,
-// 			items: items2
-// 		};
-//
-// 		console.log('outData', outData)
-//
-// 		dataLayer.push(outData);
-// 	});
-// };
+export const onOrderMakeStart = (data: ProductsProps | undefined, cartItem: {id: number, quantity: number, section: Section}[]) => {
+	if(!data) return;
+
+	const items = data?.data.products.map((item) => {
+		const cart = cartItem.find((product) => product.id === item.best_offer.id);
+
+		return {
+			item_name: item.full_name,
+			item_id: item.group,
+			price: item.min_price,
+			item_brand: item.brand_name,
+			item_category: cart?.section === 'tires' ? 'Автошини' : cart?.section === 'disks' ? 'Автодиски' : cart?.section === 'battery' ? 'Акумулятори' : '',
+			item_variant: item.model.name,
+			quantity: cart?.quantity,
+		}
+	});
+
+	(window as DataLayerWindow).dataLayer?.push({ecommerce: null});
+
+	const outData = {
+		event: "begin_checkout",
+		ecommerce: {
+			items: items
+		},
+	};
+
+	console.log('outData', outData);
+	(window as DataLayerWindow).dataLayer?.push(outData);
+};
+
+export const onOrderMakeEnd = (data: ProductsProps | undefined, cartItem: {id: number, quantity: number, section: Section}[], orderId: number) => {
+	if(!data) return;
+
+	const items = data?.data.products.map((item) => {
+		const cart = cartItem.find((product) => product.id === item.best_offer.id);
+
+		return {
+			item_name: item.full_name,
+			item_id: item.group,
+			price: item.min_price,
+			item_brand: item.brand_name,
+			item_category: cart?.section === 'tires' ? 'Автошини' : cart?.section === 'disks' ? 'Автодиски' : cart?.section === 'battery' ? 'Акумулятори' : '',
+			item_variant: item.model.name,
+			quantity: cart?.quantity || 0,
+		}
+	});
+
+	const totalSum = items.reduce((sum, item) => {
+		return sum + (item.price * item.quantity);
+	}, 0);
+
+	(window as DataLayerWindow).dataLayer?.push({ecommerce: null});
+
+	const outData = {
+		event: "purchase",
+		ecommerce: {
+			transaction_id: orderId,
+			affiliation: 'main',
+			value: totalSum,
+			currency: 'UAN',
+			items: items
+		},
+	};
+
+	console.log('outData', outData);
+	(window as DataLayerWindow).dataLayer?.push(outData);
+};
+
+export const onOrderBuy1click = (
+	offerItem: Offers | undefined,
+	fullName: string | undefined,
+	brand: string | undefined,
+	section: Section,
+	model: string | undefined,
+	quantity: number,
+	orderId: number
+) => {
+	if(!offerItem) return;
+
+	const items = [{
+		item_name: fullName,
+		item_id: offerItem.product_id,
+		price: offerItem.price,
+		item_brand: brand,
+		item_category: section === 'tires' ? 'Автошини' : section === 'disks' ? 'Автодиски' : section === 'battery' ? 'Акумулятори' : '',
+		item_variant: model,
+		quantity: quantity,
+	}];
+
+	(window as DataLayerWindow).dataLayer?.push({ecommerce: null});
+
+	const outData = {
+		event: "purchase",
+		ecommerce: {
+			transaction_id: orderId,
+			affiliation: 'buy1click',
+			value: +offerItem.price * quantity,
+			currency: 'UAN',
+			items: items
+		},
+	};
+
+	console.log('outData', outData);
+	(window as DataLayerWindow).dataLayer?.push(outData);
+};

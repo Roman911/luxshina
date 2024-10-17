@@ -7,28 +7,30 @@ import { CloseButton } from '../Lib';
 import { ItemWrapper } from './ItemWrapper';
 import { batteryParams, disksParams, tiresParams } from './params';
 import type { Product } from '../../models/products';
-import { Section } from '../../models/filter';
 
 interface ComparisonProps {
-	defaultTab: Section
+	defaultTab: string
 	tires: Product[]
+	cargo: Product[]
 	disks: Product[]
 	battery: Product[]
 	resetEverything: () => void
 	handleClick: (id: number) => void
-	onClick: (offerId: number, section: Section) => void
+	onClick: (offerId: number, section: string) => void
 }
 
 export const ComparisonComponent: FC<ComparisonProps> = (
 	{
 		defaultTab,
-		tires, disks,
+		tires,
+		cargo,
+		disks,
 		battery,
 		resetEverything,
 		handleClick,
 		onClick
 	}) => {
-	const [tab, setTab] = useState<Section>(Section.Tires);
+	const [tab, setTab] = useState<string>('tires');
 	const { lang } = useAppSelector(state => state.langReducer);
 	const t = useAppTranslation();
 
@@ -36,7 +38,7 @@ export const ComparisonComponent: FC<ComparisonProps> = (
 		setTab(defaultTab);
 	}, [defaultTab]);
 
-	const tabRender = (name: Section, length: number) => {
+	const tabRender = (name: string, length: number) => {
 		return <button
 			onClick={() => setTab(name)}
 			className={
@@ -69,9 +71,10 @@ export const ComparisonComponent: FC<ComparisonProps> = (
 
 	return <section className='comparison mt-4 md:mt-8'>
 		<div className='flex gap-x-4 md:gap-x-8 mb-6'>
-			{ tires.length > 0 && tabRender(Section.Tires, tires.length) }
-			{ disks.length > 0 && tabRender(Section.Disks, disks.length) }
-			{ battery.length > 0 && tabRender(Section.Battery, battery.length) }
+			{ tires.length > 0 && tabRender('tires', tires.length) }
+			{ cargo.length > 0 && tabRender('cargo', cargo.length) }
+			{ disks.length > 0 && tabRender('disks', disks.length) }
+			{ battery.length > 0 && tabRender('battery', battery.length) }
 		</div>
 		<div className='flex relative'>
 			<div className='w-28 md:w-60 px-2'>
@@ -80,16 +83,18 @@ export const ComparisonComponent: FC<ComparisonProps> = (
 					<CloseButton handleClick={ resetEverything }/>
 				</div>
 				<div className='mt-48 md:mt-52 text-center md:text-end font-bold'>
-					{ tab === Section.Tires && paramsRender(tiresParams) }
+					{ tab === 'tires' && paramsRender(tiresParams) }
+					{ tab === 'cargo' && paramsRender(tiresParams) }
 					{ tab === 'disks' && paramsRender(disksParams) }
 					{ tab === 'battery' && paramsRender(batteryParams) }
 				</div>
 			</div>
 			<div className='flex-1 w-[calc(100%-15rem)]'>
 				<div className='flex overflow-x-auto overflow-y-hidden whitespace-nowrap max-w-full'>
-					{ tab === Section.Tires && <ItemWrapper characteristics={ tires } name={ Section.Tires } tab={ tab } onClick={ onClick } handleClick={ handleClick } /> }
-					{ tab === Section.Disks && <ItemWrapper characteristics={ disks } name={ Section.Disks } tab={ tab } onClick={ onClick } handleClick={ handleClick } /> }
-					{ tab === Section.Battery && <ItemWrapper characteristics={ battery } name={ Section.Battery } tab={ tab } onClick={ onClick } handleClick={ handleClick } /> }
+					{ tab === 'tires' && <ItemWrapper characteristics={ tires } name={ 'tires' } tab={ tab } onClick={ onClick } handleClick={ handleClick } /> }
+					{ tab === 'cargo' && <ItemWrapper characteristics={ cargo } name={ 'cargo' } tab={ tab } onClick={ onClick } handleClick={ handleClick } /> }
+					{ tab === 'disks' && <ItemWrapper characteristics={ disks } name={ 'disks' } tab={ tab } onClick={ onClick } handleClick={ handleClick } /> }
+					{ tab === 'battery' && <ItemWrapper characteristics={ battery } name={ 'battery' } tab={ tab } onClick={ onClick } handleClick={ handleClick } /> }
 				</div>
 			</div>
 		</div>

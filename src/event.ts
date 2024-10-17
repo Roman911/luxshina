@@ -72,7 +72,7 @@ export const onAddToCart = (data: Product | Products | undefined, section: strin
 	(window as DataLayerWindow).dataLayer?.push(outData);
 };
 
-export const onOrderMakeStart = (data: ProductsProps | undefined, cartItem: {id: number, quantity: number, section: Section}[]) => {
+export const onOrderMakeStart = (data: ProductsProps | undefined, cartItem: {id: number, quantity: number, section: string}[]) => {
 	if(!data) return;
 
 	const items = data?.data.products.map((item) => {
@@ -102,7 +102,7 @@ export const onOrderMakeStart = (data: ProductsProps | undefined, cartItem: {id:
 	(window as DataLayerWindow).dataLayer?.push(outData);
 };
 
-export const onOrderMakeEnd = (data: ProductsProps | undefined, cartItem: {id: number, quantity: number, section: Section}[], orderId: number) => {
+export const onOrderMakeEnd = (data: ProductsProps | undefined, cartItem: {id: number, quantity: number, section: string}[], orderId: number) => {
 	if(!data) return;
 
 	const items = data?.data.products.map((item) => {

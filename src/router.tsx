@@ -16,6 +16,7 @@ import { AutoGoods } from './containers/AutoGoods';
 import { Services } from './containers/Services';
 import { Alias } from './containers/Alias';
 import { ErrorPage } from './containers/Error/404';
+import { FlushCache } from './containers/FlushCache';
 
 const router = createBrowserRouter([
 	{
@@ -77,7 +78,11 @@ const router = createBrowserRouter([
 				path: ROUTES.page,
 				element: <Alias />
 			},
-		]
+		],
+	},
+	{
+		path: ROUTES.flushCache,
+		element: <FlushCache />
 	},
 ]);
 

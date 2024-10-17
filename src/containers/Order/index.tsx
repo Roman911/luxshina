@@ -8,7 +8,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 
 import { baseDataAPI } from '../../services/baseDataService';
-import { useAppDispatch, useAppGetProductsByOffer, useAppSelector, useAppTranslation } from '../../hooks';
+import { useAppDispatch, useAppGetProducts, useAppSelector, useAppTranslation } from '../../hooks';
 import { reset } from '../../store/reducers/cartSlice';
 import { OrderComponent } from '../../components/Order';
 import { Title } from '../../components/Lib';
@@ -56,7 +56,7 @@ export const Order = () => {
 	const { city, wirehouse } = useAppSelector(state => state.orderReducer);
 	const { settings } = useAppSelector(state => state.settingsReducer);
 	const t = useAppTranslation();
-	const { tires, disks, battery, autoGoods, services, isLoading} = useAppGetProductsByOffer(cartItems);
+	const { tires, cargo, disks, battery, autoGoods, services, isLoading} = useAppGetProducts(cartItems, true);
 	const { data: dataOrdersParam } = baseDataAPI.useFetchOrdersParamQuery('');
 	const [ createOrder ] = baseDataAPI.useCreateOrderMutation();
 
@@ -64,9 +64,9 @@ export const Order = () => {
 		result: true,
 		data: {
 			total_count: 5,
-			products: [...tires, ...disks, ...battery, ...autoGoods, ...services],
+			products: [...tires, ...cargo, ...disks, ...battery, ...autoGoods, ...services],
 		},
-	}), [tires, disks, battery, autoGoods, services]);
+	}), [tires, cargo, disks, battery, autoGoods, services]);
 
 	useEffect(() => {
 		onOrderMakeStart(newData, cartItems);

@@ -86,12 +86,12 @@ export const ProductComponent: FC<ProductComponentProps> = (
 
 	const averageScore = review && review.length > 0 ? commentsAvgRateSum / review.length : undefined;
 
-	return <section className='product-page flex flex-col lg:flex-row justify-between gap-1 xl:gap-x-6 mt-10'>
+	return <section className='product-page flex flex-col lg:flex-row justify-between gap-1 xl:gap-x-6 mt-4 md:mt-6'>
 		<div className='max-w-[900px] flex-1 pr-3 xl:pr-5'>
 			<Spinner height='h-96' show={ isLoading }>
 				{data?.result &&
 					<div className='flex flex-col md:flex-row items-center md:items-start md:border-b border-[#DEE2EB]'>
-						<div className='gallery w-64 relative mb-7 pt-10 pb-5'>
+						<div className={ classNames('gallery relative mb-7 pt-10 pb-5', { 'w-64': images.length > 1, 'w-72': images.length <= 1 }) }>
 							<div className='-mt-10 mb-2 w-full flex justify-between items-start'>
 								<div>
 									{labels?.length !== 0 && labels?.map(item => {
@@ -113,7 +113,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 								<ImgGallery images={ images } /> }
 						</div>
 						<ActionsBlock className='flex md:hidden' id={ id } handleModalOpen={ handleModalOpen } section={ section } />
-						<div className='flex-1 md:ml-6 xl:ml-20'>
+						<div className='flex-1 md:ml-6 xl:ml-10'>
 							<h1 className='text-2xl font-bold mt-8 md:mt-0'>{ full_name }</h1>
 							<div className='flex mt-5 items-center'>
 								<div className='text-[15px] text-gray-500 bg-blue-50 rounded-full py-1 md:py-2 px-3 mr-5'>Артикул: { id }</div>
@@ -135,7 +135,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 								</div>
 								<ActionsBlock className='hidden md:flex' id={id} handleModalOpen={handleModalOpen} section={section } />
 							</div>
-							<div className='offers mt-7'>
+							<div className='offers mt-7 mb-5'>
 								{offers.map(item => {
 									return <div key={item.offer_id} onClick={() => handleClick(item.offer_id)} className='offers__item cursor-pointer grid md:grid-cols-9 gap-1 md:gap-4 items-center mt-3 py-1.5 md:py-0 px-2 md:px-0 bg-white md:bg-transparent border md:border-0 rounded-full'>
 										<div className='input flex flex-row md:col-span-2 relative'>

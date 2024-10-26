@@ -56,7 +56,7 @@ export const Order = () => {
 	const { city, wirehouse } = useAppSelector(state => state.orderReducer);
 	const { settings } = useAppSelector(state => state.settingsReducer);
 	const t = useAppTranslation();
-	const { tires, cargo, disks, battery, autoGoods, services, isLoading} = useAppGetProducts(cartItems, true);
+	const { tires, cargo, disks, battery, autoGoods, services, isLoading} = useAppGetProducts(cartItems, 'reducerCart', true);
 	const { data: dataOrdersParam } = baseDataAPI.useFetchOrdersParamQuery('');
 	const [ createOrder ] = baseDataAPI.useCreateOrderMutation();
 

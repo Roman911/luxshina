@@ -1,14 +1,31 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useAppSelector, useAppTranslation } from '../../../hooks';
 import { baseDataAPI } from '../../../services/baseDataService';
 import { Section, Subsection } from '../../../models/filter';
 import { Link } from '../../../lib';
+import { Language } from '../../../models/language';
 
 export const SelectionByCar = () => {
+	const navigate = useNavigate();
 	const { section, subsection } = useAppSelector(state => state.filterReducer);
+	const { lang } = useAppSelector(state => state.langReducer);
 	const { filter } = useAppSelector(state => state.filterCarReducer);
 	const { data } = baseDataAPI.useFetchKitTyreSizeQuery(`${filter.modification}`);
 	const { data: diskSize } = baseDataAPI.useFetchKitDiskSizeQuery(`${filter.modification}`);
 	const t = useAppTranslation();
+
+	useEffect(() => {
+		if(section === Section.Tires && data?.length) {
+			const tires = data?.filter(i => i.type === 1);
+			navigate(`${lang === Language.UA ? '' : '/ru'}/catalog/tires/w-${tires[0].width}/h-${tires[0].height}/d-${tires[0].diameter}`);
+		}
+		if(section === Section.Disks && diskSize?.length) {
+			const disks = diskSize?.filter(i => i.type === 1);
+			navigate(`${lang === Language.UA ? '' : '/ru'}/catalog/disks/w-${disks[0].width}/d-${disks[0].diameter}/kr-${disks[0].kits.bolt_count}x${disks[0].kits.pcd}/et-${disks[0].et}/dia-${disks[0].kits.dia}`);
+		}
+	}, [data, diskSize, lang, navigate, section]);
 
 	if(subsection === Subsection.ByParams || data?.length === 0) return null;
 

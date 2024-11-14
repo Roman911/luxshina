@@ -23,7 +23,7 @@ export const CountryInfo: FC<CountryInfoProps> = ({ country, countryCode, year, 
 		</div>}
 		<p className='ml-2.5 text-sm'>
 			<span className={classNames({'hidden sm:inline': mobileHidden})}>
-				{ country + ', ' }
+				{ country && `${ country }, ` }
 			</span>{year > 0 && year}
 		</p>
 	</div>

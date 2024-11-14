@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { baseDataAPI } from '../../../services/baseDataService';
 import { FilterAltComponent } from '../../../components/Catalog';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { changeSection, changeSubsection, setParams } from '../../../store/reducers/filterSlice';
+import { changeSection, changeSubsection, setParams, resetFilter } from '../../../store/reducers/filterSlice';
 import { Section, Subsection } from '../../../models/filter';
 import { setCarFilter } from '../../../store/reducers/filterCarSlice';
 
@@ -46,6 +46,7 @@ export const FilterAlt: FC<FilterAltProps> = ({ isOpenFilter, closeFilter }) => 
 	}
 
 	const onClick = (value: Section) => {
+		dispatch(resetFilter());
 		dispatch(changeSection(value));
 	}
 

@@ -39,6 +39,8 @@ export const Layout = ({ children }: { children?: ReactNode }) => {
 		}
 	}, [settings]);
 
+	console.log(settings?.[0].head_html)
+
 	return <>
 		<Helmet>
 			<script type="text/javascript">

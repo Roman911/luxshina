@@ -67,6 +67,7 @@ const colourStyles: StylesConfig<Options | undefined, IsMulti> = {
 	menuList: (provided) => {
 		return {
 			...provided,
+			color: '#050000',
 			'::-webkit-scrollbar': {
 				width: '10px',
 				borderRadius: '6px',

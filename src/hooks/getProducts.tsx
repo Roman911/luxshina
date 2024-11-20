@@ -54,11 +54,11 @@ export const useAppGetProducts = (products: ProductItem[] = [], reducer: 'reduce
 		length: groupedIds.battery.length || 1,
 	});
 	const { data: dataAutoGoods } = baseDataAPI.useFetchProductsQuery({
-		id: `?typeproduct=5&categories=7&Offer_id=${groupedIds.battery.join(',')}`,
+		id: `?typeproduct=5&categories=7&Offer_id=${groupedIds.autoGoods.join(',')}`,
 		length: groupedIds.autoGoods.length || 1,
 	});
 	const { data: dataServices, isLoading } = baseDataAPI.useFetchProductsQuery({
-		id: `?typeproduct=5&categories=8&Offer_id=${groupedIds.battery.join(',')}`,
+		id: `?typeproduct=5&categories=8&Offer_id=${groupedIds.services.join(',')}`,
 		length: groupedIds.services.length || 1,
 	});
 

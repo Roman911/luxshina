@@ -13,14 +13,20 @@ import type { Offers } from '../../../models/product';
 import { Section } from '../../../models/filter';
 
 const schema = yup.object().shape({
+	firstname: yup.string().required('Це поле обовʼязкове.'),
+	lastname: yup.string().required('Це поле обовʼязкове.'),
 	telephone: yup.string().min(13).max(13).required('Це поле обовʼязкове.'),
 });
 
 interface FormProps {
+	firstname: string
+	lastname: string
 	telephone: string
 }
 
 const defaultValues = {
+	firstname: '',
+	lastname: '',
 	telephone: '',
 }
 
@@ -56,7 +62,7 @@ export const QuickOrder: FC<QuickOrderProps> = (
 		resolver: yupResolver(schema),
 	})
 	
-	const onSubmitQuickOrder: SubmitHandler<FormProps> = async ({ telephone }) => {
+	const onSubmitQuickOrder: SubmitHandler<FormProps> = async ({ firstname, lastname, telephone }) => {
 		setLoading(true);
 		const product = {
 			product_id: offerItem?.product_id,
@@ -67,8 +73,8 @@ export const QuickOrder: FC<QuickOrderProps> = (
 
 		await createOrder({
 			fast: 1,
-			firstname: '',
-			lastname: '',
+			firstname: firstname,
+			lastname: lastname,
 			surname: '',
 			email: '',
 			telephone,

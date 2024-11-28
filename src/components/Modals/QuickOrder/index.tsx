@@ -1,14 +1,16 @@
 import { FC } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { useAppSelector } from '../../../hooks';
 import { Language } from '../../../models/language';
-import { PhoneMaskInput, Spinner } from '../../Lib';
+import { PhoneMaskInput, Spinner, TextFile } from '../../Lib';
 
 interface QuickOrderProps {
 	loading: boolean
 }
 
 export const QuickOrderComponent: FC<QuickOrderProps> = ({ loading }) => {
+	const { control, formState: { errors } } = useFormContext();
 	const { lang } = useAppSelector(state => state.langReducer);
 
 	return <>
@@ -21,7 +23,21 @@ export const QuickOrderComponent: FC<QuickOrderProps> = ({ loading }) => {
 							'Економте Ваш час, просто залиште телефон і менеджер з Вами зв\'яжеться для уточнення всіх деталей' :
 							'Экономьте Ваше время, просто оставьте телефон и менеджер с Вами свяжется для уточнения всех деталей' }
 					</p>
-					<div className="relative mt-6 h-11 w-full min-w-[200px]">
+					<div className="relative mt-6 w-full min-w-[200px]">
+						<Controller
+							name="firstname"
+							control={control}
+							render={({field}) => {
+								return <TextFile field={field} label={lang === Language.UA ? 'Ім\'я' : 'Имя'} error={typeof errors?.['firstname']?.message === 'string' ? errors['firstname'].message : null}/>
+							}}
+						/>
+						<Controller
+							name="lastname"
+							control={control}
+							render={({field}) => {
+								return <TextFile field={field} label={lang === Language.UA ? 'Прізвище' : 'Фамилия'} error={typeof errors?.['lastname']?.message === 'string' ? errors['lastname'].message : null}/>
+							}}
+						/>
 						<PhoneMaskInput />
 					</div>
 				</div>

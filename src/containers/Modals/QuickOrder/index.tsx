@@ -63,6 +63,7 @@ export const QuickOrder: FC<QuickOrderProps> = (
 	})
 	
 	const onSubmitQuickOrder: SubmitHandler<FormProps> = async ({ firstname, lastname, telephone }) => {
+		const newWindow = window.open("", "_blank");
 		setLoading(true);
 		const product = {
 			product_id: offerItem?.product_id,
@@ -92,7 +93,7 @@ export const QuickOrder: FC<QuickOrderProps> = (
 			const data = response?.data;
 			if (data) {
 				if(data?.linkpay?.length > 0) {
-					window.open(data?.linkpay, "_blank")
+					if(newWindow) newWindow.location.href = data?.linkpay;
 				}
 				if(data?.result) {
 					onOrderBuy1click(offerItem, fullName, brand, section, model, quantity, data?.order_id);

@@ -77,7 +77,7 @@ export const baseDataAPI = createApi({
 			}),
 		}),
 		fetchProducts: build.query<ProductsProps | undefined, {id: string, start?: number, length?: number}>({
-			query: ({ id, start = 0, length = 10 }) => ({
+			query: ({ id, start = 0, length = 12 }) => ({
 				url: `/api/getProducts${id}`,
 				method: 'POST',
 				body: {

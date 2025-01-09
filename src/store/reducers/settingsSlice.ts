@@ -29,6 +29,7 @@ const items = {
 	meta_title: '',
 	meta_description: '',
 	config_punct: '',
+	kredit: '',
 }
 
 const initialState: RootParamsProps = {

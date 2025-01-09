@@ -20,6 +20,7 @@ interface SettingsItems {
 	meta_title: string
 	meta_description: string
 	config_punct: string
+	kredit: string
 }
 
 export interface SettingsProps {

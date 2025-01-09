@@ -38,7 +38,7 @@ export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, 
 	const location = useLocation();
 	const t = useAppTranslation();
 	const dispatch = useAppDispatch();
-	const { best_offer, default_photo, full_name, group, min_price, season, vehicle_type, page_url } = item;
+	const { best_offer, default_photo, full_name, group, sku, min_price, season, vehicle_type, page_url } = item;
 	const { lang } = useAppSelector(state => state.langReducer);
 	const cartStorage = useMemo(() => getFromStorage('reducerCart'), []);
 	const section = item.vehicle_type ? Section.Tires : item.diameter ? Section.Disks : Section.Battery;
@@ -84,7 +84,7 @@ export const ProductCardComponent: FC<ProductCardProps> = ({ item, isBookmarks, 
 			</div>
 			<p className='font-bold my-2.5 min-h-12'>{ full_name }</p>
 			<div className='text-sm text-gray-500 my-2.5'>
-				<span>Артикул: </span><span>{ group }</span>
+				<span>Артикул: </span><span>{ sku }</span>
 			</div>
 			<div className='my-3.5'>
 				{!dopServices && <CountryInfo

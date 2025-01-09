@@ -60,7 +60,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 	const vehicleTransform = vehicleType ? VehicleTypeTransform(vehicleType) : undefined;
 	const IconComponent = vehicleTransform ? Icons[vehicleTransform.icon] : undefined;
 
-	const { id = 0, full_name = '', offers = [], min_price = 0, photo, model, labels } = data?.data || {};
+	const { id = 0, full_name = '', offers = [], min_price = 0, offer_group, photo, model, labels } = data?.data || {};
 	const offer = offers.find(item => item.offer_id === offerId);
 
 	const imgArr = data?.data.photos.urls ? data.data.photos.urls.map(item => {
@@ -116,7 +116,7 @@ export const ProductComponent: FC<ProductComponentProps> = (
 						<div className='flex-1 md:ml-6 xl:ml-10'>
 							<h1 className='text-2xl font-bold mt-8 md:mt-0'>{ full_name }</h1>
 							<div className='flex mt-5 items-center'>
-								<div className='text-[15px] text-gray-500 bg-blue-50 rounded-full py-1 md:py-2 px-3 mr-5'>Артикул: { id }</div>
+								<div className='text-[15px] text-gray-500 bg-blue-50 rounded-full py-1 md:py-2 px-3 mr-5'>Артикул: { offer_group?.sku }</div>
 								<Rating
 									commentsCount={ review ? (review.length > 0 ? review.length : undefined) : undefined }
 									commentsAvgRate={ averageScore || 0 }

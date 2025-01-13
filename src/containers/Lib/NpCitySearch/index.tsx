@@ -14,10 +14,15 @@ export const NpCitySearch: FC<NpCitySearchProps> = ({ title }) => {
 	const dispatch = useAppDispatch();
 	const { data } = baseDataAPI.useFetchNpSearchQuery(city);
 
-	const cityOptions = data?.[0].Addresses?.map((item: { MainDescription: string, Ref: string }) => ({
+	const cityOptionsDefault = !city || (city && city.length === 0 ) ? data?.map((item: [{ Description: string, Ref: string }]) => ({
+		value: item[0].Ref,
+		label: item[0].Description,
+	})) : [];
+
+	const cityOptions = city && city.length > 0 ? data?.[0].Addresses?.map((item: { MainDescription: string, Ref: string }) => ({
 		value: item.Ref,
 		label: item.MainDescription,
-	}));
+	})) : [];
 
 	const onChange = (_: string, value?: number | string, label?: number | string) => {
 		const normalizedValue = value?.toString() ?? '';
@@ -29,7 +34,7 @@ export const NpCitySearch: FC<NpCitySearchProps> = ({ title }) => {
 	return <MySelect
 		name='city'
 		label={ title }
-		options={ cityOptions }
+		options={ city && city.length > 0 ? cityOptions : cityOptionsDefault }
 		onChange={ onChange }
 		setState={ setCityState }
 	/>
